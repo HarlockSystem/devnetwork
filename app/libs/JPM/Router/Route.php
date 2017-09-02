@@ -42,7 +42,7 @@ class Route
         $this->methods = is_string($methods) ? [$methods] : $methods;
         $this->host = $host;
         $this->schemes = is_string($schemes) ? [$schemes] : $schemes;
-        $this->generatePattern();
+//        $this->generatePattern();
     }
 
     /**
@@ -62,11 +62,10 @@ class Route
         // missing requirement
         foreach ($matches[1] as $term) {
             if (!isset($requirements[$term])) {
-                $msg = sprintf('Missing parameter "%s" in "%s"', $term, $this->path);
+                $msg = sprintf('Missing parameter "%s" in "%s".', $term, $this->path);
                 throw new \InvalidArgumentException($msg);
             }
             if (isset($defaults[$term])) {
-                echo 'ookk';
                 $regex = '/?(' . $requirements[$term] . '|' . $defaults[$term] . '?)';
                 $pattern = str_replace('/{' . $term . '}', $regex, $pattern);
             } else {
