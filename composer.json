@@ -15,5 +15,12 @@
             "email": "dev.linkus@gmail.com"
         }
     ],
+    "autoload": {
+        "psr-4": {
+            "": "src/",
+            "JPM\\": "app/libs/JPM"
+        }
+    },
     "require": {}
+    
 }
