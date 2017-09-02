@@ -41,7 +41,7 @@ class Route
         $this->requirements = $this->sanitize($requirements);
         $this->methods = is_string($methods) ? [$methods] : $methods;
         $this->host = $host;
-        $this->shemes = is_string($schemes) ? [$schemes] : $schemes;
+        $this->schemes = is_string($schemes) ? [$schemes] : $schemes;
         $this->generatePattern();
     }
 
