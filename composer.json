@@ -1,0 +1,19 @@
+{
+    "name": "jpm/devnetwork",
+    "description": "suber project",
+    "authors": [
+        {
+            "name": "jean",
+            "email": "barronjeet@gmail.com"
+        },
+        {
+            "name": "paul",
+            "email": "paulmoussard@gmail.com"
+        },
+        {
+            "name": "manu",
+            "email": "dev.linkus@gmail.com"
+        }
+    ],
+    "require": {}
+}
