@@ -79,5 +79,17 @@ class Request
             $this->server->set('PATH_INFO', '/');
         }
     }
+    
+    /**
+     * If http request is $_POST and has parameter _method,
+     * Update $_SERVER
+     */
+    protected function translateHTTPMethod()
+    {
+        $method = $this->request->get('_method');
+        if(in_array($method, ['PUT', 'DELETE'])){
+            $this->server->set('REQUEST_METHOD', $method);
+        }
+    }
 
 }
