@@ -6,9 +6,8 @@ use JPM\HTTP\Request;
 use JPM\Pimple;
 
 /**
- * ControllerResolver
- * 
- * @todo Add Request
+ * Try to load a controller method from
+ * a route parameters
  *
  * @author linkus
  */
@@ -22,6 +21,9 @@ class ControllerResolver
     protected $container = null;
     protected $requestNamespace;
 
+    /**
+     * Default parameter
+     */
     public function __construct()
     {
         $this->prefixClass = 'DNW\\Controller\\';
@@ -30,13 +32,28 @@ class ControllerResolver
         $this->requestNamespace = 'JPM\HTTP\Request';
     }
 
+    /**
+     * If no error, a method controller is called.
+     * The controller is hydrated with the container.
+     * 
+     * Bonus: the request object is loaded if present in method arguments
+     * 
+     * @param string $controllerName
+     * @param array $properties method arguments
+     * @param array $getParameter list of $_GET parameters
+     * @param array $postParameter list of $_POST parameters
+     * 
+     * @return object
+     * 
+     * @throws \Exception
+     */
     public function getController($controllerName, array $properties = [], array $getParameter = [], array $postParameter = [])
     {
         $classInfo = $this->getClassAndMethod($controllerName);
 
         $rfx = new \ReflectionMethod($classInfo['class'], $classInfo['method']);
         $rfxParamsName = $rfx->getParameters();
-//        var_dump($rfxParamsName);
+
         $paramsData = [];
         foreach ($rfxParamsName as $p) {
             $name = $p->getName();
@@ -56,7 +73,13 @@ class ControllerResolver
             $msg = sprintf('parameter "%s" not defined for "%s".', $p->getName(), $cl);
             throw new \Exception($msg);
         }
-
+        
+        /**
+         * @todo Load $_GET/$_POST into Request
+         * (only for forwarding controller)
+         */
+        
+        // check for unload parameters from Route
         if (!empty($properties)) {
             $cl = $classInfo['class'] . '::' . $classInfo['method'];
             $msg = sprintf('Some parameters are not defined for "%s": %s.', $cl, implode(', ', $properties));
@@ -67,9 +90,17 @@ class ControllerResolver
         $controller->initContainer($this->getContainer());
         return call_user_func_array([$controller, $classInfo['method']], $paramsData);
 
-            
     }
-
+    
+    /**
+     * Check if a class/method exist
+     * 
+     * @param string $controllerName
+     * 
+     * @return array
+     * 
+     * @throws \Exception
+     */
     protected function getClassAndMethod($controllerName)
     {
         $exp = explode(':', $controllerName);
@@ -88,6 +119,11 @@ class ControllerResolver
         ];
     }
 
+    /**
+     * Load the container
+     * 
+     * @param Pimple $container
+     */
     public function setContainer(Pimple $container)
     {
         if (empty($this->container)) {
@@ -95,11 +131,20 @@ class ControllerResolver
         }
     }
 
+    /**
+     * get the container
+     * 
+     * @return Pimple
+     */
     public function getContainer()
     {
         return $this->container;
     }
-
+    
+    /**
+     * Load the request
+     * @param Request $request
+     */
     public function setRequest(Request $request)
     {
         if (empty($this->request)) {
@@ -107,6 +152,12 @@ class ControllerResolver
         }
     }
 
+    /**
+     * When a Request object is called in the controller method,
+     * if Request is null, a new obect is created
+     * 
+     * @return Request
+     */
     public function getRequest()
     {
         if (empty($this->request)) {
