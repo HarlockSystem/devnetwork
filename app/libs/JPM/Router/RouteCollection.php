@@ -63,7 +63,7 @@ class RouteCollection
      */
     public function run()
     {
-        $this->routesMatcher();
+        return $this->routesMatcher();
     }
 
     /**
@@ -81,10 +81,9 @@ class RouteCollection
             }
         }
         if ($match) {
-            print_r($match);
-        } else {
-            // route not found process
+            return $match;
         }
+        throw new \Exception('No route defined for '.$this->server['PATH_INFO']);
     }
 
     /**
@@ -100,8 +99,8 @@ class RouteCollection
     {
         $data = [];
         $data['path'] = $this->server['PATH_INFO'];
+        $data['params'] = [];
 
-        
 
         // match against url
         $matches = null;
