@@ -7,7 +7,7 @@ require __DIR__ . '/config/services.php';
 require __DIR__ . '/config/routing.php';
 
 /**
- * Description of Kernel
+ * Main class for processing request
  *
  * @author linkus
  */

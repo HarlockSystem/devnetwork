@@ -40,7 +40,6 @@ class Route
         $this->methods = is_string($methods) ? [$methods] : $methods;
         $this->host = $host;
         $this->schemes = is_string($schemes) ? [$schemes] : $schemes;
-//        $this->generatePattern();
     }
 
     /**

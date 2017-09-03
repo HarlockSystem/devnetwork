@@ -23,6 +23,7 @@ class ControllerResolver
 
     /**
      * Default parameter
+     * @todo add this in service parameter ?
      */
     public function __construct()
     {

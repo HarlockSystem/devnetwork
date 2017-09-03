@@ -6,6 +6,9 @@ use JPM\Router\Route;
 
 /**
  * RouteCollection is a collection of registered Route
+ * 
+ * When run() is called after setServerInfo(), it try to find
+ * the required Route
  */
 class RouteCollection
 {
@@ -59,7 +62,7 @@ class RouteCollection
     }
 
     /**
-     * Execute Route matching with controllers
+     * Execute Route matching
      */
     public function run()
     {
@@ -93,7 +96,7 @@ class RouteCollection
      * 
      * @return false|array
      * 
-     * @throws \Exception
+     * @throws \Exception no Route found
      */
     protected function matchRoute(Route $route)
     {
@@ -133,8 +136,6 @@ class RouteCollection
             throw new \Exception('unable to find controller');
         }
         $data['controller'] = $route->getDefaults()['_controller'];
-
-
 
         return $data;
     }
