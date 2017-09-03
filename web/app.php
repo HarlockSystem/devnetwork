@@ -10,5 +10,7 @@ require __DIR__ . '/../app/Kernel.php';
 
 $kernel->handle();
 
-include('_testRoute.html');
+
+// test route
+//include('_testRoute.html');
 
