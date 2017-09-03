@@ -5,7 +5,7 @@ namespace JPM\HTTP;
 use JPM\HTTP\ParamContainer;
 
 /**
- * Description of Request
+ * Load Environnement Data
  *
  * @author linkus
  */
@@ -57,7 +57,10 @@ class Request
     {
         $this->initialize();
     }
-
+    
+    /**
+     * Load data from PHP superglobals
+     */
     protected function initialize()
     {
         $this->request = new ParamContainer($_POST);

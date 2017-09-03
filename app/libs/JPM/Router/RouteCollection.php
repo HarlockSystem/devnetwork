@@ -16,7 +16,7 @@ class RouteCollection
     {
         
     }
-    
+
     /**
      * Add Route to collection. If a route name already exist,
      * it will be overwritted
@@ -26,8 +26,14 @@ class RouteCollection
      */
     public function add($routeName, Route $route)
     {
+        $route->generatePattern();
         unset($this->routeCollection[$routeName]);
         $this->routeCollection[$routeName] = $route;
+    }
+
+    public function setServerInfo(array $server)
+    {
+        $this->server = $server;
     }
 
     /**
@@ -41,9 +47,9 @@ class RouteCollection
         foreach ($this->routeCollection as $routeName => $route) {
             $data[] = [
                 'Name' => $routeName,
-                'Method' => empty($route->getMethod) ? 'ANY' : implode(' ', $route->getMethod),
-                'Scheme' => empty($route->getSchemes) ? 'ANY' : implode(' ', $route->getSchemes),
-                'Host' => empty($route->getHost) ? 'ANY' : $route->getHost,
+                'Method' => empty($route->getMethods()) ? 'ANY' : implode(' ', $route->getMethods()),
+                'Scheme' => empty($route->getSchemes()) ? 'ANY' : implode(' ', $route->getSchemes()),
+                'Host' => empty($route->getHost()) ? 'ANY' : $route->getHost(),
                 'Path' => $route->getPath(),
                 'Controller' => $route->getDefaults()['_controller']
             ];
@@ -57,7 +63,6 @@ class RouteCollection
      */
     public function run()
     {
-        $this->server = $_SERVER;
         $this->routesMatcher();
     }
 
@@ -69,6 +74,7 @@ class RouteCollection
     {
         $match = false;
         foreach ($this->routeCollection as $routeName => $route) {
+
             $match = $this->matchRoute($route);
             if ($match) {
                 break;
@@ -76,7 +82,7 @@ class RouteCollection
         }
         if ($match) {
             print_r($match);
-        }else{
+        } else {
             // route not found process
         }
     }
@@ -94,6 +100,8 @@ class RouteCollection
     {
         $data = [];
         $data['path'] = $this->server['PATH_INFO'];
+
+        
 
         // match against url
         $matches = null;
@@ -131,7 +139,7 @@ class RouteCollection
 
         return $data;
     }
-    
+
     /**
      * Generate an url from a route name;
      * 

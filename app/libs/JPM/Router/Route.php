@@ -10,8 +10,6 @@ namespace JPM\Router;
  */
 class Route
 {
-    const ROUTE_PARAMS = [];
-
     protected $pattern;
     protected $path;
     protected $requirements = [];
