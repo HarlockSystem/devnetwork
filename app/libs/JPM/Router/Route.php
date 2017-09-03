@@ -57,6 +57,8 @@ class Route
         $matches = null;
         preg_match_all('#\{(\w+)\}#', $this->path, $matches);
 
+        $orderedRequirements = [];
+
         // missing requirement
         foreach ($matches[1] as $term) {
             if (!isset($requirements[$term])) {
@@ -70,6 +72,7 @@ class Route
                 $regex = '(' . $requirements[$term] . ')';
                 $pattern = str_replace('{' . $term . '}', $regex, $pattern);
             }
+            $orderedRequirements[$term] = $requirements[$term];
             unset($requirements[$term]);
         }
         // missing mask in url
@@ -83,6 +86,7 @@ class Route
         }
 
         $this->pattern = $pattern . '$';
+        $this->setRequirements($orderedRequirements);
     }
 
     /**
