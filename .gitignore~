@@ -1,0 +1,13 @@
+/vendor/
+
+# Composer PHAR
+/composer.phar
+
+### NetBeans ###
+/nbproject/
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
