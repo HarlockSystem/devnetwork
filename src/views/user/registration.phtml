@@ -5,7 +5,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+
+    <link rel="stylesheet" href="../../public/css/bootstrap.min.css" />
+    <script type="text/javascript" src="../../public/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../public/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../public/css/jean.css">
+    <title>registration</title>
 </head>
 <body>
 
@@ -13,34 +18,42 @@
 
 <main>
 
-    <div class="container container-fluid input-group">
-        <div class="row">
-        <form method="POST">
+    <div class="container">
 
-            <div class="pseudo_container col-lg-10">
-                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                <span class="input-group-addon" id="basic-addon1">Username</span>
-                <input type="text" name="userName" id="userName" placeholder="username" value=""
-            </div>
-            <div class="pass_container col-lg-10">
-                <span class="input-group-addon" id="basic-addon2">Password</span>
-                <input type="password" name="password" id="password" placeholder="password">
-            </div>
+            <form method="POST">
 
-            <div class="pass2_container col-lg-10">
-                <span class="input-group-addon" id="basic-addon3">Password Re-check</span>
-                <input type="password" name="password_2check" id="password_2check" placeholder="password re-check">
-            </div>
-            <div class="email_container col-lg-10">
-                <span class="input-group-addon" id="basic-addon3">E-mail</span>
-                <input type="email" id="email" placeholder="E-mail">
-            </div>
 
-            <button type="submit" class="btn btn-success" id="register_bttn" >Register</button>
+                <div class="row">
+                    <div class="pass_container col-lg-3">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                     </div>
+                </div>
+                <div class="row">
+                    <div class="input-group col-lg-4">
+                    <span class="input-group-addon" id="basic-addon1">Username</span>
+                    <input type="text" name="userName" class="form-control" id="userName" placeholder="username" aria-describedby="basic-addon1" value="">
+                    </div>
+                    <div class="input-group col-lg-4">
+                        <span class="input-group-addon" id="basic-addon2">Password</span>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="password" aria-describedby="basic-addon2">
+                    </div>
 
+                    <div class="input-group col-lg-4">
+                        <span class="input-group-addon" id="basic-addon3">Password Re-check</span>
+                        <input type="password" name="password_2check" class="form-control" id="password_2check" placeholder="password re-check" aria-describedby="basic-addon3">
+                    </div>
+                    <div class="email_container col-lg-4 input-group">
+                        <span class="input-group-addon" id="basic-addon4">E-mail</span>
+                        <input type="email" id="email" class="form-control" placeholder="E-mail" aria-describedby="basic-addon4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">
+                        <button type="submit" class="btn btn-success" id="register_bttn" >Register</button>
+                    </div>
+                </div>
         </form>
-            </div>
-        </div>
+    </div>
 </main>
 
 
