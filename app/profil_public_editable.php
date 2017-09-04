@@ -1,6 +1,6 @@
 <?php 
 
-$id = $_GET['article'];
+$id = $_GET['user'];
 
 $pdo = new PDO('mysql:host=was132-desktop;dbname=devnetwork', 'blog', 'blog', [
 	PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -13,9 +13,9 @@ $query = $pdo->prepare('SELECT * FROM `` WHERE id=?');
 
 $query->execute([$id]);
 
-$articles = $query->fetchAll();
+$user = $query->fetchAll();
 
-foreach ($articles as $key => $article) {
+foreach ($infos as $key => $user) {
 }
 
-include 'views/article.phtml';
+include 'views/profil_public_editable.phtml';
