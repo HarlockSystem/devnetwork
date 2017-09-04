@@ -2,6 +2,9 @@
 
 namespace DNW\Entity;
 
+use DNW\Entity\User;
+use DNW\Entity\Post;
+
 class Comment
 {
 
@@ -9,6 +12,11 @@ class Comment
     protected $content;
     protected $createdAt;
     protected $updatedAt;
+    
+    protected $PostId;
+    protected $post;
+    protected $UserId;
+    protected $user;
 
     public function getId()
     {

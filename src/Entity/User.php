@@ -4,6 +4,10 @@ namespace DNW\Entity;
 
 class User
 {
+    const ROLE_USER = 0;
+    const ROLE_ADMIN = 1;
+    const ACTIVE_STATUS = 0;
+    const DELETE_STATUS = 1;
 
     protected $id;
     protected $nick;
@@ -16,6 +20,7 @@ class User
     protected $jobStatus;
     protected $createdAt;
     protected $updatedAt;
+    protected $settings;
     protected $img;
     protected $role;
     protected $statusUser;
@@ -75,6 +80,11 @@ class User
         return $this->updatedAt;
     }
 
+    public function getSettings()
+    {
+        return $this->settings;
+    }
+
     public function getImg()
     {
         return $this->img;
@@ -90,6 +100,11 @@ class User
         return $this->statusUser;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
 
     public function setNick($nick)
     {
@@ -151,6 +166,12 @@ class User
         return $this;
     }
 
+    public function setSettings($settings)
+    {
+        $this->settings = $settings;
+        return $this;
+    }
+
     public function setImg($img)
     {
         $this->img = $img;
@@ -168,5 +189,7 @@ class User
         $this->statusUser = $statusUser;
         return $this;
     }
+
+
 
 }

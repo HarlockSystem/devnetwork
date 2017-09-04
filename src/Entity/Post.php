@@ -57,10 +57,6 @@ class Post
     {
         return $this->user;
     }
-    public function getUserId()
-    {
-        return $this->UserId;
-    }
 
     public function setTitle($title)
     {
