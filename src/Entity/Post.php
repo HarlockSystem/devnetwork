@@ -2,6 +2,7 @@
 
 namespace DNW\Entity;
 
+use DNW\Entity\User;
 
 class Post
 {
@@ -13,6 +14,9 @@ class Post
     protected $updatedAt;
     protected $statusPost;
     
+    protected $user;
+
+
     public function getId()
     {
         return $this->id;
@@ -47,9 +51,13 @@ class Post
     {
         return $this->statusPost;
     }
+    
+    public function getUser()
+    {
+        return $this->user;
+    }
 
-
-    public function setTitle($title)
+        public function setTitle($title)
     {
         $this->title = $title;
         return $this;
@@ -82,6 +90,13 @@ class Post
     public function setStatusPost($statusPost)
     {
         $this->statusPost = $statusPost;
+        return $this;
+    }
+
+
+    public function setUser(User $user)
+    {
+        $this->user = $user;
         return $this;
     }
 
