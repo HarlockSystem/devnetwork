@@ -7,7 +7,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- Table `devnetwork_dev`.`User`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `devnetwork_dev`.`User` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(65) NOT NULL COMMENT 'pseudo',
   `password` VARCHAR(60) NOT NULL,
   `email` VARCHAR(100) NOT NULL,
@@ -32,54 +32,7 @@ ENGINE = InnoDB;
 -- Table `devnetwork_dev`.`Post`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `devnetwork_dev`.`Post` (
-  `id` INT NOT NULL,
-  `UserId` INT NOT NULL,
-  `title` VARCHAR(60) NOT NULL,
-  `contentType` TINYINT NOT NULL COMMENT 'snippet\ncomment\n',
-  `content` VARCHAR(1000) NOT NULL,
-  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` TIMESTAMP NULL,
-  `statusPost` TINYINT NOT NULL COMMENT 'active\npending \ndelete',
-  PRIMARY KEY (`id`, `UserId`),
-  INDEX `fk_Post_User_idx` (`UserId` ASC),
-  CONSTRAINT `fk_Post_User`
-    FOREIGN KEY (`UserId`)
-    REFERENCES `devnetwork_dev`.`User` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `devnetwork_dev`.`User`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `devnetwork_dev`.`User` (
-  `id` INT NOT NULL,
-  `login` VARCHAR(65) NOT NULL COMMENT 'pseudo',
-  `email` VARCHAR(100) NOT NULL,
-  `password` VARCHAR(60) NOT NULL,
-  `firstname` VARCHAR(65) NULL,
-  `lastname` VARCHAR(65) NULL,
-  `skill` VARCHAR(1000) NULL COMMENT 'user skill',
-  `bio` VARCHAR(1000) NULL,
-  `jobStatus` INT(11) NULL,
-  `createdAt` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` TIMESTAMP NULL,
-  `settings` VARCHAR(1000) NULL COMMENT 'profile display',
-  `img` VARCHAR(45) NULL,
-  `role` TINYINT NOT NULL,
-  `statusUser` TINYINT NOT NULL COMMENT 'active\ndelete\n',
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `nick_UNIQUE` (`login` ASC),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `devnetwork_dev`.`Post`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `devnetwork_dev`.`Post` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `UserId` INT NOT NULL,
   `title` VARCHAR(60) NOT NULL,
   `contentType` TINYINT NOT NULL COMMENT 'snippet\ncomment\n',
@@ -145,7 +98,7 @@ ENGINE = InnoDB;
 -- Table `devnetwork_dev`.`Tag`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `devnetwork_dev`.`Tag` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `category` TINYINT NULL COMMENT 'program language\ngeneral',
   PRIMARY KEY (`id`),
@@ -201,7 +154,7 @@ ENGINE = InnoDB;
 -- Table `devnetwork_dev`.`Comment`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `devnetwork_dev`.`Comment` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `PostId` INT NOT NULL,
   `UserId` INT NOT NULL,
   `content` VARCHAR(1000) NOT NULL,
