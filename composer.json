@@ -21,6 +21,8 @@
             "JPM\\": "app/libs/JPM"
         }
     },
-    "require": {}
+    "require": {
+        "league/plates": "^3.3"
+    }
     
 }

@@ -12,9 +12,20 @@ use JPM\HTTP\Request;
  */
 class HomepageController extends Controller
 {
+
     public function indexAction()
     {
-        echo __METHOD__;
+//        echo __METHOD__;
+
+
+        $pdo = $this->get('PDO');
+        $stmt = $pdo->prepare('DESCRIBE User');
+        $stmt->execute([]);
+        $gg = $stmt->fetchAll();
+        
+        $usrMng = $this->get('UserManager');
+        
+        $this->render('aaa/profile', ['name' => 'Jonathan']);
     }
 
 }

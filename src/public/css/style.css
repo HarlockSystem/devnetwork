@@ -1,0 +1,97 @@
+/*==============================
+=            Global            =
+==============================*/
+#962D3E
+#343642
+#979C9C
+#F2EBC7
+#348899
+#EDEDED
+
+html {
+	font-size: 62.5%;	
+	max-height: 1080px;
+}
+body {
+	background-color: #FFFDFA;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.8;
+	letter-spacing: 0.5px;
+	font-size: 1rem;
+	color: #343642;
+}
+h1, h2, h3 {
+	font-family: 'Fjalla One', sans-serif;
+	color: #962D3E;
+}
+.wrapper {
+	width: 70%;
+	max-width: 900px;
+	margin: 0 auto;
+}
+a {
+	text-decoration: none;
+	color: #348899;
+
+}
+/*==============================
+=            Header            =
+==============================*/
+header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+.devnetwork {
+	display: flex;
+	justify-content: flex-start;
+}
+.devnetwork img {
+	height: 50px;
+	padding-right: 10px;
+	padding-top: 15px;
+}
+header h1 {
+	color: #962D3E;
+}
+nav a {
+	padding: 10px;
+}
+
+/*====================================
+=            Registration            =
+====================================*/
+
+
+.register {
+	margin-top: 100px;
+	text-align: center;
+}
+.register input {
+	padding: 5px;
+	margin: 5px;
+}
+.register button {
+	margin-top: 20px;
+}
+
+
+/*==============================
+=            Footer            =
+==============================*/
+
+footer {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-around;
+	background-color: #EDEDED;
+	margin-top: 70px;
+	padding: 20px;
+	font-size: 0.8rem;
+}
+footer p {
+	color: #962D3E;
+}
+

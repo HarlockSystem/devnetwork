@@ -47,5 +47,11 @@ abstract class Controller
     {
         return $this->container->offsetExists($id);
     }
+    
+    protected function render($template, array $data = [])
+    {
+        $plate = $this->container['Plates'];
+        echo $plate->render($template, $data);
+    }
 
 }
