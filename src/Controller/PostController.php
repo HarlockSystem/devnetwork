@@ -12,7 +12,8 @@ use JPM\HTTP\Request;
  */
 class PostController extends Controller
 {
-     /**
+
+    /**
      * list posts
      * 
      * @param int $page
@@ -23,7 +24,22 @@ class PostController extends Controller
 
         $this->render('Post/index.html', ['posts' => $posts]);
     }
-    
+
+    /**
+     * Display a post
+     * 
+     * @param int $id
+     */
+    public function showAction($id)
+    {
+        $post = $this->get('PostManager')->findById($id);
+        if (!$post) {
+            // throw error/ 404
+        }
+
+        $this->render('Post/show.html', ['post' => $post]);
+    }
+
     /**
      * Add a new post
      * 
@@ -34,11 +50,9 @@ class PostController extends Controller
         /**
          * User isAuthentified ?
          */
-        
         /**
          * Load
          */
-
         if ($request->server->get('REQUEST_METHOD') == 'POST') {
             $request->request->set('userId');
             $post = $this->get('PostTool')->addPost($request);
@@ -51,6 +65,7 @@ class PostController extends Controller
 
         $this->render('Post/new.html');
     }
+
 }
 
 // Anno 1404

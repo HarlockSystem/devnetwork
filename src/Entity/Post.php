@@ -7,11 +7,11 @@ use DNW\Manager\UserManager;
 
 class Post
 {
-    protected $userManager;
+    protected $pdo;
 
     public function __construct($pdo)
     {
-        $this->userManager = new UserManager($pdo);
+        $this->pdo = $pdo;
     }
 
     protected $id;
@@ -61,8 +61,8 @@ class Post
 
     public function getUser()
     {
-        $this->userManager->findById($this->UserId);
-        return $this->user;
+        $usrMng = new UserManager($this->pdo);
+        return $usrMng->findById($this->UserId);
     }
 
     public function setTitle($title)

@@ -1,0 +1,54 @@
+
+
+
+class Post
+{
+    protected $usrMng;
+
+    public function __construct(Pdo $pdo)
+    {
+        $this->usrMng = new UserManager($pdo);
+    }
+
+    /.../
+
+    public function getUser()
+    {
+        return usrMng->findById($this->UserId);
+    }
+
+
+class Post
+{
+    protected $usrMng;
+
+    public function __construct(UserManager $usrMng)
+    {
+        $this->usrMng = $usrMng;
+    }
+
+    /.../
+
+    public function getUser()
+    {
+        return usrMng->findById($this->UserId);
+    }
+
+    
+
+class Post
+{
+    protected $pdo;
+
+    public function __construct(PDO $pdo)
+    {
+        $this->userManager = $userManager;
+    }
+
+    /.../
+
+    public function getUser()
+    {
+        $usrMng = new UserManager($pdo);
+        return usrMng->findById($this->UserId);
+    }

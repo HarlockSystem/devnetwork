@@ -32,7 +32,8 @@ class PostManager
         $sql = "SELECT * FROM Post";
         $query = $this->db->prepare($sql);
         $query->execute([]);
-        return $query->fetchAll(\PDO::FETCH_CLASS, Post::class);
+        $post = new Post($this->db);
+//        return $query->fetchAll(\PDO::FETCH_CLASS, $post);
     }
 
     /**
@@ -47,7 +48,7 @@ class PostManager
         $sql = "SELECT * FROM Post WHERE id = :id";
         $query = $this->db->prepare($sql);
         $query->execute(['id' => $id]);
-        $post = $query->fetchObject(Post::class);
+        $post = $query->fetchObject(Post::class, [$this->db]);
         return $post;
     }
 

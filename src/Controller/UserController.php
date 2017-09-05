@@ -52,8 +52,15 @@ class UserController extends Controller
         if ($request->server->get('REQUEST_METHOD') == 'POST') {
             $user = $this->get('UserTool')->addUser($request);
             if (is_string($user)) {
-                //error
+                echo '<pre>';
+                print_r($user);
+                echo '</pre>';
             } else {
+                echo '<pre>';
+                print_r($user);
+                echo '</pre>';
+                exit;
+
                 //redirect
             }
         }
