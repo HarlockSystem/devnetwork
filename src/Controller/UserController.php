@@ -13,7 +13,7 @@ use JPM\HTTP\Request;
 class UserController extends Controller
 {
 
-    public function indexAction(Request $request, $page)
+    public function indexAction($page)
     {
         echo __METHOD__;
         echo '<pre>page: ';
@@ -27,6 +27,14 @@ class UserController extends Controller
         echo '<pre>id: ';
         print_r($id);
         echo '</pre>';
+    }
+    
+    public function newAction(Request $request)
+    {
+        echo '<pre>';
+        var_export($request);
+        echo '</pre>';
+        exit;
     }
 
 }

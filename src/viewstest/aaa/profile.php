@@ -1,6 +1,6 @@
-<?php  $this->layout('layout', [
+<?php  $this->layout('layoutx', [
     'title' => 'User Profile', 
-    'zizi' => 'rrr'
+    'test' => 'rrr'
 ]) ?>
 
 

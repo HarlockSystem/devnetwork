@@ -37,6 +37,15 @@ class Comment
     {
         return $this->updatedAt;
     }
+    
+    public function getUser()
+    {
+        return $this->user;
+    }
+    public function getPost()
+    {
+        return $this->post;
+    }
 
 
     public function setContent($content)
@@ -54,6 +63,20 @@ class Comment
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+    
+    public function setUser(User $user)
+    {
+        $this->UserId = $user->getId();
+        $this->user = $user;
+        return $this;
+    }
+    
+    public function setPost(Post $post)
+    {
+        $this->PostId = $post->getId();
+        $this->post = $post;
         return $this;
     }
 
