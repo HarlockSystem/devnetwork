@@ -77,10 +77,15 @@ $container['CommentManager'] = $container->share(function($c) {
     return new $c['comment_manager_class']($c['PDO']);
 });
 
-// 
+// UserTool
 $container['user_tool_class'] = '\DNW\Util\UserTool';
 $container['UserTool'] = $container->share(function($c) {
     return new $c['user_tool_class']($c['UserManager']);
+});
+// PostTool
+$container['post_tool_class'] = '\DNW\Util\PostTool';
+$container['PostTool'] = $container->share(function($c) {
+    return new $c['post_tool_class']($c['PostManager'], $c['UserManager']);
 });
 
 unset($dns);
