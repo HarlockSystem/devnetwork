@@ -2,6 +2,7 @@
 
 namespace DNW\Manager;
 
+use DNW\Manager\AbstractManager;
 use DNW\Entity\User;
 
 /**
@@ -9,14 +10,33 @@ use DNW\Entity\User;
  *
  * @author linkus
  */
-class UserManager
+class UserManager extends AbstractManager
 {
 
     protected $db;
+    protected $className;
 
     public function __construct(\PDO $pdo)
     {
         $this->db = $pdo;
+        $this->tableName = 'User';
+        $this->className = User::class;
+    }
+
+    /**
+     * Get list of users
+     * 
+     * @param tint $page
+     * @param array $criteria
+     * 
+     * @return array 
+     */
+    public function findBy($page, array $criteria = null)
+    {
+        $sql = "SELECT * FROM User";
+        $query = $this->db->prepare($sql);
+        $query->execute([]);
+        return $query->fetchAll(\PDO::FETCH_CLASS, User::class);
     }
 
     /**
@@ -34,7 +54,7 @@ class UserManager
         $user = $query->fetchObject(User::class);
         return $user;
     }
-    
+
     /**
      * Create an user
      * 
@@ -45,24 +65,22 @@ class UserManager
     public function create($login, $password, $email)
     {
         $user = new User();
-        try {
-            $user->setLogin($login);
-            $user->setPassword($password);
-            $user->setEmail($email);
-            $user->setRole($user::ROLE_USER);
-            $user->setStatusUser($user::ROLE_USER);
-        } catch (\Exception $e) {
-            $error = $e->getMessage();
-        }
+        $user
+                ->setLogin($login)
+                ->setPassword($password)
+                ->setEmail($email)
+                ->setRole($user::ROLE_USER)
+                ->setStatusUser(0)
+        ;
         $sql = "INSERT INTO User (login, password, email, role, statusUser) 
-                VALUES(:login, :password, :role, :statusUser)";
+                VALUES(:login, :password, :email, :role, :statusUser)";
         $query = $this->db->prepare($sql);
         $query->execute([
             'login' => $user->getLogin(),
             'password' => $user->getPassword(),
             'email' => $user->getEmail(),
-            'role' => $user->getEmail(),
-            'statusUser' => $user->getEmail(),
+            'role' => $user->getRole(),
+            'statusUser' => $user->getStatusUser(),
         ]);
         $id = $this->db->lastInsertId();
         return $this->findById($id);
@@ -83,7 +101,7 @@ class UserManager
             'statusUser' => $user::DELETE_STATUS
         ]);
     }
-    
+
     /**
      * Update an user
      * 

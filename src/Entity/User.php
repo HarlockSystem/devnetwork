@@ -10,7 +10,7 @@ class User
     const DELETE_STATUS = 1;
 
     protected $id;
-    protected $nick;
+    protected $login;
     protected $email;
     protected $password;
     protected $firstname;
@@ -30,9 +30,9 @@ class User
         return $this->id;
     }
 
-    public function getNick()
+    public function getLogin()
     {
-        return $this->nick;
+        return $this->login;
     }
 
     public function getEmail()
@@ -100,20 +100,21 @@ class User
         return $this->statusUser;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
 
-    public function setNick($nick)
+    public function setLogin($login)
     {
-        $this->nick = $nick;
+        if(strlen($login) <= 4 OR strlen($login) > 65){
+            throw new \Exception('Login invalide (taille doit être comprise entre 4 et 63 caractères)');
+        }
+        $this->login = $login;
         return $this;
     }
 
     public function setEmail($email)
     {
+        if(false == filter_var($email, FILTER_VALIDATE_EMAIL)){
+            throw new \Exception('Email non valide');
+        }
         $this->email = $email;
         return $this;
     }

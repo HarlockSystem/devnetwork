@@ -40,7 +40,7 @@ $container['param_pdo_opt'] = [
     \PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => false // if selecting a really huge amount of data
 ];
 $container['PDO'] = $container->share(function($c) {
-    return new $c['pdo_class']($c['param_pdo_dns'], $c['param_pdo_user'], $c['param_pdo_pass'], ['param_pdo_opt']);
+    return new $c['pdo_class']($c['param_pdo_dns'], $c['param_pdo_user'], $c['param_pdo_pass'], $c['param_pdo_opt']);
 });
 
 // Templating
@@ -61,9 +61,27 @@ $container['user_manager_class'] = '\DNW\Manager\UserManager';
 $container['UserManager'] = $container->share(function($c) {
     return new $c['user_manager_class']($c['PDO']);
 });
+// PostManager
+$container['post_manager_class'] = '\DNW\Manager\PostManager';
+$container['PostManager'] = $container->share(function($c) {
+    return new $c['post_manager_class']($c['PDO']);
+});
+// TagManager
+$container['tag_manager_class'] = '\DNW\Manager\TagManager';
+$container['TagManager'] = $container->share(function($c) {
+    return new $c['tag_manager_class']($c['PDO']);
+});
+// CommentManager
+$container['comment_manager_class'] = '\DNW\Manager\CommentManager';
+$container['CommentManager'] = $container->share(function($c) {
+    return new $c['comment_manager_class']($c['PDO']);
+});
 
-
-
+// 
+$container['user_tool_class'] = '\DNW\Util\UserTool';
+$container['UserTool'] = $container->share(function($c) {
+    return new $c['user_tool_class']($c['UserManager']);
+});
 
 unset($dns);
 unset($cfg);

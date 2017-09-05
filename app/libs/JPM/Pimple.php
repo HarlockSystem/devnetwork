@@ -73,7 +73,7 @@ class Pimple implements \ArrayAccess
     public function offsetGet($id)
     {
         if (!array_key_exists($id, $this->values)) {
-            throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
+            throw new \InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
         }
         $isFactory = is_object($this->values[$id]) && method_exists($this->values[$id], '__invoke');
         return $isFactory ? $this->values[$id]($this) : $this->values[$id];
@@ -109,7 +109,7 @@ class Pimple implements \ArrayAccess
     public static function share($callable)
     {
         if (!is_object($callable) || !method_exists($callable, '__invoke')) {
-            throw new InvalidArgumentException('Service definition is not a Closure or invokable object.');
+            throw new \InvalidArgumentException('Service definition is not a Closure or invokable object.');
         }
         return function ($c) use ($callable) {
             static $object;
@@ -131,7 +131,7 @@ class Pimple implements \ArrayAccess
     public static function protect($callable)
     {
         if (!is_object($callable) || !method_exists($callable, '__invoke')) {
-            throw new InvalidArgumentException('Callable is not a Closure or invokable object.');
+            throw new \InvalidArgumentException('Callable is not a Closure or invokable object.');
         }
         return function ($c) use ($callable) {
             return $callable;
@@ -149,7 +149,7 @@ class Pimple implements \ArrayAccess
     public function raw($id)
     {
         if (!array_key_exists($id, $this->values)) {
-            throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
+            throw new \InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
         }
         return $this->values[$id];
     }
@@ -169,13 +169,13 @@ class Pimple implements \ArrayAccess
     public function extend($id, $callable)
     {
         if (!array_key_exists($id, $this->values)) {
-            throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
+            throw new \InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
         }
         if (!is_object($this->values[$id]) || !method_exists($this->values[$id], '__invoke')) {
-            throw new InvalidArgumentException(sprintf('Identifier "%s" does not contain an object definition.', $id));
+            throw new \InvalidArgumentException(sprintf('Identifier "%s" does not contain an object definition.', $id));
         }
         if (!is_object($callable) || !method_exists($callable, '__invoke')) {
-            throw new InvalidArgumentException('Extension service definition is not a Closure or invokable object.');
+            throw new \InvalidArgumentException('Extension service definition is not a Closure or invokable object.');
         }
         $factory = $this->values[$id];
         return $this->values[$id] = function ($c) use ($callable, $factory) {

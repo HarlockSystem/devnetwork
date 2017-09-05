@@ -13,28 +13,67 @@ use JPM\HTTP\Request;
 class UserController extends Controller
 {
 
+    /**
+     * list users
+     * 
+     * @param int $page
+     */
     public function indexAction($page)
     {
-        echo __METHOD__;
-        echo '<pre>page: ';
-        print_r($page);
-        echo '</pre>';
+        $users = $this->get('UserTool')->getUsers($page);
+
+        $this->render('User/index.html', ['users' => $users]);
     }
 
+    /**
+     * Display an user
+     * 
+     * @param int $id
+     */
     public function showAction($id)
     {
-        echo __METHOD__;
-        echo '<pre>id: ';
-        print_r($id);
-        echo '</pre>';
+        $user = $this->get('UserTool')->showUser($id);
+        if (!$user) {
+            // throw error/ 404
+        }
+
+        $this->render('User/show.html', ['user' => $user]);
     }
-    
+
+    /**
+     * Add a new user
+     * 
+     * @param Request $request
+     */
     public function newAction(Request $request)
     {
-        echo '<pre>';
-        var_export($request);
-        echo '</pre>';
-        exit;
+
+
+        if ($request->server->get('REQUEST_METHOD') == 'POST') {
+            $user = $this->get('UserTool')->addUser($request);
+            var_dump($user);
+            if (is_string($user)) {
+                //error
+            } else {
+                //redirect
+            }
+        }
+
+        $this->render('User/new.html');
+    }
+
+    public function editAction(Request $request, $id)
+    {
+
+
+        if ($request->server->get('REQUEST_METHOD') == 'POST') {
+            $user = $this->get('UserTool')->edditUser($request);
+        } else {
+            $user = $this->get('UsertTool')->showUser($id);
+            if (!$user) {
+                // throw error/ 404
+            }
+        }
     }
 
 }

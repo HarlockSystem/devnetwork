@@ -1,8 +1,11 @@
-<?php
+<?php $this->layout('layout', ['title' => 'new User']) ?>
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
+<form action="" method="POST">
+    
+    <input type="text" name="login" placeholder="login"/>
+    <input type="passwored" name="password" placeholder="password"/>
+    <input type="text" name="email" placeholder="email"/>
+    <button name="newUser">Create</button>
+    
+</form>

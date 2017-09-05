@@ -13,6 +13,7 @@ use JPM\Pimple;
  */
 abstract class Controller
 {
+
     protected $container;
 
     /**
@@ -35,7 +36,7 @@ abstract class Controller
     {
         return $this->container[$id];
     }
-    
+
     /**
      * Check if a service exist
      * 
@@ -47,7 +48,20 @@ abstract class Controller
     {
         return $this->container->offsetExists($id);
     }
-    
+
+    /**
+     * Redirect to a Routename
+     * 
+     * @param string $pathName
+     * @param array $properties
+     * @param array $getParameter
+     * @param array $postParameter
+     */
+    protected function redirectToRoute($pathName, array $properties, array $getParameter = [], array $postParameter = [])
+    {
+        
+    }
+
     protected function render($template, array $data = [])
     {
         $plate = $this->container['Plates'];
