@@ -15,7 +15,7 @@ class HomepageController extends Controller
 
     public function indexAction()
     {
-        echo __METHOD__;
+//        echo __METHOD__;
 
 
         $pdo = $this->get('PDO');
@@ -24,6 +24,8 @@ class HomepageController extends Controller
         $gg = $stmt->fetchAll();
         
         $usrMng = $this->get('UserManager');
+        
+        $this->render('aaa/profile', ['name' => 'Jonathan']);
     }
 
 }

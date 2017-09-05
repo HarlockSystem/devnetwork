@@ -9,8 +9,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 CREATE TABLE IF NOT EXISTS `devnetwork_dev`.`User` (
   `id` INT NOT NULL,
   `login` VARCHAR(65) NOT NULL COMMENT 'pseudo',
-  `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(60) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
   `firstname` VARCHAR(65) NULL,
   `lastname` VARCHAR(65) NULL,
   `skill` VARCHAR(1000) NULL COMMENT 'user skill',

@@ -19,6 +19,13 @@ class UserManager
         $this->db = $pdo;
     }
 
+    /**
+     * Find an user by id
+     * 
+     * @param int $id
+     * 
+     * @return User
+     */
     public function findById($id)
     {
         $sql = "SELECT * FROM User WHERE id = :id";
@@ -27,46 +34,33 @@ class UserManager
         $user = $query->fetchObject(User::class);
         return $user;
     }
-
+    
+    /**
+     * Create an user
+     * 
+     * @param array $params
+     * 
+     * @return User
+     */
     public function create(array $params)
     {
-        /* Début de la faille spatio-temporelle */
         $user = new User();
         try {
             $user->setLogin($params['login']);
             $user->setPassword($params['password']);
             $user->setEmail($params['email']);
-            $user->setFirstname($params['firstname']);
-            $user->setLastname($params['lastname']);
-            $user->setSkill($params['skill']);
-            $user->setBio($params['bio']);
-            $user->setJobStatus($params['jobStatus']);
-            $user->setCreatedAt($params['createdAt']);
-            $user->setUpdatedAt($params['updatedAt']);
-            $user->setSettings($params['settings']);
-            $user->setImg($params['img']);
             $user->setRole($user::ROLE_USER);
-            $user->setEmail($params['statusUser']);
-        } catch (Exception $e) {
+            $user->setStatusUser($user::ROLE_USER);
+        } catch (\Exception $e) {
             $error = $e->getMessage();
         }
-        /* Fin de la faille */
-        $sql = "INSERT INTO User (login, password, email, firstname, lastname, 
-                skill, bio, jobStatus, settings, img, role, statusUser) VALUES(
-                :login, :password, :email, :firstname, :lastname, 
-                :skill, :bio, :jobStatus, :settings, :img, :role, :statusUser)";
+        $sql = "INSERT INTO User (login, password, email, role, statusUser) 
+                VALUES(:login, :password, :role, :statusUser)";
         $query = $this->db->prepare($sql);
         $query->execute([
             'login' => $user->getLogin(),
             'password' => $user->getPassword(),
             'email' => $user->getEmail(),
-            'firstname' => $user->getFirstname(),
-            'lastname' => $user->getLastname(),
-            'skill' => $user->getSkill(),
-            'bio' => $user->getBio(),
-            'jobStatus' => $user->getJobStatus(),
-            'settings' => $user->getSettings(),
-            'img' => $user->getEmail(),
             'role' => $user->getEmail(),
             'statusUser' => $user->getEmail(),
         ]);
@@ -89,7 +83,14 @@ class UserManager
             'statusUser' => $user::DELETE_STATUS
         ]);
     }
-
+    
+    /**
+     * Update an user
+     * 
+     * @param User $user
+     * 
+     * @return User
+     */
     public function update(User $user)
     {
         $sql = "UPDATE User SET login=:login, 
@@ -116,9 +117,10 @@ class UserManager
             'bio' => $user->getBio(),
             'jobStatus' => $user->getJobStatus(),
             'settings' => $user->getSettings(),
-            'img' => $user->getEmail(),
-            'role' => $user->getEmail(),
-            'statusUser' => $user->getEmail(),
+            'img' => $user->getImg(),
+            'role' => $user->getRole(),
+            'statusUser' => $user->getStatusUser(),
+            'id' => $user->getId()
         ]);
         return $this->findById($user->getId());
     }

@@ -1,7 +1,6 @@
 <?php
 
 use JPM\Pimple;
-use JPM\Router\RouteCollection;
 
 // load parameters
 $cfg = parse_ini_file(__DIR__ . '/params.ini');
@@ -42,6 +41,13 @@ $container['param_pdo_opt'] = [
 ];
 $container['PDO'] = $container->share(function($c) {
     return new $c['pdo_class']($c['param_pdo_dns'], $c['param_pdo_user'], $c['param_pdo_pass'], ['param_pdo_opt']);
+});
+
+// Templating
+$container['template_class'] = 'League\Plates\Engine';
+$container['param_template_source'] = realpath(__DIR__ . '/../../src/viewstest');
+$container['Plates'] = $container->share(function($c) {
+    return new $c['template_class']($c['param_template_source']);
 });
 
 /* * ********************************

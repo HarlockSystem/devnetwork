@@ -19,6 +19,13 @@ class PostManager
         $this->db = $pdo;
     }
 
+    /**
+     * Find post by id
+     * 
+     * @param int $id
+     * 
+     * @return Post
+     */
     public function findById($id)
     {
         $sql = "SELECT * FROM Post WHERE id = :id";
@@ -28,9 +35,15 @@ class PostManager
         return $post;
     }
 
+    /**
+     * Create a post
+     * @param type $title
+     * @param type $content
+     * @param type $contentType
+     * @return type
+     */
     public function create($title, $content, $contentType)
     {
-        /* Début de la faille spatio-temporelle */
         $post = new Post();
         try {
             $post->setTitle($title);
@@ -39,8 +52,9 @@ class PostManager
         } catch (Exception $e) {
             $error = $e->getMessage();
         }
-        /* Fin de la faille */
-        $sql = "INSERT INTO Post (title, content, contentType) VALUES(:title, :content, :contentType)";
+
+        $sql = "INSERT INTO Post (:title, :content, :contentType)
+                VALUES(:title, :content, :contentType)";
         $query = $this->db->prepare($sql);
         $query->execute([
             'title' => $post->getTitle(),
