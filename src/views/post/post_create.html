@@ -230,7 +230,17 @@
 
     if (type === "text")
     {
-        $('#editor').trumbowyg();
+        $('#editor').trumbowyg({btns: [
+            ['viewHTML'],
+            ['formatting'],
+            'btnGrp-semantic',
+            ['link'],
+            'btnGrp-justify',
+            'btnGrp-lists',
+            ['horizontalRule'],
+            ['removeformat'],
+            ['fullscreen']
+        ]});
     }
 
     else if (type === "snippet") {
@@ -258,19 +268,28 @@
             if (type === "text")
             {
                 var value =  editor.getValue();
-                console.log(value);
                 editor.destroy();
                 $("#editor").empty();
                 document.getElementById("editor").className = "trumbowyg-editor";
-                $('#editor').trumbowyg();
+                $('#editor').trumbowyg({btns: [
+                    ['viewHTML'],
+                    ['formatting'],
+                    'btnGrp-semantic',
+                    ['link'],
+                    'btnGrp-justify',
+                    'btnGrp-lists',
+                    ['horizontalRule'],
+                    ['removeformat'],
+                    ['fullscreen']
+                ]});
                 $('#editor').trumbowyg('html', value);
 
             }
 
             else if (type === "snippet") {
 
-                var value = $('#editor').trumbowyg('html');
-                console.log(value);
+                var doc = document.getElementById("editor");
+                var value = doc.textContent;
                 $('#editor').trumbowyg('destroy');
                 language = $("#language").val();
                 theme = $("#theme").val();
