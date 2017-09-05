@@ -8,8 +8,8 @@ $request = new Request();
 
 require __DIR__ . '/../app/Kernel.php';
 
-$kernel->handle();
-
+$response = $kernel->handle();
+$response->send();
 
 // test route
 //include('_testRoute.html');

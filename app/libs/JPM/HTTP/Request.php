@@ -3,6 +3,7 @@
 namespace JPM\HTTP;
 
 use JPM\HTTP\ParamContainer;
+use JPM\HTTP\ServerContainer;
 
 /**
  * Load Environnement Data
@@ -65,7 +66,7 @@ class Request
     {
         $this->request = new ParamContainer($_POST);
         $this->query = new ParamContainer($_GET);
-        $this->server = new ParamContainer($_SERVER);
+        $this->server = new ServerContainer($_SERVER);
         $this->files = new ParamContainer($_FILES);
         $this->cookies = new ParamContainer($_COOKIE);
         $this->headers = new ParamContainer();

@@ -103,9 +103,6 @@ class User
 
     public function setLogin($login)
     {
-        echo '<pre>';
-        print_r(strlen($login));
-        echo '</pre>';
 
         if(strlen($login) < 4 OR strlen($login) > 65){
             throw new \Exception('Login invalide (taille doit être comprise entre 4 et 63 caractères)');

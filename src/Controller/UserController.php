@@ -37,7 +37,7 @@ class UserController extends Controller
             // throw error/ 404
         }
 
-        $this->render('User/show.html', ['user' => $user]);
+        return $this->render('User/show.html', ['user' => $user]);
     }
 
     /**
@@ -56,16 +56,11 @@ class UserController extends Controller
                 print_r($user);
                 echo '</pre>';
             } else {
-                echo '<pre>';
-                print_r($user);
-                echo '</pre>';
-                exit;
-
-                //redirect
+                return $this->redirectToRoute('UserShow', ['id' => $user->getId()]);
             }
         }
 
-        $this->render('User/new.html');
+        return $this->render('User/new.html');
     }
 
     public function editAction(Request $request, $id)

@@ -10,7 +10,7 @@ use JPM\Router\Route;
  * When run() is called after setServerInfo(), it try to find
  * the required Route
  */
-class RouteCollection
+class Router
 {
     protected $server;
     protected $routeCollection = [];
@@ -34,7 +34,7 @@ class RouteCollection
         $this->routeCollection[$routeName] = $route;
     }
 
-    public function setServerInfo(array $server)
+    public function setServerInfo($server)
     {
         $this->server = $server;
     }
@@ -86,7 +86,7 @@ class RouteCollection
         if ($match) {
             return $match;
         }
-        throw new \Exception('No route defined for '.$this->server['PATH_INFO']);
+        throw new \Exception('No route defined for ' . $this->server->get('PATH_INFO'));
     }
 
     /**
@@ -101,7 +101,7 @@ class RouteCollection
     protected function matchRoute(Route $route)
     {
         $data = [];
-        $data['path'] = $this->server['PATH_INFO'];
+        $data['path'] = $this->server->get('PATH_INFO');
         $data['params'] = [];
 
 
@@ -127,7 +127,7 @@ class RouteCollection
 
         // match against method
         if (!empty($route->getMethods())) {
-            if (!in_array($this->server['REQUEST_METHOD'], $route->getMethods())) {
+            if (!in_array($this->server->get('REQUEST_METHOD'), $route->getMethods())) {
                 return false;
             }
         }
@@ -150,7 +150,7 @@ class RouteCollection
      * 
      * @throws \InvalidArgumentException
      */
-    public function generateUrl($name, $params = [])
+    public function generateUrl($name, array $properties = [], array $params = [])
     {
         if (!isset($this->routeCollection[$name])) {
             throw new \InvalidArgumentException('route "' . $name . '" not found');
@@ -158,13 +158,21 @@ class RouteCollection
         $route = $this->routeCollection[$name];
         $url = $route->getPath();
         foreach ($route->getRequirements() as $key => $value) {
-            if (!isset($params[$key])) {
-                throw new \InvalidArgumentException('param "' . $key . '" for route "' . $name . '" not found');
+            if (isset($properties[$key])) {
+                $url = str_replace('{' . $key . '}', $properties[$key], $url);
+                unset($properties[$key]);
+            } else {
+                if (!isset($route->getDefaults()[$key])) {
+                    throw new \InvalidArgumentException('param "' . $key . '" for route "' . $name . '" not found');
+                }else{
+                     $url = str_replace('{' . $key . '}', null, $url);
+                }
             }
-            $url = str_replace('{' . $key . '}', $params[$key], $url);
-            unset($params[$key]);
         }
-        return $url;
+
+
+        $queryString = empty($params) ? null : '?' . http_build_query($params);
+        return $this->server->getUri() . $url . $queryString;
     }
 
 }

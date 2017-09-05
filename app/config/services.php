@@ -16,7 +16,7 @@ $container = new Pimple();
  * ******************************* */
 
 // Router
-$container['router_class'] = 'JPM\Router\RouteCollection';
+$container['router_class'] = 'JPM\Router\Router';
 $container['Router'] = $container->share(function($c) {
     return new $c['router_class']();
 });

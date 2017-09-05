@@ -3,6 +3,7 @@
 namespace JPM\Controller;
 
 use JPM\Pimple;
+use JPM\HTTP\Response;
 
 /**
  * Abstract Controller
@@ -13,7 +14,6 @@ use JPM\Pimple;
  */
 abstract class Controller
 {
-
     protected $container;
 
     /**
@@ -55,17 +55,26 @@ abstract class Controller
      * @param string $pathName
      * @param array $properties
      * @param array $getParameter
-     * @param array $postParameter
      */
-    protected function redirectToRoute($pathName, array $properties, array $getParameter = [], array $postParameter = [])
+    protected function redirectToRoute($pathName, array $properties, array $params = [])
     {
-        
+        $url = $this->container['Router']->generateUrl($pathName, $properties, $params);
+        $response = new Response('', 301);
+        $response->isRedirect($url);
+        return $response;
     }
 
     protected function render($template, array $data = [])
     {
+        
+
+        $data['path'] = $this->container['Router'];
         $plate = $this->container['Plates'];
-        echo $plate->render($template, $data);
+        $content = $plate->render($template, $data);
+        $response = new Response();
+        $response->setStatusCode(200);
+        $response->setContent($content);
+        return $response;
     }
 
 }

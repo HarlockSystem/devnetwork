@@ -6,6 +6,7 @@ use JPM\Pimple;
 require __DIR__ . '/config/services.php';
 require __DIR__ . '/config/routing.php';
 
+
 /**
  * Main class for processing request
  *
@@ -35,15 +36,20 @@ class Kernel
      */
     public function handle()
     {
-        $routes = $this->container['Router'];
-        $routes->setServerInfo($this->request->server->all());
-        $ctrlCandidat = $routes->run();
+        $router = $this->container['Router'];
+        $router->setServerInfo($this->request->server);
+        $ctrlCandidat = $router->run();
 
         $ctrResolver = $this->container['ControllerResolver'];
         $ctrResolver->setRequest($this->request);
         $ctrResolver->setContainer($this->container);
         
-        return $ctrResolver->getController($ctrlCandidat['controller'], $ctrlCandidat['params']);
+        $response =  $ctrResolver->getController($ctrlCandidat['controller'], $ctrlCandidat['params']);
+        
+        if(!is_a($response, '\JPM\HTTP\Response')){
+            throw new Exception('A controller need to return a response');
+        }
+        return $response;
         
     }
 
