@@ -19,13 +19,10 @@
 
     <div class="row">
         <form action="" method="POST">
-            <div class="col-lg-4">
+            <div class="col-lg-8">
                 <div class="post_container">
                     <h2>snippet</h2>
-                    <div id="editor">function foo(items) {
-                        var x = "All this is syntax highlighted";
-                        return x;
-                        }</div>
+                    <div id="editor"></div>
                 </div>
                 <div class="col">
 
@@ -257,27 +254,30 @@
 
         $("#type").change(function (){
             type = $("#type").val();
-            console.log(type);
+
             if (type === "text")
             {
-                var value =  $('.ace_text-layer').textContent;
+                var value =  editor.getValue();
+                console.log(value);
                 editor.destroy();
+                $("#editor").empty();
                 document.getElementById("editor").className = "trumbowyg-editor";
                 $('#editor').trumbowyg();
-                $('.trumbowyg-editor').textContent = value;
+                $('#editor').trumbowyg('html', value);
 
             }
 
             else if (type === "snippet") {
 
-                var value =  $('.trumbowyg-editor').textContent;
+                var value = $('#editor').trumbowyg('html');
+                console.log(value);
                 $('#editor').trumbowyg('destroy');
                 language = $("#language").val();
                 theme = $("#theme").val();
                 editor = ace.edit("editor");
                 editor.setTheme("ace/theme/" + theme);
                 editor.getSession().setMode("ace/mode/" + language);
-                $('.ace_text-layer').textContent = value;
+                editor.setValue(value);
             }
     });
 </script>
