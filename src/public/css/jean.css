@@ -18,7 +18,10 @@ button {
 
 #editor {
     margin: 20px auto;
-    width: 600px;
-    height: 400px;
+
+}
+
+.ace_editor {
+    height: 200px!important;
 }
 
