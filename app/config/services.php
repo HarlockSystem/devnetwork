@@ -43,6 +43,12 @@ $container['PDO'] = $container->share(function($c) {
     return new $c['pdo_class']($c['param_pdo_dns'], $c['param_pdo_user'], $c['param_pdo_pass'], $c['param_pdo_opt']);
 });
 
+// Session
+$container['session_class'] = 'JPM\HTTP\Session';
+$container['Session'] = $container->share(function($c) {
+    return new $c['session_class']();
+});
+
 // Templating
 $container['template_class'] = 'League\Plates\Engine';
 $container['param_template_source'] = realpath(__DIR__ . '/../../src/viewstest');
@@ -59,7 +65,7 @@ $container['Plates'] = $container->share(function($c) {
 
 //User
 $container['post_class'] = '\DNW\Entity\Post';
-$container['Post'] = function($c){
+$container['Post'] = function($c) {
     return new $c['post_class']($c['PDO']);
 };
 // UserManager
