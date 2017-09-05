@@ -56,6 +56,12 @@ $container['Plates'] = $container->share(function($c) {
  * 
  * ******************************* */
 
+
+//User
+$container['post_class'] = '\DNW\Entity\Post';
+$container['Post'] = function($c){
+    return new $c['post_class']($c['PDO']);
+};
 // UserManager
 $container['user_manager_class'] = '\DNW\Manager\UserManager';
 $container['UserManager'] = $container->share(function($c) {

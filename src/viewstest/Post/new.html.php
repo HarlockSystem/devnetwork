@@ -1,8 +1,9 @@
-<?php
+<?php $this->layout('layout', ['title' => 'new Post']) ?>
 
-/* 
-* To change this license header, choose License Headers in Project Properties.
-* To change this template file, choose Tools | Templates
-* and open the template in the editor.
-*/
-
+<form action="" method="POST">
+    
+    <input type="text" name="content" placeholder="content"/>
+    <input type="text" name="content_type" placeholder="content_type"/>
+    <button name="newPost">Create</button>
+    
+</form>

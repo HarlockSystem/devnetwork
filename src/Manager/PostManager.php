@@ -18,6 +18,22 @@ class PostManager
     {
         $this->db = $pdo;
     }
+    
+    /**
+     * Get list of posts
+     * 
+     * @param int $page
+     * @param array $criteria
+     * 
+     * @return arrary
+     */
+    public function findBy($page, array $criteria = null)
+    {
+        $sql = "SELECT * FROM Post";
+        $query = $this->db->prepare($sql);
+        $query->execute([]);
+        return $query->fetchAll(\PDO::FETCH_CLASS, Post::class);
+    }
 
     /**
      * Find post by id
@@ -42,24 +58,26 @@ class PostManager
      * @param type $contentType
      * @return type
      */
-    public function create($title, $content, $contentType)
+    public function create($title, $content, $contentType, User $user)
     {
         $post = new Post();
         try {
             $post->setTitle($title);
             $post->setContent($content);
             $post->setContentType($contentType);
+            $post->setUser($user);
         } catch (Exception $e) {
             $error = $e->getMessage();
         }
 
-        $sql = "INSERT INTO Post (:title, :content, :contentType)
-                VALUES(:title, :content, :contentType)";
+        $sql = "INSERT INTO Post (title, content, contentType, UserId)
+                VALUES(:title, :content, :contentType, :userId)";
         $query = $this->db->prepare($sql);
         $query->execute([
             'title' => $post->getTitle(),
             'content' => $post->getContent(),
             'contentType' => $post->getContentType(),
+            'UserId' => $post->getUser()->getId(),
         ]);
         $id = $this->db->lastInsertId();
         return $this->findById($id);

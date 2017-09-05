@@ -51,7 +51,6 @@ class UserController extends Controller
 
         if ($request->server->get('REQUEST_METHOD') == 'POST') {
             $user = $this->get('UserTool')->addUser($request);
-            var_dump($user);
             if (is_string($user)) {
                 //error
             } else {
@@ -64,7 +63,6 @@ class UserController extends Controller
 
     public function editAction(Request $request, $id)
     {
-
 
         if ($request->server->get('REQUEST_METHOD') == 'POST') {
             $user = $this->get('UserTool')->edditUser($request);

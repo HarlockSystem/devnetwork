@@ -3,9 +3,16 @@
 namespace DNW\Entity;
 
 use DNW\Entity\User;
+use DNW\Manager\UserManager;
 
 class Post
 {
+    protected $userManager;
+
+    public function __construct($pdo)
+    {
+        $this->userManager = new UserManager($pdo);
+    }
 
     protected $id;
     protected $title;
@@ -14,7 +21,6 @@ class Post
     protected $createdAt;
     protected $updatedAt;
     protected $statusPost;
-    
     protected $UserId;
     protected $user;
 
@@ -55,6 +61,7 @@ class Post
 
     public function getUser()
     {
+        $this->userManager->findById($this->UserId);
         return $this->user;
     }
 

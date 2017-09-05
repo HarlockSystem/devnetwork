@@ -20,7 +20,7 @@ $routes->add('TagEdit', new Route('/tag/{id}', ['_controller' => 'Tag:edit'], ['
 $routes->add('TagDelete', new Route('/tag/{id}', ['_controller' => 'Tag:delete'], ['id' => '\d+'], 'DELETE'));
 
 $routes->add('Posts', new Route('/posts/{page}', ['_controller' => 'Post:index', 'page' => 1], ['page' => '\d+'], 'GET'));
-$routes->add('Post', new Route('/post', ['_controller' => 'Post:new'], [], 'POST'));
-$routes->add('PostShow', new Route('/post/{name}', ['_controller' => 'Post:show'], ['name' => '\w+'], 'GET'));
+$routes->add('Post', new Route('/post/new', ['_controller' => 'Post:new'], [], ['GET', 'POST']));
+$routes->add('PostShow', new Route('/post/{id}', ['_controller' => 'Post:show'], ['id' => '\d+'], 'GET'));
 $routes->add('PostEdit', new Route('/post/{id}', ['_controller' => 'Post:edit'], ['id' => '\d+'], 'PUT'));
 $routes->add('PostDelete', new Route('/post/{id}', ['_controller' => 'Post:delete'], ['id' => '\d+'], 'DELETE'));
