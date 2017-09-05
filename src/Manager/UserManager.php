@@ -42,13 +42,13 @@ class UserManager
      * 
      * @return User
      */
-    public function create(array $params)
+    public function create($login, $password, $email)
     {
         $user = new User();
         try {
-            $user->setLogin($params['login']);
-            $user->setPassword($params['password']);
-            $user->setEmail($params['email']);
+            $user->setLogin($login);
+            $user->setPassword($password);
+            $user->setEmail($email);
             $user->setRole($user::ROLE_USER);
             $user->setStatusUser($user::ROLE_USER);
         } catch (\Exception $e) {
