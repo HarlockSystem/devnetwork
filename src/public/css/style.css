@@ -10,7 +10,8 @@
 
 html {
 	font-size: 62.5%;	
-	max-height: 1080px;
+	margin: 0;
+	padding: 0;
 }
 body {
 	background-color: #FFFDFA;
@@ -28,12 +29,26 @@ h1, h2, h3 {
 	width: 70%;
 	max-width: 900px;
 	margin: 0 auto;
+	min-height: 688px;
+}
+@-moz-document url-prefix() {
+	.wrapper {
+		min-height: 666px;
+	}
 }
 a {
 	text-decoration: none;
 	color: #348899;
-
 }
+.aligner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.alignerItem {
+	max-width: 50%;
+}
+
 /*==============================
 =            Header            =
 ==============================*/
@@ -59,23 +74,134 @@ nav a {
 	padding: 10px;
 }
 
+/*============================
+=            Home            =
+============================*/
+
+.home {
+	text-align: center;
+}
+.home input {
+	padding: 5px;
+	margin: 5px;
+}
+
+
 /*====================================
 =            Registration            =
 ====================================*/
 
-
 .register {
-	margin-top: 100px;
 	text-align: center;
 }
 .register input {
 	padding: 5px;
 	margin: 5px;
 }
-.register button {
+.submit {
 	margin-top: 20px;
+	transition: all 0.5s;
+	border: none;
+	border-radius: 10px;
+	padding: 5px 10px;
+	color: white;
+	background-color: #962D3E;
+}
+.spanSubmit {
+	display: inline-block;
+	position: relative;
+	transition: all 0.2s;
+}
+.spanSubmit:after {
+	content: '\00bb';
+	position: absolute;
+	opacity: 0;
+	top: 0;
+	right: -20px;
+	transition: 0.2s;
+}
+.submit:hover .spanSubmit {
+	padding-right: 20px;
+}
+.submit:hover .spanSubmit:after{
+	opacity: 1;
+	right: 0;
 }
 
+/*==============================
+=            Profil            =
+==============================*/
+
+.profil {
+	display: flex;
+	flex-direction: column;
+}
+.encadrement {
+	display: flex;
+	flex-direction: row;
+	padding-bottom: 20px;
+}
+.cadre {
+	padding: 30px;
+	width: 50%;
+	background: hsla(0,0%,100%,.25) border-box;
+	box-shadow: 0 0 0 1px hsla(0,0%,100%,.3) inset,
+	0 .5em 1em rgba(0, 0, 0, 0.2);
+}
+.cadre h2 {
+	text-align: center;
+	margin: 0;
+	padding: 5px;
+}
+.entreprise {
+	border-collapse: collapse;
+	background-color: #FFFDFA;
+	width: 100%;
+	text-align: center;
+}
+.entreprise tr:nth-child(odd) {
+	background-color: background-color: #FBAB7E;
+	background-image: linear-gradient(45deg, #FFFDFA 0%, #F7CE68 200%);
+}
+.entreprise tr:nth-child(even) {
+	background-color: background-color: #FBAB7E;
+	background-image: linear-gradient(45deg, #FFFDFA 0%, #F2EBC7 200%);
+}
+.entreprise td {
+	padding: 0 10px;
+}
+.identity {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.imageProfil {
+	margin-top: 50px;
+	height: 125px;
+	border-radius: 50%;
+	border: 3px solid #962D3E;
+}
+.skill {
+	display: flex;
+	justify-content: space-around;
+	flex-wrap: wrap;
+}
+.skill img {
+	height: 50px;
+	padding: 5px;
+}
+.biographie {
+	padding: 0 15px;
+	background: hsla(0,0%,100%,.25) border-box;
+	box-shadow: 0 0 0 1px hsla(0,0%,100%,.3) inset,
+	0 .5em 1em rgba(0, 0, 0, 0.2);
+	margin: 0;
+	background-color: background-color: #FBAB7E;
+	background-image: linear-gradient(180deg, #FFFDFA 0%, #F7CE68 150%);
+}
+.biographie h3 {
+	margin-top: 15px;
+}
 
 /*==============================
 =            Footer            =
