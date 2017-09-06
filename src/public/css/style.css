@@ -249,10 +249,33 @@ nav a {
 	padding: 2px 15px;
 	margin-right: 10px;
 }
-.thumbs-o-up {
-	background-color: green;
+.buttonLike, .buttonDislike, .buttonReport {
+	transition: all 0.1s;
+	-webkit-transition: all 0.1s;
+	padding: 5px 15px;
+	border: 0;
+	border-radius: 10px;
 }
-
+.buttonLike:active, .buttonDislike:active, .buttonReport:active {
+	transform: translate(0px, 5px);
+	-webkit-transform: translate(0px,5px);
+	border-bottom: 1px solid;
+}
+.buttonLike {
+	background-color: #82BF56;
+	border-bottom: 5px solid #669644;
+	text-shadow: 0px -2px #669644;
+}
+.buttonDislike {
+	background-color: #F2CF66;
+	border-bottom: 5px solid #D1B358;
+	text-shadow: 0px -2px #D1B358;
+}
+.buttonReport {
+	background-color: #E74C3C;
+	border-bottom: 5px solid #BD3E31;
+	text-shadow: 0px -2px #BD3E31;
+}
 
 /*==============================
 =            Footer            =
