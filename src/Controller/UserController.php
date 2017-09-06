@@ -76,4 +76,37 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Delete an user (soft)
+     * @param int $id
+     */
+    public function deleteAction($id)
+    {
+        
+    }
+
+    /**
+     * Log/Sign in
+     */
+    public function loginAction()
+    {
+        
+    }
+
+    /**
+     * Log out
+     */
+    public function logoutAction()
+    {
+        
+    }
+
+    /**
+     * Check user id
+     */
+    public function processAction()
+    {
+        
+    }
+
 }

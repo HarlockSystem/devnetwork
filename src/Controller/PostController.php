@@ -65,6 +65,7 @@ class PostController extends Controller
 
         $this->render('Post/new.html');
     }
+    
 
 }
 
