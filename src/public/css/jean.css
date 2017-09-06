@@ -7,7 +7,6 @@
 }
 
 .input-group-addon {
-
     width: 200px;
 }
 
@@ -17,14 +16,25 @@ button {
 }
 
 #editor {
+    height: 200px;
     margin:0 auto;
-
-}
-
-.ace_editor {
-    height: 400px!important;
 }
 
 #title{
     width: 600px;
+}
+
+.post{
+    width: 400px;
+    height: 200px;
+    margin:50px auto;
+}
+
+.trumbowyg-box{
+
+}
+
+h2
+{
+    margin: 0 auto;
 }

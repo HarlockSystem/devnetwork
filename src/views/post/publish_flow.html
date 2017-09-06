@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../public/css/bootstrap.min.css" />
+    <script type="text/javascript" src="../../public/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../public/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../../public/trumbowyg/dist/ui/trumbowyg.min.css">
+    <link rel="stylesheet" href="../../public/css/jean.css">
+    <title>Document</title>
+</head>
+<body >
+<main  data-theme="terminal"> <!-- data-theme doit etre set au debut la page je recupere en js la valeur pour l'affichage du theme du snippet -->
+    <h2>titre publication 0</h2>
+    <div id="editor0" class="post" data-snippet="0">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolor dolores earum illum,
+        labore odit suscipit ullam vitae. Amet asperiores autem dolorum maiores minima nemo omnis quas velit, vero voluptatibus.
+    </div>
+    <h2>titre publication 1</h2>
+    <div id="editor1" class="post" data-snippet="1" data-language="c_cpp">
+        int g (void)
+        {
+            int i = 0;
+        }
+
+        int z = g();
+    </div>
+
+    <h2>titre publication 2</h2>
+    <div id="editor2" class="post" data-snippet="1" data-language="javascript">
+        function g ()
+        {
+            var i = 0;
+        }
+
+        var z = g();
+    </div>
+
+    <h2>titre publication 3</h2>
+    <div id="editor3" class="post" data-snippet="1" data-language="php">
+        function g ()
+        {
+             $i = 0;
+        }
+
+        $z = g();
+    </div>
+
+
+</main>
+<script src="../../public/trumbowyg/dist/trumbowyg.min.js"></script>
+<script src="../../public/js/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script language="JavaScript">
+
+    var theme = $("main").data("theme");
+    var editor = [];
+    for (var i=0 ; i<4; i++)
+    {
+        if ($("#editor"+i).data("snippet")) {
+            var language = $("#editor"+i).data("language");
+            editor[i] = ace.edit("editor" + i);
+            editor[i].setTheme("ace/theme/" + theme);
+            editor[i].getSession().setMode("ace/mode/" + language);
+            editor[i].setReadOnly(true);
+
+        }
+    }
+
+</script>
+
+
+
+</body>
+</html>
