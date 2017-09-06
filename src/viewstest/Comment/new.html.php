@@ -1,5 +1,7 @@
-<?php 
+<?php
 $this->layout('layout', [
-    'title' => 'Homepage',
+    'title' => 'New Post',
     'path' => $path
-    ]) ?>
+])
+?>
+

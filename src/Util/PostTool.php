@@ -4,6 +4,7 @@ namespace DNW\Util;
 
 use DNW\Manager\PostManager;
 use DNW\Manager\UserManager;
+use DNW\Entity\User;
 use JPM\HTTP\Request;
 
 class PostTool
@@ -27,13 +28,14 @@ class PostTool
         return $posts;
     }
     
-    public function addPost(Request $request)
+    public function addPost(User $user, Request $request)
     {
         $content = $request->request->get('content');
+        $title = $request->request->get('title');
         $contentType = $request->request->get('content_type');
-        $userId =  $request->request->get('content_type');
         
-        $post = $this->postMng->create($userId, $content, $contentType);
+        $post = $this->postMng->create($title, $content, $contentType, $user);
+        return $post;
     }
 
 }

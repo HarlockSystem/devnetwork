@@ -57,6 +57,7 @@ class Request
     public function __construct()
     {
         $this->initialize();
+        $this->translateHTTPMethod();
     }
     
     /**

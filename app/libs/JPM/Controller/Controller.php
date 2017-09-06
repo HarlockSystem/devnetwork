@@ -69,6 +69,7 @@ abstract class Controller
         
 
         $data['path'] = $this->container['Router'];
+        $data['session'] = $this->container['Session'];
         $plate = $this->container['Plates'];
         $content = $plate->render($template, $data);
         $response = new Response();

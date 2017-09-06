@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         $users = $this->get('UserTool')->getUsers($page);
 
-        $this->render('User/index.html', ['users' => $users]);
+        return $this->render('User/index.html', ['users' => $users]);
     }
 
     /**
@@ -35,9 +35,16 @@ class UserController extends Controller
         $user = $this->get('UserTool')->showUser($id);
         if (!$user) {
             // throw error/ 404
+            die('user not found: redirect/404');
         }
 
-        return $this->render('User/show.html', ['user' => $user]);
+        $posts = $this->get('PostManager')->findPostByUser($id);
+
+
+        return $this->render('User/show.html', [
+                    'user' => $user,
+                    'posts' => $posts
+        ]);
     }
 
     /**
@@ -52,9 +59,12 @@ class UserController extends Controller
         if ($request->server->get('REQUEST_METHOD') == 'POST') {
             $user = $this->get('UserTool')->addUser($request);
             if (is_string($user)) {
+                // error as string
+                // pass error as flash session?
                 echo '<pre>';
                 print_r($user);
                 echo '</pre>';
+                exit;
             } else {
                 return $this->redirectToRoute('UserShow', ['id' => $user->getId()]);
             }
@@ -65,15 +75,20 @@ class UserController extends Controller
 
     public function editAction(Request $request, $id)
     {
+ 
+        //check session usrid = id
 
-        if ($request->server->get('REQUEST_METHOD') == 'POST') {
-            $user = $this->get('UserTool')->edditUser($request);
+        if ($request->server->get('REQUEST_METHOD') == 'PUT') {
+            $user = $this->get('UserTool')->addUser($request);
         } else {
             $user = $this->get('UsertTool')->showUser($id);
             if (!$user) {
                 // throw error/ 404
             }
         }
+        $user = $this->get('UserManager')->findById(1);
+        
+        return $this->render('User/edit.html', ['user' => $user ]);
     }
 
     /**
@@ -90,7 +105,7 @@ class UserController extends Controller
      */
     public function loginAction()
     {
-        
+        return $this->render('User/login.html');
     }
 
     /**
@@ -104,9 +119,13 @@ class UserController extends Controller
     /**
      * Check user id
      */
-    public function processAction()
+    public function processAction(Request $request)
     {
-        
+        $user = $this->get('UserTool')->checkUser($request->request->get('login'), $request->request->get('pass'));
+        echo '<pre>';
+        var_export($user);
+        echo '</pre>';
+        exit;
     }
 
 }

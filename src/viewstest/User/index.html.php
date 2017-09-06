@@ -1,7 +1,11 @@
-<?php $this->layout('layout', ['title' => 'Liste desUsers']) ?>
+<?php
+$this->layout('layout', [
+    'title' => 'List Users',
+    'path' => $path
+])
+?>
 
-
-
+AAA
 <table>
     <?php foreach ($users as $user): ?>
         <tr>
@@ -9,8 +13,8 @@
         </tr>
         <tr>
             <td>
-                <?= $this->e($user->getLogin()) ?>
-                <a href="user/<?= $this->e($user->getId()) ?>">Link</a>
+                
+                <a href="<?php echo $path->generateUrl('UserShow', ['id' => $user->getId()]) ?>"><?= $this->e($user->getLogin()) ?></a> |
             </td>
         </tr>
         <tr>

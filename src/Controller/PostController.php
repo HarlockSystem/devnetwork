@@ -22,7 +22,7 @@ class PostController extends Controller
     {
         $posts = $this->get('PostTool')->getPosts($page);
 
-        $this->render('Post/index.html', ['posts' => $posts]);
+        return $this->render('Post/index.html', ['posts' => $posts]);
     }
 
     /**
@@ -37,7 +37,12 @@ class PostController extends Controller
             // throw error/ 404
         }
 
-        $this->render('Post/show.html', ['post' => $post]);
+        $comments = $this->get('CommentManager')->findByPost($id);
+
+        return $this->render('Post/show.html', [
+                    'post' => $post,
+                    'comments' => $comments
+        ]);
     }
 
     /**
@@ -47,25 +52,31 @@ class PostController extends Controller
      */
     public function newAction(Request $request)
     {
+
         /**
          * User isAuthentified ?
+         * => go to loggin page
          */
+//        $user = $this->
+
         /**
          * Load
          */
         if ($request->server->get('REQUEST_METHOD') == 'POST') {
-            $request->request->set('userId');
-            $post = $this->get('PostTool')->addPost($request);
+
+            //use session for id user
+            $user = $this->get('UserManager')->findById(1);
+
+            $post = $this->get('PostTool')->addPost($user, $request);
             if (is_string($post)) {
                 //error
             } else {
-                //redirect
+                return $this->redirectToRoute('PostShow', ['id' => $post->getId()]);
             }
         }
 
-        $this->render('Post/new.html');
+        return $this->render('Post/new.html');
     }
-    
 
 }
 

@@ -63,11 +63,11 @@ $container['Plates'] = $container->share(function($c) {
  * ******************************* */
 
 
-//User
-$container['post_class'] = '\DNW\Entity\Post';
-$container['Post'] = function($c) {
-    return new $c['post_class']($c['PDO']);
-};
+////User
+//$container['post_class'] = '\DNW\Entity\Post';
+//$container['Post'] = function($c) {
+//    return new $c['post_class']($c['PDO']);
+//};
 // UserManager
 $container['user_manager_class'] = '\DNW\Manager\UserManager';
 $container['UserManager'] = $container->share(function($c) {
@@ -98,6 +98,11 @@ $container['UserTool'] = $container->share(function($c) {
 $container['post_tool_class'] = '\DNW\Util\PostTool';
 $container['PostTool'] = $container->share(function($c) {
     return new $c['post_tool_class']($c['PostManager'], $c['UserManager']);
+});
+// CommentTool
+$container['comment_tool_class'] = '\DNW\Util\CommentTool';
+$container['CommentTool'] = $container->share(function($c) {
+    return new $c['comment_tool_class']($c['CommentManager']);
 });
 
 unset($dns);

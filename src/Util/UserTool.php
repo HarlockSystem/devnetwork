@@ -14,7 +14,7 @@ class UserTool
     {
         $this->usrMng = $usrMng;
     }
-    
+
     /**
      * 
      * @param int $page
@@ -22,12 +22,11 @@ class UserTool
     public function getUsers($page)
     {
         $users = $this->usrMng->findBy($page);
+
         /**
          * @todo related data
          */
         return $users;
-        
-        
     }
 
     /**
@@ -58,12 +57,30 @@ class UserTool
         return $rsp;
     }
 
+    /**
+     * ?????
+     * @param type $id
+     * @return type
+     */
     public function showUser($id)
     {
         $user = $this->usrMng->findById($id);
         /**
          * @todo related data
          */
+        return $user;
+    }
+
+    public function checkUser($user, $pass)
+    {
+        $user = $this->usrMng->findOneBy(['login' => $user]);
+
+        if (!$user) {
+            return false;
+        }
+        if ($user->getPassword() != $pass) {
+            return false;
+        }
         return $user;
     }
 

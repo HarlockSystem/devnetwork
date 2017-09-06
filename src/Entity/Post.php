@@ -67,6 +67,9 @@ class Post
 
     public function setTitle($title)
     {
+        if(strlen($title) < 4 OR strlen($title) > 65){
+            throw new \Exception('Titre invalide (taille doit être comprise entre 4 et 65 caractères)');
+        }
         $this->title = $title;
         return $this;
     }
@@ -79,6 +82,9 @@ class Post
 
     public function setContent($content)
     {
+        if(strlen($content) < 4 OR strlen($content) > 1000){
+            throw new \Exception('Titre invalide (taille doit être comprise entre 4 et 65 caractères)');
+        }
         $this->content = $content;
         return $this;
     }

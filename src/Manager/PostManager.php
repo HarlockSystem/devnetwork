@@ -3,6 +3,7 @@
 namespace DNW\Manager;
 
 use DNW\Entity\Post;
+use DNW\Entity\User;
 
 /**
  * Description of PoistManager
@@ -18,7 +19,7 @@ class PostManager
     {
         $this->db = $pdo;
     }
-    
+
     /**
      * Get list of posts
      * 
@@ -27,13 +28,28 @@ class PostManager
      * 
      * @return arrary
      */
-    public function findBy($page, array $criteria = null)
+    public function findBy($page = 1, array $criteria = null)
     {
         $sql = "SELECT * FROM Post";
-        $query = $this->db->prepare($sql);
-        $query->execute([]);
-        $post = new Post($this->db);
-//        return $query->fetchAll(\PDO::FETCH_CLASS, $post);
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([]);
+        $posts = [];
+        while ($post = $stmt->fetchObject(Post::class, [$this->db])) {
+            $posts[] = $post;
+        }
+        return $posts;
+    }
+    
+    public function findPostByUser($userId)
+    {
+        $sql = "SELECT * FROM Post WHERE UserId = :userId ORDER BY id DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['userId' => $userId]);
+        $posts = [];
+        while ($post = $stmt->fetchObject(Post::class, [$this->db])) {
+            $posts[] = $post;
+        }
+        return $posts;
     }
 
     /**
@@ -61,7 +77,7 @@ class PostManager
      */
     public function create($title, $content, $contentType, User $user)
     {
-        $post = new Post();
+        $post = new Post($this->db);
         try {
             $post->setTitle($title);
             $post->setContent($content);
@@ -78,7 +94,7 @@ class PostManager
             'title' => $post->getTitle(),
             'content' => $post->getContent(),
             'contentType' => $post->getContentType(),
-            'UserId' => $post->getUser()->getId(),
+            'userId' => $post->getUser()->getId(),
         ]);
         $id = $this->db->lastInsertId();
         return $this->findById($id);

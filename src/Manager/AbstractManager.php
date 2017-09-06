@@ -20,7 +20,6 @@ abstract class AbstractManager
         }
 
         $sql = 'SELECT * FROM '.$this->tableName.' WHERE ' . implode(' AND ', $params) .' LIMIT 1';
-//        echo $sql;
         $query = $this->db->prepare($sql);
         $query->execute($execute);
         return $query->fetchObject($this->className);
