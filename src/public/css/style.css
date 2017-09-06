@@ -218,6 +218,33 @@ nav a {
 	padding-top: 50px;
 }
 
+/*============================================
+=            Creation Publication            =
+============================================*/
+
+.container {
+    margin: 200px auto;
+}
+.glyphicon {
+    margin: 20px auto;
+}
+.input-group-addon {
+    width: 200px;
+}
+button {
+    margin: 20px auto;
+    text-align: center;
+}
+#editor {
+    margin:0 auto;
+}
+.ace_editor {
+    height: 400px!important;
+}
+#title{
+    width: 600px;
+}
+
 /*===================================
 =            Publication            =
 ===================================*/
@@ -237,6 +264,7 @@ nav a {
 }
 .content p {
 	border: 1px solid #962D3E;
+	border-radius: 10px;
 	padding: 5px;
 	margin: 0;
 }
