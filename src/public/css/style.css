@@ -85,7 +85,9 @@ nav a {
 	padding: 5px;
 	margin: 5px;
 }
-
+.inscrieButton {
+	color: white;
+}
 
 /*====================================
 =            Registration            =
