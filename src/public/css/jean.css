@@ -17,7 +17,8 @@
 }
 
 #editor {
-    height: 200px;
+
+
     margin:0 auto;
 }
 
@@ -27,7 +28,7 @@
 
 .post{
     width: 400px;
-    height: 100px;
+
     margin: auto;
 }
 

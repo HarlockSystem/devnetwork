@@ -5,11 +5,11 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../../public/css/bootstrap.min.css" />
-    <script type="text/javascript" src="../../public/js/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="../../public/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../../public/trumbowyg/dist/ui/trumbowyg.min.css">
-    <link rel="stylesheet" href="../../public/css/jean.css">
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css" />
+    <script type="text/javascript" src="../public/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../public/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../public/trumbowyg/dist/ui/trumbowyg.min.css">
+    <link rel="stylesheet" href="../public/css/jean.css">
     <title>Document</title>
 </head>
 <body >
@@ -68,8 +68,8 @@
 
 
 </main>
-<script src="../../public/trumbowyg/dist/trumbowyg.min.js"></script>
-<script src="../../public/js/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="../public/trumbowyg/dist/trumbowyg.min.js"></script>
+<script src="../public/js/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
 <script language="JavaScript">
 
     var theme = $("main").data("theme");
@@ -84,7 +84,8 @@
             editor[i].getSession().setMode("ace/mode/" + language);
             editor[i].setReadOnly(true);
             editor[i].getShowInvisibles(true);
-
+            
+            editor[i].setOption("maxLines", 50)
             var span = document.getElementById('language'+i);
            span.textContent = language ;
         }
