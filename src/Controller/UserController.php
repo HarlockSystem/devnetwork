@@ -74,14 +74,14 @@ class UserController extends Controller
         }
 
         if ($request->server->get('REQUEST_METHOD') == 'PUT') {
-            $user = $this->get('UserTool')->addUser($request);
+            $user = $this->get('UserTool')->editUser($request, $id);
         } else {
-            $user = $this->get('UsertTool')->showUser($id);
+            $user = $this->get('UserManager')->findById(1);
             if (!$user) {
-                // throw error/ 404
+              
             }
         }
-        $user = $this->get('UserManager')->findById(1);
+        
 
         return $this->render('User/edit.html', ['user' => $user]);
     }
@@ -124,11 +124,8 @@ class UserController extends Controller
             $this->get('Session')->setUser($user->getId(), $user->getName(), $user->getRole());
             return $this->redirectToRoute('UserShow', ['id' => $user->getId()]);
         } else {
-            if ($request->request->get('action') == 'login') {
-                return $this->redirectToRoute('UserLogin');
-            } else {
-                return $this->redirectToRoute('UserNew');
-            }
+            $this->get('Session')->addFlashMsg('warning', 'Login ou password invalide');
+            return $this->redirectToRoute('UserLogin');
         }
     }
 

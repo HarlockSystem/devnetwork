@@ -50,8 +50,10 @@ $container['Session'] = $container->share(function($c) {
 });
 
 // Templating
+$path_template = realpath(__DIR__ . '/../../src/viewstest');
+//$path_template = realpath(__DIR__ . '/../../src/views');
 $container['template_class'] = 'League\Plates\Engine';
-$container['param_template_source'] = realpath(__DIR__ . '/../../src/viewstest');
+$container['param_template_source'] = $path_template;
 $container['Plates'] = $container->share(function($c) {
     return new $c['template_class']($c['param_template_source']);
 });

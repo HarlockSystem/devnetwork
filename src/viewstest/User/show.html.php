@@ -8,19 +8,13 @@ $this->layout('layout', [
 
 <h4>User page</h4>
 
-<?php if ($session->isUser($user->getId())): ?>
-    <form action="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>" method="POST">
-        <input type="hidden" name="_method" value="PUT" />
-        <button>Edit</button>
-    </form>
-<?php endif; ?>
+<a href="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>">Edit</a>
+
 <h5>User Info</h5>
 getId: <?= $user->getId() ?><br>
 getName: <?= $user->getName() ?><br>
 getPassword: <?= $user->getPassword() ?><br>
-getPassword: <?= $user->getPassword() ?><br>
 getEmail: <?= $user->GetEmail() ?><br>
-getPassword: <?= $user->getPassword() ?><br>
 getFirstname: <?= $user->getFirstname() ?><br>
 getLastname: <?= $user->getLastname() ?><br>
 getSkill: <?= $user->getSkill() ?><br>

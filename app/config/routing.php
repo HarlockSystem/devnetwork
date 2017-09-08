@@ -12,7 +12,7 @@ $routes->add('Homepage', new Route('/', ['_controller' => 'Homepage:index'], [],
 $routes->add('Users', new Route('/users/{page}', ['_controller' => 'User:index', 'page' => 1], ['page' => '\d+'], 'GET'));
 
 $routes->add('UserShow', new Route('/user/{id}', ['_controller' => 'User:show'], ['id' => '\d+'], 'GET'));
-$routes->add('UserEdit', new Route('/user/{id}', ['_controller' => 'User:edit'], ['id' => '\d+'], 'PUT'));
+$routes->add('UserEdit', new Route('/user/edit/{id}', ['_controller' => 'User:edit'], ['id' => '\d+'], ['GET', 'PUT']));
 $routes->add('UserDel', new Route('/user/{id}', ['_controller' => 'User:delete'], ['id' => '\d+'], 'DELETE'));
 //
 $routes->add('UserNew', new Route('/user/sign_in', ['_controller' => 'User:new'], [], ['GET', 'POST']));

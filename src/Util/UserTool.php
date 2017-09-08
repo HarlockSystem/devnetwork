@@ -57,8 +57,22 @@ class UserTool
         return $rsp;
     }
     
-    public function editUser(Request $request)
+    public function editUser(Request $request, $id)
     {
+        $user = $this->usrMng->findById($id);
+        if(!$user){
+            
+        }
+
+        $fields = ['firstname', 'lastname', 'skill', 'bio', 'jobStatus', 'img'];
+        foreach ($fields as $field){
+            $method = 'set'.ucfirst($field);
+            echo $request->request->get($field).'---<br />';
+            $user->$method($request->request->get($field));
+        }
+        $this->usrMng->update($user);
+        return $user;
+        
         
     }
 
@@ -75,10 +89,20 @@ class UserTool
          */
         return $user;
     }
-
-    public function checkUser($user, $pass)
+    
+    /**
+     * Check User authorozation
+     * 
+     * @todo bcrypt
+     * 
+     * @param string $name
+     * @param string $pass
+     * 
+     * @return boolean
+     */
+    public function checkUser($name, $pass)
     {
-        $user = $this->usrMng->findOneBy(['name' => $user]);
+        $user = $this->usrMng->findOneBy(['name' => $name]);
 
         if (!$user) {
             return false;
@@ -88,5 +112,7 @@ class UserTool
         }
         return $user;
     }
+    
+    
 
 }

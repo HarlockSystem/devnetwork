@@ -111,23 +111,27 @@ class UserManager extends AbstractManager
      */
     public function update(User $user)
     {
+        echo '<pre>';
+        var_export($user);
+        echo '</pre>';
+        
         $sql = "UPDATE User SET name=:name, 
                 password=:pass, 
-                email=:email
-                firstname=:firstname
-                lastname=:lastname
-                skill=:skill
-                bio=:bio
-                jobStatus=:jobStatus
-                settings=:settings
-                img=:img
-                role=:role
-                statusUser=:statusUser
+                email=:email, 
+                firstname=:firstname, 
+                lastname=:lastname, 
+                skill=:skill, 
+                bio=:bio, 
+                jobStatus=:jobStatus, 
+                settings=:settings, 
+                img=:img, 
+                role=:role, 
+                statusUser=:statusUser 
                 WHERE id=:id";
         $query = $this->db->prepare($sql);
         $query->execute([
             'name' => $user->getName(),
-            'password' => $user->getPassword(),
+            'pass' => $user->getPassword(),
             'email' => $user->getEmail(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),

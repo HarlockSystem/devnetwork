@@ -16,7 +16,7 @@ class HomepageController extends Controller
     public function indexAction()
     {
         
-        return $this->render('Homepage/homepage.html');
+        return $this->render('User/login.html');
     }
 
 }

@@ -1,0 +1,40 @@
+.container {
+    margin: 200px auto;
+}
+
+.glyphicon {
+    margin: 20px auto;
+}
+
+.input-group-addon {
+    width: 200px;
+}
+
+button {
+    margin: 20px auto;
+    text-align: center;
+}
+
+#editor {
+    height: 200px;
+    margin:0 auto;
+}
+
+#title{
+    width: 600px;
+}
+
+.post{
+    width: 400px;
+    height: 200px;
+    margin:50px auto;
+}
+
+.trumbowyg-box{
+
+}
+
+h2
+{
+    margin: 0 auto;
+}

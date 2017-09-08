@@ -15,7 +15,7 @@ $this->layout('layout', [
     <input type="text" name="lastname" value="<?=$this->e($user->getLastName())?>" />
     <br />
     Skill<br>
-    <textarea name=skill"" id="" cols="30" rows="10"><?=$this->e($user->getSkill())?></textarea>
+    <textarea name="skill" id="" cols="30" rows="10"><?=$this->e($user->getSkill())?></textarea>
     <br />
     Bio<br>
     <textarea name="bio" id="" cols="30" rows="10"><?=$this->e($user->getBio())?></textarea>
