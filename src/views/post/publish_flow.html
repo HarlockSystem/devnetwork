@@ -14,39 +14,56 @@
 </head>
 <body >
 <main  data-theme="terminal"> <!-- data-theme doit etre set au debut la page je recupere en js la valeur pour l'affichage du theme du snippet -->
-    <h2>titre publication 0</h2>
-    <div id="editor0" class="post" data-snippet="0">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolor dolores earum illum,
-        labore odit suscipit ullam vitae. Amet asperiores autem dolorum maiores minima nemo omnis quas velit, vero voluptatibus.
+    <div class="post_container">
+        <div class="post_title">
+            <h2>titre publication 0</h2><span id="language0" ></span> by :<span id="author0"> authorx</span>
+        </div>
+        <div id="editor0" class="post" data-snippet="0">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur dolor dolores earum illum,
+            labore odit suscipit ullam vitae. Amet asperiores autem dolorum maiores minima nemo omnis quas velit, vero voluptatibus.
+        </div>
+        <div class="bttn_wrapper">
+            <button class="select_all" data-editor="0">Select All</button><button class="copy" data-editor="0">Copy</button>
+        </div>
     </div>
-    <h2>titre publication 1</h2>
-    <div id="editor1" class="post" data-snippet="1" data-language="c_cpp">
-        int g (void)
-        {
-            int i = 0;
-        }
-
-        int z = g();
+    <div class="post_container">
+        <div class="post_title">
+            <h2>titre publication 1</h2><span id="language1" ></span> by :<span id="author1"> authorx</span>
+        </div>
+        <div id="editor1" class="post" data-snippet="1" data-language="c_cpp">
+    int g (void){
+                    int i = 0;
+                }
+    int z = g();
+        </div>
+        <div class="bttn_wrapper">
+            <button class="select_all" data-editor="1">Select All</button><button class="copy" data-editor="1">Copy</button>
+        </div>
     </div>
-
-    <h2>titre publication 2</h2>
-    <div id="editor2" class="post" data-snippet="1" data-language="javascript">
-        function g ()
-        {
-            var i = 0;
-        }
-
-        var z = g();
+    <div class="post_container">
+        <div class="post_title">
+            <h2>titre publication 2</h2><span id="language2" ></span> by :<span id="author2"> authorx</span>
+        </div>
+        <div id="editor2" class="post" data-snippet="1" data-language="javascript">
+    function g ()
+                {
+                    var i = 0;
+                }
+    var z = g();
+        </div>
+        <div class="bttn_wrapper">
+            <button class="select_all" data-editor="2">Select All</button><button class="copy" data-editor="2">Copy</button>
+        </div>
     </div>
-
-    <h2>titre publication 3</h2>
-    <div id="editor3" class="post" data-snippet="1" data-language="php">
-        function g ()
-        {
-             $i = 0;
-        }
-
-        $z = g();
+    <div class="post_container">
+        <div class="post_title">
+            <h2>titre publication 3</h2><span id="language3" ></span> by :<span id="author3"> authorx</span>
+        </div>
+        <div id="editor3" class="post" data-snippet="1" data-language="sql">SELECT * FROM Post WHERE id = :id
+        </div>
+        <div class="bttn_wrapper">
+            <button class="select_all" data-editor="3">Select All</button><button class="copy" data-editor="3">Copy</button>
+        </div>
     </div>
 
 
@@ -60,18 +77,46 @@
     for (var i=0 ; i<4; i++)
     {
         if ($("#editor"+i).data("snippet")) {
+
             var language = $("#editor"+i).data("language");
             editor[i] = ace.edit("editor" + i);
             editor[i].setTheme("ace/theme/" + theme);
             editor[i].getSession().setMode("ace/mode/" + language);
             editor[i].setReadOnly(true);
+            editor[i].getShowInvisibles(true);
 
+            var span = document.getElementById('language'+i);
+           span.textContent = language ;
         }
     }
 
+    function snippetCopy() {
+
+                   document.execCommand('copy');
+           }
+
+
+    function snippetSelectAll() {
+            var nber = $(this).data("editor");
+            if ($("#editor" + nber ).data("snippet")) {
+                editor[nber].selectAll();
+                editor[nber].focus();
+            }
+            else if(!$("#editor"+nber).data("snippet"))
+            {
+                var doc = document.getElementById("editor" + nber);
+                window.getSelection().selectAllChildren( doc );
+            }
+    }
+
+    $(".select_all").click(snippetSelectAll);
+
+    $(".copy").click(snippetCopy);
+
+
+
+
+
 </script>
-
-
-
 </body>
 </html>

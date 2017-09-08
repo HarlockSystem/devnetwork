@@ -10,9 +10,10 @@
     width: 200px;
 }
 
-button {
+.bttn_wrapper {
     margin: 20px auto;
     text-align: center;
+
 }
 
 #editor {
@@ -26,15 +27,17 @@ button {
 
 .post{
     width: 400px;
-    height: 200px;
-    margin:50px auto;
+    height: 100px;
+    margin: auto;
 }
 
 .trumbowyg-box{
 
 }
 
-h2
+
+.post_title
 {
+    text-align: center;
     margin: 0 auto;
 }
