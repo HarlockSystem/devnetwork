@@ -13,12 +13,9 @@
 .bttn_wrapper {
     margin: 20px auto;
     text-align: center;
-
 }
 
 #editor {
-
-
     margin:0 auto;
 }
 
@@ -28,14 +25,8 @@
 
 .post{
     width: 400px;
-
     margin: auto;
 }
-
-.trumbowyg-box{
-
-}
-
 
 .post_title
 {
