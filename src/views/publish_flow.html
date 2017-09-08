@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="../public/css/bootstrap.min.css" />
     <script type="text/javascript" src="../public/js/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="../public/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../public/trumbowyg/dist/ui/trumbowyg.min.css">
     <link rel="stylesheet" href="../public/css/jean.css">
     <title>Document</title>
 </head>
@@ -84,7 +83,7 @@
             editor[i].getSession().setMode("ace/mode/" + language);
             editor[i].setReadOnly(true);
             editor[i].getShowInvisibles(true);
-            
+
             editor[i].setOption("maxLines", 50)
             var span = document.getElementById('language'+i);
            span.textContent = language ;
