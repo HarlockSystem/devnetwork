@@ -10,8 +10,6 @@
 
 html {
 	font-size: 62.5%;	
-	margin: 0;
-	padding: 0;	
 }
 body {
 	background-color: #FFFDFA;
@@ -20,6 +18,8 @@ body {
 	letter-spacing: 0.5px;
 	font-size: 1rem;
 	color: #343642;
+	margin: 0;
+	padding: 0;	
 }
 h1, h2, h3 {
 	font-family: 'Fjalla One', sans-serif;
@@ -218,6 +218,22 @@ nav a {
 	padding-top: 50px;
 }
 
+/*============================================
+=            Creation Publication            =
+============================================*/
+
+#publierButton {
+	background-color: #82BF56;
+	border-radius: 10px;
+	border: 0;
+	padding: 0 10px;
+	transition: 0.5s;
+}
+#publierButton:hover {
+	background-color: #68e270;
+}
+
+
 /*===================================
 =            Publication            =
 ===================================*/
@@ -237,6 +253,7 @@ nav a {
 }
 .content p {
 	border: 1px solid #962D3E;
+	border-radius: 10px;
 	padding: 5px;
 	margin: 0;
 }
