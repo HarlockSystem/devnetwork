@@ -1,7 +1,8 @@
 <?php
 $this->layout('layout', [
     'title' => 'User edit',
-    'path' => $path
+    'path' => $path,
+    'session' => $session
 ])
 ?>
 

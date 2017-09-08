@@ -62,21 +62,21 @@ class UserManager extends AbstractManager
      * 
      * @return User
      */
-    public function create($login, $password, $email)
+    public function create($name, $password, $email)
     {
         $user = new User();
         $user
-                ->setLogin($login)
+                ->setName($name)
                 ->setPassword($password)
                 ->setEmail($email)
                 ->setRole($user::ROLE_USER)
                 ->setStatusUser(0)
         ;
-        $sql = "INSERT INTO User (login, password, email, role, statusUser) 
-                VALUES(:login, :password, :email, :role, :statusUser)";
+        $sql = "INSERT INTO User (name, password, email, role, statusUser) 
+                VALUES(:name, :password, :email, :role, :statusUser)";
         $query = $this->db->prepare($sql);
         $query->execute([
-            'login' => $user->getLogin(),
+            'name' => $user->getName(),
             'password' => $user->getPassword(),
             'email' => $user->getEmail(),
             'role' => $user->getRole(),
@@ -111,7 +111,7 @@ class UserManager extends AbstractManager
      */
     public function update(User $user)
     {
-        $sql = "UPDATE User SET login=:login, 
+        $sql = "UPDATE User SET name=:name, 
                 password=:pass, 
                 email=:email
                 firstname=:firstname
@@ -126,7 +126,7 @@ class UserManager extends AbstractManager
                 WHERE id=:id";
         $query = $this->db->prepare($sql);
         $query->execute([
-            'login' => $user->getLogin(),
+            'name' => $user->getName(),
             'password' => $user->getPassword(),
             'email' => $user->getEmail(),
             'firstname' => $user->getFirstname(),

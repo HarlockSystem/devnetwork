@@ -21,6 +21,7 @@ class Session
         'userName' => null,
         'isLogged' => false,
         'isAdmin' => false,
+        'flashMsg' => []
     ];
 
     public function __construct()
@@ -39,6 +40,26 @@ class Session
                 $this->session[$key] = $value;
             }
         }
+    }
+
+    public function addFlashMsg($type, $msg)
+    {
+        $this->session['flashMsg'][] = [$type, $msg];
+    }
+
+    public function getFlashMsg()
+    {
+        $data = [];
+        if (isset($this->session['flashMsg'])) {
+            foreach ($this->session['flashMsg'] as $msg) {
+                $data[] = [
+                    'type' => $msg[0],
+                    'msg' => $msg[1],
+                ];
+            }
+        }
+        $this->session['flashMsg'] = [];
+        return $data;
     }
 
     public function start()
@@ -62,22 +83,44 @@ class Session
         return array_key_exists($key, $this->session) ? $this->session[$key] : $default;
     }
 
-    public function getId()
+    public function isLogged()
     {
-        return $this->saveHandler->getId();
+        return $this->get('isLogged');
     }
 
-    public function setUser($userId, $userName)
+    public function isUser($id)
+    {
+        if (($this->get('userId') == $id and $id > 0) or $this->get('isAdmin')) {
+            return true;
+        }
+        return false;
+    }
+
+//    public function getId()
+//    {
+//        return $this->saveHandler->getId();
+//    }
+
+    public function setUser($userId, $userName, $role)
     {
         $this->set('userId', $userId);
         $this->set('userName', $userName);
+        $this->set('isLogged', true);
+        $this->set('isAdmin', $role == 1 ? true : false);
+    }
+
+    public function debug()
+    {
+        echo '<pre>';
+        print_r($this->session);
+        echo '</pre>';
     }
 
     public function getUser()
     {
         return [
-            'userId' => $this->get('userId'),
-            'userName' => $this->get('userName'),
+            'id' => $this->get('userId'),
+            'name' => $this->get('userName'),
         ];
     }
 

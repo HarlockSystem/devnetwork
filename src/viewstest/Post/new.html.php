@@ -1,7 +1,8 @@
 <?php
 $this->layout('layout', [
     'title' => 'New Post',
-    'path' => $path
+    'path' => $path,
+    'session' => $session
 ])
 ?>
 

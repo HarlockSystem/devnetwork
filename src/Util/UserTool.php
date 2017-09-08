@@ -38,23 +38,28 @@ class UserTool
      */
     public function addUser(Request $request)
     {
-        $login = $request->request->get('login');
+        $name = $request->request->get('name');
         $pass = $request->request->get('password');
         $email = $request->request->get('email');
 
-        $hasUser = $this->usrMng->findOneBy(['login' => $login]);
+        $hasUser = $this->usrMng->findOneBy(['name' => $name]);
         $hasEmail = $this->usrMng->findOneBy(['email' => $email]);
 
         if ($hasUser or $hasEmail) {
-            return 'Login ou E-mail déjà enregistré';
+            return 'Name ou E-mail déjà enregistré';
         }
 
         try {
-            $rsp = $this->usrMng->create($login, $pass, $email);
+            $rsp = $this->usrMng->create($name, $pass, $email);
         } catch (\Exception $e) {
             $rsp = $e->getMessage();
         }
         return $rsp;
+    }
+    
+    public function editUser(Request $request)
+    {
+        
     }
 
     /**
@@ -73,7 +78,7 @@ class UserTool
 
     public function checkUser($user, $pass)
     {
-        $user = $this->usrMng->findOneBy(['login' => $user]);
+        $user = $this->usrMng->findOneBy(['name' => $user]);
 
         if (!$user) {
             return false;

@@ -101,7 +101,7 @@ CREATE TABLE `Tag` (
 
 CREATE TABLE `User` (
   `id` int(11) NOT NULL,
-  `login` varchar(65) NOT NULL COMMENT 'pseudo',
+  `name` varchar(65) NOT NULL COMMENT 'pseudo',
   `password` varchar(60) NOT NULL,
   `email` varchar(100) NOT NULL,
   `firstname` varchar(65) DEFAULT NULL,
@@ -194,7 +194,7 @@ ALTER TABLE `Tag`
 --
 ALTER TABLE `User`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nick_UNIQUE` (`login`),
+  ADD UNIQUE KEY `nick_UNIQUE` (`name`),
   ADD UNIQUE KEY `email_UNIQUE` (`email`);
 
 --

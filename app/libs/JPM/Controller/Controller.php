@@ -56,7 +56,7 @@ abstract class Controller
      * @param array $properties
      * @param array $getParameter
      */
-    protected function redirectToRoute($pathName, array $properties, array $params = [])
+    protected function redirectToRoute($pathName, array $properties = [], array $params = [])
     {
         $url = $this->container['Router']->generateUrl($pathName, $properties, $params);
         $response = new Response('', 301);

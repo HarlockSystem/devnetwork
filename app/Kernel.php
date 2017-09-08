@@ -35,10 +35,11 @@ class Kernel
      */
     public function handle()
     {
+        $this->container['Session']->debug();
         $router = $this->container['Router'];
         $router->setServerInfo($this->request->server);
         $ctrlCandidat = $router->run();
-
+        
         $ctrResolver = $this->container['ControllerResolver'];
         $ctrResolver->setRequest($this->request);
         $ctrResolver->setContainer($this->container);

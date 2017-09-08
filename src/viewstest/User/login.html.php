@@ -1,7 +1,8 @@
 <?php
 $this->layout('layout', [
     'title' => 'List Users',
-    'path' => $path
+    'path' => $path,
+    'session' => $session
 ])
 ?>
 
@@ -9,11 +10,11 @@ $this->layout('layout', [
 <form action="<?php echo $path->generateUrl('UserProcess') ?>" method="POST">
     
     Login: <br />
-    <input type="text" name="login" value="" />
+    <input type="text" name="name" value="" />
     <br />
     Password: <br />
     <input type="password" name="pass" value="" />
     <br />
-    <button>Log In</button>
+    <button name="action" value="login">Log In</button>
     
 </form>

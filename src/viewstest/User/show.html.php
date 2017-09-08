@@ -1,24 +1,36 @@
 <?php
 $this->layout('layout', [
     'title' => 'User profile',
-    'path' => $path
+    'path' => $path,
+    'session' => $session
 ])
 ?>
 
 <h4>User page</h4>
-<code>if auth: link:
-PostEdit
-<form action="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>" method="POST">
+
+<?php if ($session->isUser($user->getId())): ?>
+    <form action="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>" method="POST">
         <input type="hidden" name="_method" value="PUT" />
         <button>Edit</button>
     </form>
-
-</code><br>
+<?php endif; ?>
+<h5>User Info</h5>
 getId: <?= $user->getId() ?><br>
-getLogin: <?= $user->getLogin() ?><br>
+getName: <?= $user->getName() ?><br>
 getPassword: <?= $user->getPassword() ?><br>
+getPassword: <?= $user->getPassword() ?><br>
+getEmail: <?= $user->GetEmail() ?><br>
+getPassword: <?= $user->getPassword() ?><br>
+getFirstname: <?= $user->getFirstname() ?><br>
+getLastname: <?= $user->getLastname() ?><br>
+getSkill: <?= $user->getSkill() ?><br>
+getBio: <?= $user->getBio() ?><br>
+getJobStatus: <?= $user->getJobStatus() ?><br>
+getImg: <?= $user->getImg() ?><br>
+getRole: <?= $user->getRole() ?><br>
+getStatusUser: <?= $user->getStatusUser() ?><br>
 
-{ post for this user }
+<h5>User Posts</h5>
 
 <table>
     <?php foreach ($posts as $post): ?>
@@ -27,7 +39,7 @@ getPassword: <?= $user->getPassword() ?><br>
         </tr>
         <tr>
             <td>
-                
+
                 <a href="<?php echo $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a>
             </td>
         </tr>

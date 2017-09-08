@@ -51,7 +51,7 @@ class TagManager
             $error = $e->getMessage();
         }
         $sql = "INSERT INTO User (name, category) 
-                VALUES(:login, :name, :category)";
+                VALUES(:name, :category)";
         $query = $this->db->prepare($sql);
         $query->execute([
             'name' => $user->getName(),

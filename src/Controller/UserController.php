@@ -14,7 +14,7 @@ class UserController extends Controller
 {
 
     /**
-     * list users
+     * List users
      * 
      * @param int $page
      */
@@ -38,8 +38,8 @@ class UserController extends Controller
             die('user not found: redirect/404');
         }
 
+        // posts from user
         $posts = $this->get('PostManager')->findPostByUser($id);
-
 
         return $this->render('User/show.html', [
                     'user' => $user,
@@ -54,29 +54,24 @@ class UserController extends Controller
      */
     public function newAction(Request $request)
     {
-
-
         if ($request->server->get('REQUEST_METHOD') == 'POST') {
             $user = $this->get('UserTool')->addUser($request);
             if (is_string($user)) {
-                // error as string
-                // pass error as flash session?
-                echo '<pre>';
-                print_r($user);
-                echo '</pre>';
-                exit;
+                // $user as string = error msg
+                $this->get('Session')->addFlashMsg('alert', $user);
             } else {
+                $this->get('Session')->setUser($user->getId(), $user->getName(), $user->getRole());
                 return $this->redirectToRoute('UserShow', ['id' => $user->getId()]);
             }
         }
-
         return $this->render('User/new.html');
     }
 
     public function editAction(Request $request, $id)
     {
- 
-        //check session usrid = id
+        if (!$this->get('Session')->isUser($id)) {
+            return $this->redirectToRoute('UserLogin');
+        }
 
         if ($request->server->get('REQUEST_METHOD') == 'PUT') {
             $user = $this->get('UserTool')->addUser($request);
@@ -87,8 +82,8 @@ class UserController extends Controller
             }
         }
         $user = $this->get('UserManager')->findById(1);
-        
-        return $this->render('User/edit.html', ['user' => $user ]);
+
+        return $this->render('User/edit.html', ['user' => $user]);
     }
 
     /**
@@ -97,7 +92,9 @@ class UserController extends Controller
      */
     public function deleteAction($id)
     {
-        
+        if (!$this->get('Session')->isUser($id)) {
+            return $this->render('User/login.html');
+        }
     }
 
     /**
@@ -113,7 +110,8 @@ class UserController extends Controller
      */
     public function logoutAction()
     {
-        
+        $this->get('Session')->clear();
+        return $this->redirectToRoute('Homepage');
     }
 
     /**
@@ -121,11 +119,17 @@ class UserController extends Controller
      */
     public function processAction(Request $request)
     {
-        $user = $this->get('UserTool')->checkUser($request->request->get('login'), $request->request->get('pass'));
-        echo '<pre>';
-        var_export($user);
-        echo '</pre>';
-        exit;
+        $user = $this->get('UserTool')->checkUser($request->request->get('name'), $request->request->get('pass'));
+        if ($user) {
+            $this->get('Session')->setUser($user->getId(), $user->getName(), $user->getRole());
+            return $this->redirectToRoute('UserShow', ['id' => $user->getId()]);
+        } else {
+            if ($request->request->get('action') == 'login') {
+                return $this->redirectToRoute('UserLogin');
+            } else {
+                return $this->redirectToRoute('UserNew');
+            }
+        }
     }
 
 }

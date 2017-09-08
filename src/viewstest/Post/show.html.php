@@ -1,7 +1,8 @@
 <?php
 $this->layout('layout', [
     'title' => 'Show post',
-    'path' => $path
+    'path' => $path,
+    'session' => $session
 ])
 ?>
 <h4>Affichage Snippet</h4>
@@ -16,7 +17,7 @@ getStatusPost: <?= $post->getStatusPost() ?><br />
 <code>user info:</code><br>
 <?php $user = $post->getUser() ?>
 getId: <?= $user->getId() ?><br />
-getLogin: <?= $user->getLogin() ?><br />
+getName: <?= $user->getName() ?><br />
 
 
 <hr />
@@ -43,7 +44,7 @@ Add comment
         </tr>
         <tr>
             <td>
-                <a href="<?php echo $path->generateUrl('UserShow', ['id' => $comment->getUser()->getId()]) ?>"><?= $this->e($comment->getUser()->getLogin()) ?></a>
+                <a href="<?php echo $path->generateUrl('UserShow', ['id' => $comment->getUser()->getId()]) ?>"><?= $this->e($comment->getUser()->getName()) ?></a>
             </td>
         </tr>
 

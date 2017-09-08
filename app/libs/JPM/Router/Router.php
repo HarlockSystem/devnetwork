@@ -104,6 +104,12 @@ class Router
         $data['path'] = $this->server->get('PATH_INFO');
         $data['params'] = [];
 
+        // match against method
+        if (!empty($route->getMethods())) {
+            if (!in_array($this->server->get('REQUEST_METHOD'), $route->getMethods())) {
+                return false;
+            }
+        }
 
         // match against url
         $matches = null;
@@ -112,6 +118,7 @@ class Router
         if (empty($matches[0])) {
             return false;
         }
+
         $i = 1;
         foreach ($route->getRequirements() as $key => $v) {
             if (isset($route->getDefaults()[$key])) {
@@ -125,16 +132,12 @@ class Router
             $i++;
         }
 
-        // match against method
-        if (!empty($route->getMethods())) {
-            if (!in_array($this->server->get('REQUEST_METHOD'), $route->getMethods())) {
-                return false;
-            }
-        }
+
 
         if (!isset($route->getDefaults()['_controller'])) {
             throw new \Exception('unable to find controller');
         }
+
         $data['controller'] = $route->getDefaults()['_controller'];
 
         return $data;
@@ -164,15 +167,15 @@ class Router
             } else {
                 if (!isset($route->getDefaults()[$key])) {
                     throw new \InvalidArgumentException('param "' . $key . '" for route "' . $name . '" not found');
-                }else{
-                     $url = str_replace('{' . $key . '}', null, $url);
+                } else {
+                    $url = str_replace('{' . $key . '}', null, $url);
                 }
             }
         }
 
 
         $queryString = empty($params) ? null : '?' . http_build_query($params);
-        return $this->server->getUri() . $url . $queryString;
+        return rtrim($this->server->getUri() . $url . $queryString, '/');
     }
 
 }

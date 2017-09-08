@@ -10,7 +10,7 @@ class User
     const DELETE_STATUS = 1;
 
     protected $id;
-    protected $login;
+    protected $name;
     protected $email;
     protected $password;
     protected $firstname;
@@ -30,9 +30,9 @@ class User
         return $this->id;
     }
 
-    public function getLogin()
+    public function getName()
     {
-        return $this->login;
+        return $this->name;
     }
 
     public function getEmail()
@@ -101,13 +101,13 @@ class User
     }
 
 
-    public function setLogin($login)
+    public function setName($name)
     {
 
-        if(strlen($login) < 4 OR strlen($login) > 65){
-            throw new \Exception('Login invalide (taille doit être comprise entre 4 et 63 caractères)');
+        if(strlen($name) < 4 OR strlen($name) > 65){
+            throw new \Exception('Name invalide (taille doit être comprise entre 4 et 63 caractères)');
         }
-        $this->login = $login;
+        $this->name = $name;
         return $this;
     }
 

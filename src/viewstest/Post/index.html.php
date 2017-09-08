@@ -1,7 +1,8 @@
 <?php
 $this->layout('layout', [
     'title' => 'Index Posts',
-    'path' => $path
+    'path' => $path,
+    'session' => $session
 ])
 ?>
 <h4>Liste Snippet</h4>
@@ -15,7 +16,7 @@ $this->layout('layout', [
             <td>
                 <a href="<?php echo $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a>
                 by
-                <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getLogin()) ?></a>
+                <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
             </td>
         </tr>
         <tr>

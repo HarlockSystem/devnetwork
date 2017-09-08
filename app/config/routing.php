@@ -4,17 +4,18 @@ use JPM\Router\Route;
 
 $routes = $container['Router'];
 
-$routes->add('Homepage', new Route('/home', ['_controller' => 'Homepage:index'], [], 'GET'));
+$routes->add('Homepage', new Route('/', ['_controller' => 'Homepage:index'], [], 'GET'));
 
 //User's Url
 
 // User
 $routes->add('Users', new Route('/users/{page}', ['_controller' => 'User:index', 'page' => 1], ['page' => '\d+'], 'GET'));
-$routes->add('UserNew', new Route('/user/new', ['_controller' => 'User:new'], [], ['GET', 'POST']));
+
 $routes->add('UserShow', new Route('/user/{id}', ['_controller' => 'User:show'], ['id' => '\d+'], 'GET'));
 $routes->add('UserEdit', new Route('/user/{id}', ['_controller' => 'User:edit'], ['id' => '\d+'], 'PUT'));
 $routes->add('UserDel', new Route('/user/{id}', ['_controller' => 'User:delete'], ['id' => '\d+'], 'DELETE'));
 //
+$routes->add('UserNew', new Route('/user/sign_in', ['_controller' => 'User:new'], [], ['GET', 'POST']));
 $routes->add('UserLogin', new Route('/user/login', ['_controller' => 'User:login'], [], 'GET'));
 $routes->add('UserLogout', new Route('/user/logout', ['_controller' => 'User:logout'], [], 'GET'));
 $routes->add('UserProcess', new Route('/user/process', ['_controller' => 'User:process'], [], 'POST'));
@@ -38,7 +39,7 @@ $routes->add('PostDelete', new Route('/post/{id}', ['_controller' => 'Post:delet
 
 // Comment
 $routes->add('Comments', new Route('/comments/{page}', ['_controller' => 'Comment:index', 'page' => 1], ['page' => '\d+'], 'GET'));
-$routes->add('CommentShow', new Route('/comment/{id}', ['_controller' => 'Comment:show'], ['id' => '\d+'], 'GET'));
+//$routes->add('CommentShow', new Route('/comment/{id}', ['_controller' => 'Comment:show'], ['id' => '\d+'], 'GET'));
 $routes->add('CommentDelete', new Route('/comment/{id}', ['_controller' => 'Comment:delete'], ['id' => '\d+'], 'DELETE'));
 // Comment by Post
 $routes->add('CommentNew', new Route('/comment/new/{id_post}', ['_controller' => 'Comment:new'], ['id_post' => '\d+'], ['GET', 'POST']));
