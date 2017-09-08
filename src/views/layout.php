@@ -2,7 +2,9 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
+        
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <base href="http://localhost/project/devnetwork/web/" />
         <link rel="icon" type="image/png" href="public/img/logo.png" />
         <title>devNetwork</title>
         <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto" rel="stylesheet">

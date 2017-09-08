@@ -6,7 +6,6 @@ $this->layout('layout', [
 ])
 ?>
 
-<?=$this->asset('/css')?>
 <main class="wrapper aligner">
     <form method="POST" name="login" action="<?php echo $path->generateUrl('UserProcess') ?>" id="login_hp" class="home">
         <h1>Se connecter</h1>
