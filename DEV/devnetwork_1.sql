@@ -108,6 +108,7 @@ CREATE TABLE `User` (
   `lastname` varchar(65) DEFAULT NULL,
   `skill` varchar(1000) DEFAULT NULL COMMENT 'user skill',
   `bio` varchar(1000) DEFAULT NULL,
+  `jobs` varchar(1000) DEFAULT NULL,
   `jobStatus` int(11) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT NULL,
