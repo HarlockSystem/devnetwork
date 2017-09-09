@@ -16,6 +16,7 @@ class User
     protected $firstname;
     protected $lastname;
     protected $skill;
+    protected $jobs;
     protected $bio;
     protected $jobStatus;
     protected $createdAt;
@@ -60,6 +61,30 @@ class User
         return $this->skill;
     }
 
+    public function getArrSkill()
+    {
+        if (empty($this->skill)) {
+            return [];
+        }
+        return explode(',', $this->skill);
+    }
+
+    public function getJobs()
+    {
+        return $this->jobs;
+    }
+    public function getArrJobs()
+    {
+        if (empty($this->jobs)) {
+            return [];
+        }
+        $jobs = explode(',', $this->jobs);
+        $data = [];
+        foreach ($jobs as $job){
+            $data[] = explode(':', $job);
+        }
+        return $data;
+    }
     public function getBio()
     {
         return $this->bio;
@@ -100,11 +125,10 @@ class User
         return $this->statusUser;
     }
 
-
     public function setName($name)
     {
 
-        if(strlen($name) < 4 OR strlen($name) > 65){
+        if (strlen($name) < 4 OR strlen($name) > 65) {
             throw new \Exception('Name invalide (taille doit être comprise entre 4 et 63 caractères)');
         }
         $this->name = $name;
@@ -113,7 +137,7 @@ class User
 
     public function setEmail($email)
     {
-        if(false == filter_var($email, FILTER_VALIDATE_EMAIL)){
+        if (false == filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new \Exception('Email non valide');
         }
         $this->email = $email;
@@ -141,6 +165,12 @@ class User
     public function setSkill($skill)
     {
         $this->skill = $skill;
+        return $this;
+    }
+    
+    public function setJobs($jobs)
+    {
+        $this->jobs = $jobs;
         return $this;
     }
 
@@ -191,7 +221,5 @@ class User
         $this->statusUser = $statusUser;
         return $this;
     }
-
-
 
 }

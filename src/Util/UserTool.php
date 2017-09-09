@@ -64,10 +64,9 @@ class UserTool
             
         }
 
-        $fields = ['firstname', 'lastname', 'skill', 'bio', 'jobStatus', 'img'];
+        $fields = ['firstname', 'lastname', 'skill', 'jobs', 'bio', 'jobStatus', 'img'];
         foreach ($fields as $field){
             $method = 'set'.ucfirst($field);
-            echo $request->request->get($field).'---<br />';
             $user->$method($request->request->get($field));
         }
         $this->usrMng->update($user);
