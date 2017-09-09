@@ -32,7 +32,7 @@ $routes->add('TagUserNew', new Route('/tag/user/{id_post}', ['_controller' => 'T
 
 // Post
 $routes->add('Posts', new Route('/posts/{page}', ['_controller' => 'Post:index', 'page' => 1], ['page' => '\d+'], 'GET'));
-$routes->add('PostNew', new Route('/post/new', ['_controller' => 'Post:new'], [], ['GET', 'POST']));
+$routes->add('PostNew', new Route('/post/{type}', ['_controller' => 'Post:new'], ['type' => 'code|text'], ['GET', 'POST']));
 $routes->add('PostShow', new Route('/post/{id}', ['_controller' => 'Post:show'], ['id' => '\d+'], 'GET'));
 $routes->add('PostEdit', new Route('/post/{id}', ['_controller' => 'Post:edit'], ['id' => '\d+'], 'PUT'));
 $routes->add('PostDelete', new Route('/post/{id}', ['_controller' => 'Post:delete'], ['id' => '\d+'], 'DELETE'));
