@@ -5,26 +5,23 @@ $this->layout('layout', [
     'session' => $session
 ])
 ?>
-
-<form action="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>" method="POST">
-    <input type="hidden" name="_method" value="PUT" />
-    FirstName<br>
-    <input type="text" name="firstname" value="<?=$this->e($user->getFirstName())?>" />
-    <br />
-    LastName<br>
-    <input type="text" name="lastname" value="<?=$this->e($user->getLastName())?>" />
-    <br />
-    Skill<br>
-    <textarea name="skill" id="" cols="30" rows="10"><?=$this->e($user->getSkill())?></textarea>
-    <br />
-    Bio<br>
-    <textarea name="bio" id="" cols="30" rows="10"><?=$this->e($user->getBio())?></textarea>
-    <br />
-    JobStatus<br>
-    <input type="text" name="jobstatus" value="<?=$this->e($user->getJobStatus())?>" />
-    <br />
-    Img<br>
-    <input type="file" name="img" value="<?=$this->e($user->getImg())?>" />
-    <br />
-    <button>Send</button>
-</form>
+<main class="wrapper aligner profil">
+    <form action="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>" method="POST">
+        <input type="hidden" name="_method" value="PUT" />
+        <h2>FirstName</h2>
+        <input type="text" name="firstname" value="<?= $this->e($user->getFirstName()) ?>" />
+        <h2>LastName</h2>
+        <input type="text" name="lastname" value="<?= $this->e($user->getLastName()) ?>" />
+        <h2>Skill</h2>
+        <textarea name="skill" id="" cols="30" rows="10"><?= $this->e($user->getSkill()) ?></textarea>
+        <h2>Jobs</h2>
+        <textarea name="jobs" id="" cols="30" rows="10"><?= $this->e($user->getJobs()) ?></textarea>
+        <h2>Bio</h2>
+        <textarea name="bio" id="" cols="30" rows="10"><?= $this->e($user->getBio()) ?></textarea>
+        <h2>Img</h2>
+        <input type="file" name="img" value="<?= $this->e($user->getImg()) ?>" />
+        <br />
+        <br />
+        <button>Send</button>
+    </form>
+</main>

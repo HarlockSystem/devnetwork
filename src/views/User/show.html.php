@@ -6,55 +6,46 @@ $this->layout('layout', [
 ])
 ?>
 
-<?php echo __DIR__ ?>
-
 <main class="wrapper aligner profil">
     <img class="imageProfil" src="../src/public/images/fakeprofil.jpg" alt="photo de profil">
-    <h1>Linkharkat</h1>
+    <h1><?= $this->e($user->getName()) ?></h1>
     <!-- <h2>Dejour Adam</h2> <-->
     <div class="encadrement">
+        <?php if (!empty($user->getArrSkill())): ?>
         <div class="cadre mainSkill">
             <h2>Skill</h2>
             <div class="skill">
-                <img src="../src/public/images/skill/html5.svg" alt="html5">
-                <img src="../src/public/images/skill/css3.svg" alt="css3">
-                <img src="../src/public/images/skill/less.svg" alt="less">
-                <img src="../src/public/images/skill/js.svg" alt="javascript">
-                <img src="../src/public/images/skill/vue.svg" alt="vue">
-                <img src="../src/public/images/skill/php.svg" alt="php">
-                <img src="../src/src/public/images/skill/mysql.svg" alt="mysql">
+                <?php foreach ($user->getArrSkill() as $skill): ?>
+                    <img src="../src/public/images/skill/<?= $this->e(trim($skill)); ?>.svg" alt="<?= $this->e(trim($skill)); ?>">
+                <?php endforeach; ?>
             </div>
         </div>
+        <?php endif; ?>
+        <?php if (!empty($user->getArrJobs())): ?>
         <div class="cadre mainEntreprise">
             <h2>Entreprise</h2>
             <table class="entreprise">
+                <?php foreach ($user->getArrJobs() as $job): ?>
                 <tr>
-                    <td>Airbus</td>
-                    <td>Back-End</td>
+                    <td><?=$this->e($job[0])?></td>
+                    <td><?=$this->e($job[1])?></td>
                 </tr>
-                <tr>
-                    <td>Dior</td>
-                    <td>Back-End</td>
-                </tr>
-                <tr>
-                    <td>Cartier</td>
-                    <td>Front-End</td>
-                </tr>
-                <tr>
-                    <td>Tesla</td>
-                    <td>Front-End</td>
-                </tr>
-                <tr>
-                    <td>Victorinox</td>
-                    <td>UX/UI</td>
-                </tr>
+                <?php endforeach; ?>
             </table>
         </div>
+        <?php endif; ?>
     </div>
+    <?php if (!empty($user->getBio())): ?>
     <div class="biographie">
         <h3>Biographie</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat cumque exercitationem nam veniam provident earum odit non aperiam assumenda temporibus eaque fugiat, modi ipsam, fugit, aliquid? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi, rerum! Blanditiis cupiditate libero doloribus et maxime, fugit in saepe? Nam ad ex numquam amet esse tenetur quo cupiditate eius vel!
-        </p>
+        <p><?=$this->e($user->getBio())?></p>
     </div>
-    <a href="" class="mail"><h2>julie.delacours@gmail.com</h2></a>
+    <?php endif; ?>
+    <a href="" class="mail"><h2><?=$this->e($user->getEmail())?></h2></a>
+    <?php
+    // user edit
+    if($session->isUser($user->getId())):
+    ?>
+    <a href="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>">Edit</a>
+    <?php endif; ?>
 </main>
