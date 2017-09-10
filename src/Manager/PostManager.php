@@ -12,7 +12,6 @@ use DNW\Entity\User;
  */
 class PostManager
 {
-
     protected $db;
 
     public function __construct(\PDO $pdo)
@@ -39,7 +38,7 @@ class PostManager
         }
         return $posts;
     }
-    
+
     public function findPostByUser($userId)
     {
         $sql = "SELECT * FROM Post WHERE UserId = :userId ORDER BY id DESC";
@@ -75,26 +74,25 @@ class PostManager
      * @param type $contentType
      * @return type
      */
-    public function create($title, $content, $contentType, User $user)
+    public function create($title, $content, $contentType, User $user, $language = null)
     {
         $post = new Post($this->db);
-        try {
-            $post->setTitle($title);
-            $post->setContent($content);
-            $post->setContentType($contentType);
-            $post->setUser($user);
-        } catch (Exception $e) {
-            $error = $e->getMessage();
-        }
+        $post->setTitle($title);
+        $post->setContent($content);
+        $post->setContentType($contentType);
+        $post->setUser($user);
+        $post->setLanguage($language);
 
-        $sql = "INSERT INTO Post (title, content, contentType, UserId)
-                VALUES(:title, :content, :contentType, :userId)";
+
+        $sql = "INSERT INTO Post (title, content, contentType, UserId, language)
+                VALUES(:title, :content, :contentType, :userId, :language)";
         $query = $this->db->prepare($sql);
         $query->execute([
             'title' => $post->getTitle(),
             'content' => $post->getContent(),
             'contentType' => $post->getContentType(),
             'userId' => $post->getUser()->getId(),
+            'language' => $post->getLanguage(),
         ]);
         $id = $this->db->lastInsertId();
         return $this->findById($id);
@@ -114,8 +112,17 @@ class PostManager
         $query->execute([
             'title' => $post->getTitle(),
             'content' => $post->getContent(),
+            'id' => $post->getId()
         ]);
         return $this->findById($post->getId());
+    }
+
+    public function findFavoritesByUser($id_user)
+    {
+        $sql = "SELECT p.* FROM Post p INNER JOIN FavoriteUserPost fu ON fu.PostId = p.id AND fu.UserId = :id";
+        $query = $this->db->prepare($sql);
+        $query->execute(['id' => $id_user]);
+        return $query->fetchAll(\PDO::FETCH_CLASS, Post::class, [$this->db]);
     }
 
 }

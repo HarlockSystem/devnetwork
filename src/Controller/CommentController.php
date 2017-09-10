@@ -12,52 +12,35 @@ use JPM\HTTP\Request;
  */
 class CommentController extends Controller
 {
-
+    
     /**
-     * list comments
+     * Add new comment
      * 
-     * @param int $page
+     * @param Request $request
+     * @param int $id_post Post id
+     * 
+     * @return Response
      */
-    public function indexAction($page)
-    {
-//        $posts = $this->get('PostTool')->getPosts($page);
-//
-//        return $this->render('Post/index.html', ['posts' => $posts]);
-    }
-
     public function newAction(Request $request, $id_post)
     {
         $post = $this->get('PostManager')->findById($id_post);
         if (!$post) {
-            //redirect
+            $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver le post#' . $id_post);
+            return $this->redirectToRoute('Posts');
         }
-
-
+        $user = $this->get('UserManager')->findById($this->get('Session')->get('userId'));
+        if (!$user) {
+            $this->get('Session')->addFlashMsg('warning', 'Vous devez vous connecter pour poster un commentaire');
+            return $this->redirectToRoute('UserLogin');
+        }
 
         if ($request->server->get('REQUEST_METHOD') == 'POST') {
-            
-            //use session for id user
-            $user = $this->get('UserManager')->findById(1);
-            
-
             $comment = $this->get('CommentTool')->addComment($user, $post, $request);
             if (is_string($comment)) {
-                // error as string
-                echo '<pre>';
-                print_r($user);
-                echo '</pre>';
-            } else {
-                return $this->redirectToRoute('PostShow', ['id' => $post->getId()]);
+                $this->get('Session')->addFlashMsg('alert', $comment);
             }
-            echo '<pre>';
-            var_export($comment);
-            echo '</pre>';
-            exit;
         }
-        echo '<pre>';
-        var_export($post);
-        echo '</pre>';
-        exit;
+        return $this->redirectToRoute('PostShow', ['id' => $id_post]);
     }
 
 }

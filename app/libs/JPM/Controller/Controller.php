@@ -48,6 +48,13 @@ abstract class Controller
     {
         return $this->container->offsetExists($id);
     }
+    
+    protected function redirect($url)
+    {
+        $response = new Response('', 301);
+        $response->isRedirect($url);
+        return $response;
+    }
 
     /**
      * Redirect to a Routename

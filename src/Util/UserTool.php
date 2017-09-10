@@ -4,10 +4,11 @@ namespace DNW\Util;
 
 use DNW\Manager\UserManager;
 use JPM\HTTP\Request;
+use DNW\Entity\Post;
+use DNW\Entity\User;
 
 class UserTool
 {
-
     protected $usrMng;
 
     public function __construct(UserManager $usrMng)
@@ -56,23 +57,21 @@ class UserTool
         }
         return $rsp;
     }
-    
+
     public function editUser(Request $request, $id)
     {
         $user = $this->usrMng->findById($id);
-        if(!$user){
+        if (!$user) {
             
         }
 
-        $fields = ['firstname', 'lastname', 'skill', 'jobs', 'bio', 'jobStatus', 'img'];
-        foreach ($fields as $field){
-            $method = 'set'.ucfirst($field);
+        $fields = ['firstname', 'lastname', 'theme', 'skill', 'jobs', 'bio', 'jobStatus', 'img'];
+        foreach ($fields as $field) {
+            $method = 'set' . ucfirst($field);
             $user->$method($request->request->get($field));
         }
         $this->usrMng->update($user);
         return $user;
-        
-        
     }
 
     /**
@@ -88,7 +87,7 @@ class UserTool
          */
         return $user;
     }
-    
+
     /**
      * Check User authorozation
      * 
@@ -111,7 +110,17 @@ class UserTool
         }
         return $user;
     }
-    
-    
+
+    public function addFavoritePost(User $user, Post $post)
+    {
+        if ($user->getId() != $post->getUser()->getId()) {
+            $this->usrMng->addFavorite($user->getId(), $post->getId());
+        }
+    }
+
+    public function removeFavoritePost(User $user, Post $post)
+    {
+        $this->usrMng->removeFavorite($user->getId(), $post->getId());
+    }
 
 }

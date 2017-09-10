@@ -21,7 +21,9 @@ class Session
         'userName' => null,
         'isLogged' => false,
         'isAdmin' => false,
-        'flashMsg' => []
+        'theme' => 'monokai',
+        'flashMsg' => [],
+        
     ];
 
     public function __construct()
@@ -96,15 +98,12 @@ class Session
         return false;
     }
 
-//    public function getId()
-//    {
-//        return $this->saveHandler->getId();
-//    }
 
-    public function setUser($userId, $userName, $role)
+    public function setUser($userId, $userName, $role, $theme)
     {
         $this->set('userId', $userId);
         $this->set('userName', $userName);
+        $this->set('theme', $theme);
         $this->set('isLogged', true);
         $this->set('isAdmin', $role == 1 ? true : false);
     }

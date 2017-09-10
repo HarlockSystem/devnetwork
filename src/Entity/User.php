@@ -21,7 +21,7 @@ class User
     protected $jobStatus;
     protected $createdAt;
     protected $updatedAt;
-    protected $settings;
+    protected $theme;
     protected $img;
     protected $role;
     protected $statusUser;
@@ -105,9 +105,9 @@ class User
         return $this->updatedAt;
     }
 
-    public function getSettings()
+    public function getTheme()
     {
-        return $this->settings;
+        return $this->theme;
     }
 
     public function getImg()
@@ -129,7 +129,7 @@ class User
     {
 
         if (strlen($name) < 4 OR strlen($name) > 65) {
-            throw new \Exception('Name invalide (taille doit être comprise entre 4 et 63 caractères)');
+            throw new \Exception('Nom invalide (taille doit être comprise entre 4 et 63 caractères)');
         }
         $this->name = $name;
         return $this;
@@ -198,9 +198,9 @@ class User
         return $this;
     }
 
-    public function setSettings($settings)
+    public function setTheme($theme)
     {
-        $this->settings = $settings;
+        $this->theme = $theme;
         return $this;
     }
 

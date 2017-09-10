@@ -2,24 +2,29 @@
 
 namespace DNW\Manager;
 
+use DNW\Manager\AbstractManager;
 use DNW\Entity\Tag;
+use DNW\Entity\Post;
 
 /**
  * Description of TagManager
  *
  * @author was137
  */
-class TagManager
+class TagManager extends AbstractManager
 {
     protected $db;
+    protected $className;
 
     public function __construct(\PDO $pdo)
     {
         $this->db = $pdo;
+        $this->tableName = 'Tag';
+        $this->className = Tag::class;
     }
     
     /**
-     * Find an user by id
+     * Find a tag by id
      * 
      * @param int $id
      * 
@@ -30,10 +35,21 @@ class TagManager
         $sql = "SELECT * FROM Tag WHERE id = :id";
         $query = $this->db->prepare($sql);
         $query->execute(['id' => $id]);
-        $user = $query->fetchObject(Tag::class);
-        return $user;
+        $tag = $query->fetchObject(Tag::class);
+        return $tag;
     }
     
+    public function findInPost($id)
+    {
+        $sql = "SELECT t.id, t.name FROM Tag t INNER JOIN PostTag pt ON pt.TagId = t.id WHERE pt.PostId = :id";
+        $query = $this->db->prepare($sql);
+        $query->execute([
+            'id' => $id
+        ]);
+        return $query->fetchAll(\PDO::FETCH_CLASS, Tag::class);
+    }
+
+
     /**
      * Create an tag
      * 
@@ -41,21 +57,18 @@ class TagManager
      * 
      * @return Tag
      */
-    public function create($name, $category)
+    public function create($name)
     {
-        $user = new Tag();
+        $tag = new Tag();
         try {
-            $user->setName($name);
-            $user->setCategory($category);
+            $tag->setName($name);
         } catch (\Exception $e) {
             $error = $e->getMessage();
         }
-        $sql = "INSERT INTO User (name, category) 
-                VALUES(:name, :category)";
+        $sql = "INSERT INTO Tag (name) VALUES(:name)";
         $query = $this->db->prepare($sql);
         $query->execute([
-            'name' => $user->getName(),
-            'category' => $user->getCategory(),
+            'name' => $tag->getName(),
         ]);
         $id = $this->db->lastInsertId();
         return $this->findById($id);
@@ -65,7 +78,7 @@ class TagManager
      * Remove a Tag
      * (soft delete)
      * 
-     * @param User $user
+     * @param $tag Tag
      */
     public function remove(Tag $tag)
     {
@@ -73,6 +86,25 @@ class TagManager
         $query = $this->db->prepare($sql);
         $query->execute([
             'id' => $tag->getId(),
+        ]);
+    }
+    
+    public function addPostTag(Post $post, Tag $tag)
+    {
+        $sql = "INSERT INTO PostTag (PostId, TagId) VALUES (:postid, :tagid)";
+        $query = $this->db->prepare($sql);
+        $query->execute([
+            'postid' => $post->getId(),
+            'tagid' => $tag->getId(),
+        ]);
+    }
+    
+    public function removeAllTag(Post $post)
+    {
+        $sql = "DELETE FROM PostTag WHERE PostId = :postid";
+        $query = $this->db->prepare($sql);
+        $query->execute([
+            'postid' => $post->getId(),
         ]);
     }
 }

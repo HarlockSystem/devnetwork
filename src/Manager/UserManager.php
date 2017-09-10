@@ -12,7 +12,6 @@ use DNW\Entity\User;
  */
 class UserManager extends AbstractManager
 {
-
     protected $db;
     protected $className;
 
@@ -111,10 +110,6 @@ class UserManager extends AbstractManager
      */
     public function update(User $user)
     {
-        echo '<pre>';
-        var_export($user);
-        echo '</pre>';
-        
         $sql = "UPDATE User SET name=:name, 
                 password=:pass, 
                 email=:email, 
@@ -124,7 +119,7 @@ class UserManager extends AbstractManager
                 jobs=:jobs, 
                 bio=:bio, 
                 jobStatus=:jobStatus, 
-                settings=:settings, 
+                theme=:theme, 
                 img=:img, 
                 role=:role, 
                 statusUser=:statusUser 
@@ -140,13 +135,34 @@ class UserManager extends AbstractManager
             'jobs' => $user->getJobs(),
             'bio' => $user->getBio(),
             'jobStatus' => $user->getJobStatus(),
-            'settings' => $user->getSettings(),
+            'theme' => $user->getTheme(),
             'img' => $user->getImg(),
             'role' => $user->getRole(),
             'statusUser' => $user->getStatusUser(),
             'id' => $user->getId()
         ]);
         return $this->findById($user->getId());
+    }
+    
+    
+
+    public function addFavorite($id_user, $id_post)
+    {
+        $sql = "REPLACE INTO FavoriteUserPost (UserId, PostId) VALUES (:userId, :postId)";
+        $query = $this->db->prepare($sql);
+        $query->execute([
+            'userId' => $id_user,
+            'postId' => $id_post,
+        ]);
+    }
+    public function removeFavorite($id_user, $id_post)
+    {
+        $sql = "DELETE FROM FavoriteUserPost WHERE UserId = :userId AND PostId = :postId";
+        $query = $this->db->prepare($sql);
+        $query->execute([
+            'userId' => $id_user,
+            'postId' => $id_post,
+        ]);
     }
 
 }

@@ -65,6 +65,7 @@ CREATE TABLE `Post` (
   `title` varchar(60) NOT NULL,
   `contentType` tinyint(4) NOT NULL COMMENT 'snippet\ncomment\n',
   `content` varchar(1000) NOT NULL,
+  `language` varchar(100) NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT NULL,
   `statusPost` tinyint(4) NOT NULL COMMENT 'active\npending \ndelete'
@@ -90,7 +91,6 @@ CREATE TABLE `PostTag` (
 CREATE TABLE `Tag` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `category` tinyint(4) DEFAULT NULL COMMENT 'program language\ngeneral'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -112,7 +112,7 @@ CREATE TABLE `User` (
   `jobStatus` int(11) DEFAULT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updatedAt` timestamp NULL DEFAULT NULL,
-  `settings` varchar(1000) DEFAULT NULL COMMENT 'profile display',
+  `theme` varchar(60) DEFAULT 'monokai',
   `img` varchar(45) DEFAULT NULL,
   `role` tinyint(4) NOT NULL,
   `statusUser` tinyint(4) NOT NULL COMMENT 'active\ndelete\n'

@@ -12,7 +12,12 @@ use JPM\HTTP\Request;
  */
 class HomepageController extends Controller
 {
-
+    
+    /**
+     * Homepage
+     * 
+     * @return Response
+     */
     public function indexAction()
     {
         

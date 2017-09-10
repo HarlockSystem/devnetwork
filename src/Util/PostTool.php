@@ -9,7 +9,6 @@ use JPM\HTTP\Request;
 
 class PostTool
 {
-
     protected $postMng;
     protected $usrMng;
 
@@ -18,7 +17,7 @@ class PostTool
         $this->postMng = $postMng;
         $this->usrMng = $usrMng;
     }
-    
+
     public function getPosts($page)
     {
         $posts = $this->postMng->findBy($page);
@@ -27,15 +26,44 @@ class PostTool
          */
         return $posts;
     }
-    
-    public function addPost(User $user, Request $request)
+
+    public function addPost(User $user, $type, Request $request)
     {
+
         $content = $request->request->get('content');
+        $language = $request->request->get('language');
         $title = $request->request->get('title');
-        $contentType = $request->request->get('content_type');
+
+        try {
+            $rsp = $this->postMng->create($title, $content, $type, $user, $language);
+        } catch (\Exception $e) {
+            $rsp = $e->getMessage();
+        }
+        return $rsp;
+    }
+
+    public function editPost(Request $request, $id)
+    {
+        $post = $this->postMng->findById($id);
+        if (!$post) {
+            
+        }
+
         
-        $post = $this->postMng->create($title, $content, $contentType, $user);
-        return $post;
+        try {
+            $content = $request->request->get('content');
+            if(!empty($content)){
+                $post->setContent($content);
+            }
+            $title = $request->request->get('title');
+            if(!empty($title)){
+                $post->setTitle($title);
+            }
+            $rsp = $this->postMng->update($post);
+        } catch (\Exception $e) {
+            $rsp = $e->getMessage();
+        }
+        return $rsp;
     }
 
 }

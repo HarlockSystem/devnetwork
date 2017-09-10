@@ -14,6 +14,9 @@ $routes->add('Users', new Route('/users/{page}', ['_controller' => 'User:index',
 $routes->add('UserShow', new Route('/user/{id}', ['_controller' => 'User:show'], ['id' => '\d+'], 'GET'));
 $routes->add('UserEdit', new Route('/user/edit/{id}', ['_controller' => 'User:edit'], ['id' => '\d+'], ['GET', 'PUT']));
 $routes->add('UserDel', new Route('/user/{id}', ['_controller' => 'User:delete'], ['id' => '\d+'], 'DELETE'));
+$routes->add('UserFavorite', new Route('/user/favorite/{id_post}', ['_controller' => 'User:favorite'], ['id_post' => '\d+'], ['POST', 'DELETE']));
+$routes->add('UserPosts', new Route('/user_posts/{id}/{page}', ['_controller' => 'User:posts', 'page' => 1], ['id' => '\d+', 'page' => '\d+'], 'GET'));
+$routes->add('UserFavorites', new Route('/user_favorites/{id}/{page}', ['_controller' => 'User:favorites', 'page' => 1], ['id' => '\d+', 'page' => '\d+'], 'GET'));
 //
 $routes->add('UserNew', new Route('/user/sign_in', ['_controller' => 'User:new'], [], ['GET', 'POST']));
 $routes->add('UserLogin', new Route('/user/login', ['_controller' => 'User:login'], [], 'GET'));
@@ -34,7 +37,7 @@ $routes->add('TagUserNew', new Route('/tag/user/{id_post}', ['_controller' => 'T
 $routes->add('Posts', new Route('/posts/{page}', ['_controller' => 'Post:index', 'page' => 1], ['page' => '\d+'], 'GET'));
 $routes->add('PostNew', new Route('/post/{type}', ['_controller' => 'Post:new'], ['type' => 'code|text'], ['GET', 'POST']));
 $routes->add('PostShow', new Route('/post/{id}', ['_controller' => 'Post:show'], ['id' => '\d+'], 'GET'));
-$routes->add('PostEdit', new Route('/post/{id}', ['_controller' => 'Post:edit'], ['id' => '\d+'], 'PUT'));
+$routes->add('PostEdit', new Route('/post/edit/{id}', ['_controller' => 'Post:edit'], ['id' => '\d+'], ['GET', 'PUT']));
 $routes->add('PostDelete', new Route('/post/{id}', ['_controller' => 'Post:delete'], ['id' => '\d+'], 'DELETE'));
 
 // Comment
