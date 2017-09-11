@@ -25,6 +25,11 @@
             </div>
         </footer>
         <script src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('.flashMsg > span').on('click', function(){$(this).parent().remove()});
+            })
+        </script>
         <?php if(isset($js)){echo $js;} ?>
        
     </body>

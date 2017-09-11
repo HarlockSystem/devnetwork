@@ -57,6 +57,40 @@ a {
 /*==============================
 =            Header            =
 ==============================*/
+
+/**Code de Manu**/
+.flashMsg {
+    display: block;
+    text-align: center;
+    color: #515151;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 4px 50px 4px 50px;
+}
+.flashMsg-alert {
+    background-color: #F2DEDE;
+    border-color: #EBCCD1;
+}
+.flashMsg-warning {
+    background-color: #FCF8E3;
+    border-color: #FAEBCC;
+}
+.flashMsg-success {
+    background-color: #DFF0D8;
+    border-color: #DFF0D8;
+}
+.flashMsg-info {
+    background-color: #D9EDF7;
+    border-color: #BCE8F1;
+}
+.flashMsg > span {
+    display: inline-block;
+    float: right;
+    padding-right: 15px;
+    cursor: pointer;
+}
+
 header {
 	display: flex;
 	flex-direction: row;
