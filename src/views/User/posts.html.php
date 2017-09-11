@@ -31,7 +31,7 @@ $this->layout('layout', [
 
 <main class="wrapper publication">
 
-    <h2>Post de <u><?= $this->e($user->getName()) ?></u></h2>
+    <h2>Posts de <u><?= $this->e($user->getName()) ?></u></h2>
 
     <table>
         <?php foreach ($posts as $post): ?>
@@ -61,18 +61,15 @@ $this->layout('layout', [
                             <code><?= $this->e($post->getLanguage()) ?></code>
                         </div>
                         <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
-                        <p>
-                            Language: <code><?= $this->e($post->getLanguage()) ?></code>
-
-                        </p>
+                   
                         <div class="tags">
                             Tags <i class="fa fa-arrow-circle-right"></i>
                             <code><?= $this->e($post->getTags(true)) ?></code>
                         </div>
 
                         <div class="bttn_wrapper">
-                            <button class="select_all" data-editor="1">Select All</button>
-                            <button class="copy" data-editor="1">Copy</button>
+                            <!--<button class="select_all" data-editor="1">Select All</button>-->
+                            <!--<button class="copy" data-editor="1">Copy</button>-->
                             <?php if ($session->isLogged()): ?>
                                 <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
                                     <button>Add to Favorite</button>

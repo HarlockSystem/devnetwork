@@ -70,6 +70,12 @@ $this->layout('layout', [
                                     <button class="add_favorite">Add to Favorite</button>
                                 </form>
                             <?php endif ?>
+                            <?php if ($session->isUser($post->getUser()->getId())): ?>
+                                <form action="<?php echo $path->generateUrl('PostDelete', ['id' => $post->getId()]) ?>" method="POST">
+                                    <input type="hidden" name="_method" value="DELETE" />
+                                    <button class="add_favorite">Remove Post</button>
+                                </form>
+                            <?php endif ?>
                         </div>
                     </div>
                 <?php else: ?>

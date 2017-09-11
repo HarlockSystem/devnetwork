@@ -1,4 +1,4 @@
-<?php
+<?php //
 $this->layout('layout', [
     'title' => 'Homepage',
     'path' => $path,
@@ -25,10 +25,10 @@ $this->layout('layout', [
         <button type="submit" class="submit" id="login_bttn" >
             <span class="spanSubmit">Connexion</span>
         </button> 
-        <button type="submit" class="submit" id="login_bttn" >
+        <!--<button type="submit" class="submit" id="login_bttn" >-->
             <span class="spanSubmit">
-                <a href="<?php echo $path->generateUrl('UserNew') ?>">S'enregistrer</a>
+                <a class="submit" id="login_bttn"  href="<?php echo $path->generateUrl('UserNew') ?>">S'enregistrer</a>
             </span>
-        </button>
+<!--        </button>-->
     </form>
 </main>

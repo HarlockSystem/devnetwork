@@ -19,9 +19,11 @@ $this->layout('layout', [
 
         <div>
             <a href="<?php echo $path->generateUrl('UserPosts', ['id' => $user->getId()]) ?>">Ses publications</a>
+            |
+            <a href="<?php echo $path->generateUrl('UserFavorites', ['id' => $user->getId()]) ?>">Ses favoris</a>
+
             <?php if ($session->isUser($user->getId())): ?>
-                |
-                <a href="<?php echo $path->generateUrl('UserFavorites', ['id' => $user->getId()]) ?>">Ses favoris</a>
+                
             <?php endif; ?>
         </div>    
 

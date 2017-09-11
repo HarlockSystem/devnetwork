@@ -42,6 +42,7 @@ class UserTool
     {
         $name = $request->request->get('name');
         $pass = $request->request->get('password');
+        $pass2 = $request->request->get('password2');
         $email = $request->request->get('email');
 
         $hasUser = $this->usrMng->findOneBy(['name' => $name]);
@@ -49,6 +50,9 @@ class UserTool
 
         if ($hasUser or $hasEmail) {
             return 'Name ou E-mail déjà enregistré';
+        }
+        if($pass != $pass2){
+            return 'Votre mot de passe n\'a pas été vérifié';
         }
 
         $password = password_hash($pass, PASSWORD_BCRYPT);

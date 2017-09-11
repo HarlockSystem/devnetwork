@@ -28,6 +28,8 @@ $this->layout('layout', [
 </script>',
 ])
 ?>
+
+
 <main class="wrapper publication">
 
     <h2>Favoris de <u><?= $this->e($user->getName()) ?></u></h2>
@@ -63,7 +65,7 @@ $this->layout('layout', [
                         <div class="zoneDeCode">
                             <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
                         </div>
-                 
+
                         <div class="tags">
                             Tags <i class="fa fa-arrow-circle-right"></i>
                             <code><?= $this->e($post->getTags(true)) ?></code>
@@ -83,10 +85,6 @@ $this->layout('layout', [
                 <?php else: ?>
                     <div class="post_container"><?= $post->getContent() ?></div>
                 <?php endif ?>
-                <div class="info">
-                    by : <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
-                </div>
-
 
             </div>
 

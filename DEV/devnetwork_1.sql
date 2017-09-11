@@ -246,21 +246,21 @@ ALTER TABLE `User`
 -- Constraints for table `Comment`
 --
 ALTER TABLE `Comment`
-  ADD CONSTRAINT `fk_Comment_Post1` FOREIGN KEY (`PostId`) REFERENCES `Post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Comment_Post1` FOREIGN KEY (`PostId`) REFERENCES `Post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_Comment_User1` FOREIGN KEY (`UserId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `FavoriteUserPost`
 --
 ALTER TABLE `FavoriteUserPost`
-  ADD CONSTRAINT `fk_User_has_Post_Post1` FOREIGN KEY (`PostId`) REFERENCES `Post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_User_has_Post_Post1` FOREIGN KEY (`PostId`) REFERENCES `Post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_User_has_Post_User1` FOREIGN KEY (`UserId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `LikeUserPost`
 --
 ALTER TABLE `LikeUserPost`
-  ADD CONSTRAINT `fk_User_has_Post_Post2` FOREIGN KEY (`PostId`) REFERENCES `Post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_User_has_Post_Post2` FOREIGN KEY (`PostId`) REFERENCES `Post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_User_has_Post_User2` FOREIGN KEY (`UserId`) REFERENCES `User` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -273,7 +273,7 @@ ALTER TABLE `Post`
 -- Constraints for table `PostTag`
 --
 ALTER TABLE `PostTag`
-  ADD CONSTRAINT `fk_Post_has_Tag_Post1` FOREIGN KEY (`PostId`) REFERENCES `Post` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_Post_has_Tag_Post1` FOREIGN KEY (`PostId`) REFERENCES `Post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_Post_has_Tag_Tag1` FOREIGN KEY (`TagId`) REFERENCES `Tag` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

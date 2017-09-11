@@ -117,6 +117,23 @@ class PostController extends Controller
         ]);
     }
 
+    public function deleteAction($id)
+    {
+        $post = $this->get('PostManager')->findById($id);
+        if(!$post){
+            $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver le post#' . $id);
+            return $this->redirectToRoute('Posts');
+        }
+        $user = $post->getUser();
+        if(!$this->get('Session')->isUser($post->getUser()->getId())){
+            $this->get('Session')->addFlashMsg('info', 'Connectez-vous pour supprimer un post');
+            return $this->redirectToRoute('UserLogin');
+        }
+        $this->get('PostManager')->remove($post);
+        return $this->redirectToRoute('Posts');
+        
+    }
+
 }
 
 // Anno 1404

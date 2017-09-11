@@ -23,7 +23,7 @@ class HomepageController extends Controller
         if($this->get('Session')->isLogged()){
             return $this->redirectToRoute('Posts');
         }
-        return $this->render('User/login.html');
+        return $this->redirectToRoute('UserLogin');
     }
 
 }
