@@ -30,22 +30,22 @@ $this->layout('layout', [
 ?>
 <main class="wrapper publication">  
     <table>
-        <?php foreach ($posts as $post): ?>
+        <?php $firstId = false; $lastId = false; foreach ($posts as $post): ?>
             <div class="content">
                 <div class="post_title">
                     <h2 class="titlePublish">
                         <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
                         par 
-                        <?php if($post->getUser()->getStatusUser() == 1): ?>
-                        <small style="color:grey"><i>User inactif</i></small>
+                        <?php if ($post->getUser()->getStatusUser() == 1): ?>
+                            <small style="color:grey"><i>User inactif</i></small>
                         <?php else: ?>
-                        <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
+                            <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
                         <?php endif ?>
                     </h2>
                     <h3 class="datePublished">
-                        date: <?=date('d-m-Y', strtotime($post->getCreatedAt())) ?>
-                        <?php if(!empty($post->getUpdatedAt())): ?>
-                        edité: <?=date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                        date: <?= date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                        <?php if (!empty($post->getUpdatedAt())): ?>
+                            edité: <?= date('d-m-Y', strtotime($post->getCreatedAt())) ?>
                         <?php endif; ?>
                     </h3>
                 </div>
@@ -63,8 +63,8 @@ $this->layout('layout', [
                         </div>
 
                         <div class="bttn_wrapper">
-<!--                            <button class="select_all" data-editor="1">Select All</button>
-                            <button class="copy" data-editor="1">Copy</button>-->
+                            <!--                            <button class="select_all" data-editor="1">Select All</button>
+                                                        <button class="copy" data-editor="1">Copy</button>-->
                             <?php if ($session->isLogged()): ?>
                                 <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
                                     <button class="add_favorite">Add to Favorite</button>
@@ -82,6 +82,15 @@ $this->layout('layout', [
                     <div class="contentPublished"><?= $post->getContent() ?></div>
                 <?php endif ?>
             </div>
-        <?php endforeach; ?>
+            <?php if (!$firstId) {$firstId = $post->getId();} ?>
+                <?php $lastId = $post->getId(); ?>
+            <?php endforeach; ?>
+        <div class="content" style="text-align: center">
+            <?php if (isset($firstId)): ?>
+                <a href="<?= $path->generateUrl('Posts', [], ['id' => $firstId, 'd' => 'p']) ?>">prev</a>
+                |<a href="<?= $path->generateUrl('Posts', [], ['id' => $lastId, 'd' => 'n']) ?>">next</a>
+            <?php endif ?>
+        </div>
+
     </table>
 </main>

@@ -34,7 +34,7 @@ $routes->add('TagPostNew', new Route('/tag/post/{id_post}', ['_controller' => 'T
 $routes->add('TagUserNew', new Route('/tag/user/{id_post}', ['_controller' => 'Tag:Usernew'], ['id_post' => '\d+'], 'POST'));
 
 // Post
-$routes->add('Posts', new Route('/posts/{page}', ['_controller' => 'Post:index', 'page' => 1], ['page' => '\d+'], 'GET'));
+$routes->add('Posts', new Route('/posts', ['_controller' => 'Post:index'], [], 'GET'));
 $routes->add('PostNew', new Route('/post/{type}', ['_controller' => 'Post:new'], ['type' => 'code|text'], ['GET', 'POST']));
 $routes->add('PostShow', new Route('/post/{id}', ['_controller' => 'Post:show'], ['id' => '\d+'], 'GET'));
 $routes->add('PostEdit', new Route('/post/edit/{id}', ['_controller' => 'Post:edit'], ['id' => '\d+'], ['GET', 'PUT']));
