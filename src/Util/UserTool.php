@@ -9,6 +9,7 @@ use DNW\Entity\User;
 
 class UserTool
 {
+
     protected $usrMng;
 
     public function __construct(UserManager $usrMng)
@@ -50,8 +51,10 @@ class UserTool
             return 'Name ou E-mail déjà enregistré';
         }
 
+        $password = password_hash($pass, PASSWORD_BCRYPT);
+
         try {
-            $rsp = $this->usrMng->create($name, $pass, $email);
+            $rsp = $this->usrMng->create($name, $password, $email);
         } catch (\Exception $e) {
             $rsp = $e->getMessage();
         }
@@ -105,10 +108,10 @@ class UserTool
         if (!$user) {
             return false;
         }
-        if ($user->getPassword() != $pass) {
-            return false;
+        if (password_verify($pass, $user->getPassword())) {
+            return $user;
         }
-        return $user;
+        return false;
     }
 
     public function addFavoritePost(User $user, Post $post)

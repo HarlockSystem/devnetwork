@@ -15,15 +15,17 @@ $this->layout('layout', [
     '
 ])
 ?>
-<main class="wrapper publication">
-    <form id="post_form" method="POST" action="<?php $path->generateUrl('PostNew', ['type' => 'text']) ?>">
+<main class="wrapper aligner publication">
+    <div class="content">
+        <form id="post_form" method="POST" action="<?php $path->generateUrl('PostNew', ['type' => 'text']) ?>">
 
-        <div class="post_container">
-            <input type="text" name="title" id="title" placeholder="Titre de la publication">
-            <textarea name="content" class="editor" cols="30" rows="10"></textarea>
-        </div>
-        <div>
-            <button type="submit">Envoyer</button>
-        </div>
-    </form>
+            <div class="post_container">
+                <input class="titleInPublish" type="text" name="title" id="title" placeholder="Titre de la publication">
+                <textarea name="content" class="editor" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <button class="editPubli" type="submit">Publier</button>
+            </div>
+        </form>
+    </div>
 </main>

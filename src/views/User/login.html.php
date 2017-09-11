@@ -15,11 +15,20 @@ $this->layout('layout', [
             </div>
         </div>
         <div class="box">
-            <i class="fa fa-user" aria-hidden="true"></i><input type="text" name="name" id="userName" class="form-control" placeholder="Login" aria-describedby="basic-addon1" value="">
+            <i class="fa fa-user" aria-hidden="true"></i>
+            <input type="text" name="name" id="userName" class="form-control" placeholder="Login" aria-describedby="basic-addon1" value="">
         </div>
         <div class="box">
-            <i class="fa fa-lock" aria-hidden="true"></i><input type="password" name="pass" id="password" class="form-control" placeholder="Mot de passe" aria-describedby="basic-addon2">
+            <i class="fa fa-lock" aria-hidden="true"></i>
+            <input type="password" name="pass" id="password" class="form-control" placeholder="Mot de passe" aria-describedby="basic-addon2">
         </div>
-        <button type="submit" class="submit" id="login_bttn" ><span class="spanSubmit">Connexion</span></button>
+        <button type="submit" class="submit" id="login_bttn" >
+            <span class="spanSubmit">Connexion</span>
+        </button> 
+        <button type="submit" class="submit" id="login_bttn" >
+            <span class="spanSubmit">
+                <a href="<?php echo $path->generateUrl('UserNew') ?>">S'enregistrer</a>
+            </span>
+        </button>
     </form>
 </main>

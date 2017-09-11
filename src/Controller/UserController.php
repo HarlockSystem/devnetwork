@@ -88,6 +88,7 @@ class UserController extends Controller
 
         if ($request->server->get('REQUEST_METHOD') == 'PUT') {
             $user = $this->get('UserTool')->editUser($request, $id);
+            $this->get('Session')->set('theme', $user->getTheme());
             return $this->redirectToRoute('UserShow', ['id' => $user->getId()]);
         } else {
             $user = $this->get('UserManager')->findById(1);

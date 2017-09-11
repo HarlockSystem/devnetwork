@@ -7,19 +7,16 @@ $this->layout('layout', [
 ?>
 
 <main class="wrapper aligner profil">
-
+    <img class="imageProfil" src="../src/public/images/fakeprofil.jpg" alt="photo de profil">
+    <h1><?= $this->e($user->getName()) ?></h1>
     <?php if ($session->isUser($user->getId())): ?>
 
         <div>
-            <a href="<?php echo $path->generateUrl('UserPosts', ['id' => $user->getId()]) ?>">posts</a>
+            <a href="<?php echo $path->generateUrl('UserPosts', ['id' => $user->getId()]) ?>">Ses publications</a>
             |
-            <a href="<?php echo $path->generateUrl('UserFavorites', ['id' => $user->getId()]) ?>">favorites</a>
+            <a href="<?php echo $path->generateUrl('UserFavorites', ['id' => $user->getId()]) ?>">Ses favoris</a>
         </div>    
     <?php endif; ?>
-
-    <img class="imageProfil" src="../src/public/images/fakeprofil.jpg" alt="photo de profil">
-    <h1><?= $this->e($user->getName()) ?></h1>
-    <!-- <h2>Dejour Adam</h2> <-->
     <div class="encadrement">
         <?php if (!empty($user->getArrSkill())): ?>
             <div class="cadre mainSkill">
@@ -52,15 +49,11 @@ $this->layout('layout', [
         </div>
     <?php endif; ?>
     <a href="" class="mail"><h2><?= $this->e($user->getEmail()) ?></h2></a>
-    <?php
-    // user edit
-    if ($session->isUser($user->getId())):
-        ?>
+    <?php if ($session->isUser($user->getId())): // user edit ?>
         <div class="theme">
-            <h3>Theme</h3>
-            <p><?= $this->e($user->getTheme()) ?></p>
+            <h3>Theme</h3> <p><?= $this->e($user->getTheme()) ?></p>
         </div>
-        <a href="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>">Edit</a>
+        <a class="copy" href="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>">Edit</a>
 
     <?php endif; ?>
 </main>
