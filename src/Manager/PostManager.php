@@ -29,7 +29,6 @@ class PostManager
      */
     public function findBy($direction , $id)
     {
-        if($direction =)
         $sql = "SELECT * FROM Post ORDER BY id DESC LIMIT 5";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([]);
