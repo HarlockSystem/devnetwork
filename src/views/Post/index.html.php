@@ -34,9 +34,15 @@ $this->layout('layout', [
             <div class="content">
                 <div class="post_title">
                     <h2 class="titlePublish">
-                        <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> par <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
+                        <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
+                        par 
+                        <?php if($post->getUser()->getStatusUser() == 1): ?>
+                        <small style="color:grey"><i>User inactif</i></small>
+                        <?php else: ?>
+                        <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
+                        <?php endif ?>
                     </h2>
-                    <h3 class="datePublished">27/09/2017</h3>
+                    <h3 class="datePublished"><?=$post->getCreatedAt() ?></h3>
                 </div>
                 <?php if ($post->getContentType() == 0): ?>
                     <div class="post_container">

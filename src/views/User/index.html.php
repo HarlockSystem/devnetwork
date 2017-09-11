@@ -13,7 +13,7 @@ $this->layout('layout', [
             <tr>
                 <td>
                     <h2>
-                        <a href="<?php echo $path->generateUrl('UserShow', ['id' => $user->getId()]) ?>"><?= $this->e($user->getName()) ?></a> |
+                        <a href="<?php echo $path->generateUrl('UserDel', ['id' => $user->getId()]) ?>"><?= $this->e($user->getName()) ?></a> |
                         <code>Add date subscrib</code>
                     </h2>
                 </td>

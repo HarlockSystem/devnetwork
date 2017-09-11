@@ -30,49 +30,51 @@ $this->layout('layout', [
 ?>
 
 <main class="wrapper publication">
-    
-    <h2>Post de <u><?=$this->e($user->getName())?></u></h2>
-    
+
+    <h2>Post de <u><?= $this->e($user->getName()) ?></u></h2>
+
     <table>
         <?php foreach ($posts as $post): ?>
-
-
-
-            <div class="post_title">
-                <h2>
-                    <?= $this->e($post->getTitle()) ?>
-                    <small>
-                        <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>">Link</a>
-                    </small>
-                </h2>
-
-            </div>
-            <?php if ($post->getContentType() == 0): ?>
-                <div class="post_container">
-
-                    <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
-                    <p>
-                        Language: <code><?= $this->e($post->getLanguage()) ?></code>
-                        
-                    </p>
-                    <p>
-                        Tags: <code><?= $this->e($post->getTags(true)) ?></code>
-                    </p>
-
-                    <div class="bttn_wrapper">
-                        <button class="select_all" data-editor="1">Select All</button>
-                        <button class="copy" data-editor="1">Copy</button>
-                        <?php if ($session->isLogged()): ?>
-                        <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
-                            <button>Add to Favorite</button>
-                        </form>
+            <div class="content">
+                <div class="titlePublish">
+                    <h2 class="titlePublish">
+                        <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
+                        par 
+                        <?php if($post->getUser()->getStatusUser() == 1): ?>
+                        <small style="color:grey"><i>User inactif</i></small>
+                        <?php else: ?>
+                        <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
                         <?php endif ?>
-                    </div>
-                </div>
-            <?php else: ?>
-                <div class="post_container"><?= $post->getContent() ?></div>
-            <?php endif ?>
+                    </h2>
+                    <h3 class="datePublished"><?=$user->getCreatedAt() ?></h3>
 
+                </div>
+                <?php if ($post->getContentType() == 0): ?>
+                    <div class="post_container">
+
+                        <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
+                        <p>
+                            Language: <code><?= $this->e($post->getLanguage()) ?></code>
+
+                        </p>
+                        <p>
+                            Tags: <code><?= $this->e($post->getTags(true)) ?></code>
+                        </p>
+
+                        <div class="bttn_wrapper">
+                            <button class="select_all" data-editor="1">Select All</button>
+                            <button class="copy" data-editor="1">Copy</button>
+                            <?php if ($session->isLogged()): ?>
+                                <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
+                                    <button>Add to Favorite</button>
+                                </form>
+                            <?php endif ?>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="post_container"><?= $post->getContent() ?></div>
+                <?php endif ?>
+            </div>
         <?php endforeach; ?>
     </table>
 </main>

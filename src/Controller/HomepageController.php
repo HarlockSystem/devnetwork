@@ -20,7 +20,9 @@ class HomepageController extends Controller
      */
     public function indexAction()
     {
-        
+        if($this->get('Session')->isLogged()){
+            return $this->redirectToRoute('Posts');
+        }
         return $this->render('User/login.html');
     }
 

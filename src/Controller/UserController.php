@@ -37,7 +37,7 @@ class UserController extends Controller
     {
         $user = $this->get('UserTool')->showUser($id);
         if (!$user) {
-            $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver l\user#' . $id);
+            $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver l\'user#' . $id);
             return $this->redirectToRoute('Users');
         }
 
@@ -91,7 +91,7 @@ class UserController extends Controller
             $this->get('Session')->set('theme', $user->getTheme());
             return $this->redirectToRoute('UserShow', ['id' => $user->getId()]);
         } else {
-            $user = $this->get('UserManager')->findById(1);
+            $user = $this->get('UserManager')->findById($id);
             if (!$user) {
                 return $this->redirectToRoute('UserLogin');
             }
@@ -109,8 +109,17 @@ class UserController extends Controller
     public function deleteAction($id)
     {
         if (!$this->get('Session')->isUser($id)) {
+            $this->get('Session')->addFlashMsg('warning', 'Connectez-vous pour agir sur votre compte');
             return $this->render('User/login.html');
         }
+        $user = $this->get('UserTool')->showUser($id);
+        if (!$user) {
+            $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver l\'user#' . $id);
+            return $this->redirectToRoute('Homepage');
+        }
+        $this->get('UserManager')->remove($user);
+
+        return $this->redirectToRoute('Users');
     }
 
     /**
@@ -145,6 +154,11 @@ class UserController extends Controller
     {
         $user = $this->get('UserTool')->checkUser($request->request->get('name'), $request->request->get('pass'));
         if ($user) {
+             $this->get('Session')->clear();
+            if ($user->getStatusUser() == 1) {
+                $this->get('Session')->addFlashMsg('warning', 'Ce compte n\'est plus actif');
+                return $this->redirectToRoute('UserLogin');
+            }
             $this->get('Session')->setUser($user->getId(), $user->getName(), $user->getRole(), $user->getTheme());
             return $this->redirectToRoute('UserShow', ['id' => $user->getId()]);
         } else {
@@ -183,20 +197,19 @@ class UserController extends Controller
         if (!$this->get('Session')->isUser($id)) {
             return $this->redirectToRoute('UserLogin');
         }
-        
+
         $user = $this->get('UserTool')->showUser($id);
         if (!$user) {
             $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver l\user#' . $id);
             return $this->redirectToRoute('Users');
         }
-        
+
         $posts = $this->get('PostManager')->findFavoritesByUser($id);
-        
+
         return $this->render('User/favorites.html', [
-            'user' => $user,
-            'posts' => $posts,
+                    'user' => $user,
+                    'posts' => $posts,
         ]);
-        
     }
 
     public function postsAction($id, $page)
@@ -204,18 +217,18 @@ class UserController extends Controller
         if (!$this->get('Session')->isUser($id)) {
             return $this->redirectToRoute('UserLogin');
         }
-        
+
         $user = $this->get('UserTool')->showUser($id);
         if (!$user) {
             $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver l\user#' . $id);
             return $this->redirectToRoute('Users');
         }
-        
+
         $posts = $this->get('PostManager')->findPostByUser($id);
-        
+
         return $this->render('User/posts.html', [
-            'user' => $user,
-            'posts' => $posts,
+                    'user' => $user,
+                    'posts' => $posts,
         ]);
     }
 

@@ -35,7 +35,7 @@ class Kernel
      */
     public function handle()
     {
-//        $this->container['Session']->debug();
+        $this->container['Session']->debug();
         $router = $this->container['Router'];
         $router->setServerInfo($this->request->server);
         $ctrlCandidat = $router->run();

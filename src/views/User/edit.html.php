@@ -6,6 +6,7 @@ $this->layout('layout', [
 ])
 ?>
 <main class="wrapper aligner profil">
+    <h2>User: <?=$this->e($user->getName())?> (<?=$user->getId()?>)</h2>
     <form action="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>" method="POST">
         <input type="hidden" name="_method" value="PUT" />
         <h2>FirstName</h2>
@@ -62,7 +63,7 @@ $this->layout('layout', [
         </select>
         <br />
         <br />
-        <button>Send</button>
+        <button type="submit">Send</button>
         <a href="<?php echo $path->generateUrl('UserShow', ['id' => $user->getId()]) ?>">Show</a>
     </form>
 </main>

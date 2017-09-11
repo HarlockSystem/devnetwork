@@ -89,6 +89,10 @@ class Session
     {
         return $this->get('isLogged');
     }
+    public function isAdmin()
+    {
+        return $this->get('isAdmin');
+    }
 
     public function isUser($id)
     {
@@ -101,6 +105,8 @@ class Session
 
     public function setUser($userId, $userName, $role, $theme)
     {
+        $this->clear();
+        $this->init();
         $this->set('userId', $userId);
         $this->set('userName', $userName);
         $this->set('theme', $theme);

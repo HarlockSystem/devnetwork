@@ -18,7 +18,10 @@
             <?php $usrData = $session->getUser() ?>
             <a href="<?php echo $path->generateUrl('PostNew', ['type' => 'text']) ?>">+ Post</a>
             <a href="<?php echo $path->generateUrl('PostNew', ['type' => 'code']) ?>">+ Code</a>
-            <a href="<?php echo $path->generateUrl('UserShow', ['id' => $usrData['id']]) ?>"><?= $this->e($usrData['name']) ?></a> |
+            <a href="<?php echo $path->generateUrl('UserShow', ['id' => $usrData['id']]) ?>">
+                    <?= $this->e($usrData['name']) ?>
+                    <?php if($session->isAdmin()){echo '(<small style="color:red">Admin</small>)';}?>
+            </a> |
             <a href="<?php echo $path->generateUrl('UserLogout') ?>">Logout</a>
         <?php else : ?>
             <a href="<?php echo $path->generateUrl('UserNew') ?>">Sign In</a> |

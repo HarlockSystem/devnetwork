@@ -32,7 +32,7 @@ class UserManager extends AbstractManager
      */
     public function findBy($page, array $criteria = null)
     {
-        $sql = "SELECT * FROM User";
+        $sql = "SELECT * FROM User WHERE statusUser = 0";
         $query = $this->db->prepare($sql);
         $query->execute([]);
         return $query->fetchAll(\PDO::FETCH_CLASS, User::class);
