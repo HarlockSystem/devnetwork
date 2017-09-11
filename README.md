@@ -1,5 +1,9 @@
 # devnetwork
 
+- 11/10 Install:
+    - clone dev: git clone -b dev https://github.com/L0ckat/devnetwork.git
+    - modifier la balise base du header (index.php
+
 - 03/10 Ajout de plusieurs composants:
     - Un routeur
     - Un container de service
