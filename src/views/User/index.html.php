@@ -7,18 +7,20 @@ $this->layout('layout', [
 ?>
 <main class="wrapper publication">
     <div class="list_user">
-    <h2>Membres inscrits</h2>
-    <table>
-        <?php foreach ($users as $user): ?>
-            <tr>
-                <td>
-                    <h2>
-                        <a href="<?php echo $path->generateUrl('UserDel', ['id' => $user->getId()]) ?>"><?= $this->e($user->getName()) ?></a> |
-                        <code>Add date subscrib</code>
-                    </h2>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    </table>
+        <h2>Membres inscrits:</h2>
+        <table>
+            <?php foreach ($users as $user): ?>
+                <tr>
+                    <td>
+                        <h2>
+                            <a href="<?php echo $path->generateUrl('UserDel', ['id' => $user->getId()]) ?>"><?= $this->e($user->getName()) ?></a>
+                            <small class="datePublished">
+                                depuis le: <?= date('d-m-Y', strtotime($user->getCreatedAt())) ?>
+                            </small>
+                        </h2>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </table>
     </div>
 </main>

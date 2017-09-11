@@ -59,6 +59,7 @@ class PostTool
             if(!empty($title)){
                 $post->setTitle($title);
             }
+            $post->setUpdatedAt(date('Y-m-d H:i:s',time()));
             $rsp = $this->postMng->update($post);
         } catch (\Exception $e) {
             $rsp = $e->getMessage();

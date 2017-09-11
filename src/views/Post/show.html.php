@@ -34,6 +34,9 @@ $this->layout('layout', [
             </div>
             <?php if ($post->getContentType() == 0): ?>
                 <div class="post_container">
+                    <div class="lang">
+                        <code><?= $this->e($post->getLanguage()) ?></code>
+                    </div>
                     <div class="zoneDeCode">
                         <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
                     </div>
@@ -43,17 +46,18 @@ $this->layout('layout', [
                 <div class="contentPublished"><?= $post->getContent() ?></div>
             <?php endif ?>
 
-            <?php if ($session->isLogged()): // user is logged ?>
-                <?php if ($session->isUser($post->getUser()->getId())): // user edit (user is owner) ?>
-                    <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Editer</a>
-                    <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Supprimer</a>
-                <?php endif; ?>
-                <div class="bttn_wrapper">
-                    <button class="select_all" data-editor="1">Tout selectionner</button>
-                    <button class="copy" data-editor="1">Copier</button>
-                </div>
+            <?php if ($session->isUser($post->getUser()->getId())): // user edit (user is owner) ?>
+                <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Editer</a>
+                <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Supprimer</a>
             <?php endif; ?>
-            <div class="tags">Tags <i class="fa fa-arrow-circle-right"></i> <code><?= $this->e($post->getTags(true)) ?></code></div>
+            <div class="bttn_wrapper">
+<!--                <button class="select_all" data-editor="1">Tout selectionner</button>
+                <button class="copy" data-editor="1">Copier</button>-->
+            </div>
+            <div class="tags">
+                Tags <i class="fa fa-arrow-circle-right"></i>
+                <code><?= $this->e($post->getTags(true)) ?></code>
+            </div>
             <?php if ($session->isLogged()): // user is logged ?>
                 <form action="<?php echo $path->generateUrl('CommentNew', ['id_post' => $post->getId()]) ?>" method="POST">
                     <br />

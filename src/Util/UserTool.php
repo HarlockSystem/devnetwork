@@ -73,6 +73,7 @@ class UserTool
             $method = 'set' . ucfirst($field);
             $user->$method($request->request->get($field));
         }
+        $user->setUpdatedAt(date('Y-m-d H:i:s',time()));
         $this->usrMng->update($user);
         return $user;
     }

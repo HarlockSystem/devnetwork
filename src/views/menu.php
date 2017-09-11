@@ -12,8 +12,8 @@
             <a href="post_create.html">creaPubliDEMO</a>
         </nav>	-->
     <nav>
-        <a href="<?php echo $path->generateUrl('Users') ?>">Users</a> 
         <a href="<?php echo $path->generateUrl('Posts') ?>">Publications</a> 
+        <a href="<?php echo $path->generateUrl('Users') ?>">Users</a> 
         <?php if ($session->isLogged()): ?>
             <?php $usrData = $session->getUser() ?>
             <a href="<?php echo $path->generateUrl('PostNew', ['type' => 'text']) ?>">+ Post</a>

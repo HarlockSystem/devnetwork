@@ -36,7 +36,7 @@ $this->layout('layout', [
     <table>
         <?php foreach ($posts as $post): ?>
             <div class="content">
-                <div class="titlePublish">
+                <div class="post_title">
                     <h2 class="titlePublish">
                         <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
                         par 
@@ -46,20 +46,29 @@ $this->layout('layout', [
                         <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
                         <?php endif ?>
                     </h2>
-                    <h3 class="datePublished"><?=$user->getCreatedAt() ?></h3>
+                    <h3 class="datePublished">
+                        date: <?=date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                        <?php if(!empty($post->getUpdatedAt())): ?>
+                        edité: <?=date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                        <?php endif; ?>
+                    </h3>
 
                 </div>
                 <?php if ($post->getContentType() == 0): ?>
                     <div class="post_container">
 
+                        <div class="lang">
+                            <code><?= $this->e($post->getLanguage()) ?></code>
+                        </div>
                         <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
                         <p>
                             Language: <code><?= $this->e($post->getLanguage()) ?></code>
 
                         </p>
-                        <p>
-                            Tags: <code><?= $this->e($post->getTags(true)) ?></code>
-                        </p>
+                        <div class="tags">
+                            Tags <i class="fa fa-arrow-circle-right"></i>
+                            <code><?= $this->e($post->getTags(true)) ?></code>
+                        </div>
 
                         <div class="bttn_wrapper">
                             <button class="select_all" data-editor="1">Select All</button>

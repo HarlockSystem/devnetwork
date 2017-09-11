@@ -42,22 +42,32 @@ $this->layout('layout', [
                         <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
                         <?php endif ?>
                     </h2>
-                    <h3 class="datePublished"><?=$post->getCreatedAt() ?></h3>
+                    <h3 class="datePublished">
+                        date: <?=date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                        <?php if(!empty($post->getUpdatedAt())): ?>
+                        edité: <?=date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                        <?php endif; ?>
+                    </h3>
                 </div>
                 <?php if ($post->getContentType() == 0): ?>
                     <div class="post_container">
-                        <div class="lang"><code><?= $this->e($post->getLanguage()) ?></code></div> 
+                        <div class="lang">
+                            <code><?= $this->e($post->getLanguage()) ?></code>
+                        </div> 
                         <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
 
 
-                        <div class="tags">Tags <i class="fa fa-arrow-circle-right"></i> <code><?= $this->e($post->getTags(true)) ?></code></div>
+                        <div class="tags">
+                            Tags <i class="fa fa-arrow-circle-right"></i>
+                            <code><?= $this->e($post->getTags(true)) ?></code>
+                        </div>
 
                         <div class="bttn_wrapper">
-                            <button class="select_all" data-editor="1">Select All</button>
-                            <button class="copy" data-editor="1">Copy</button>
+<!--                            <button class="select_all" data-editor="1">Select All</button>
+                            <button class="copy" data-editor="1">Copy</button>-->
                             <?php if ($session->isLogged()): ?>
-                                <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST"><button class="add_favorite">Add to Favorite</button>
-
+                                <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
+                                    <button class="add_favorite">Add to Favorite</button>
                                 </form>
                             <?php endif ?>
                         </div>

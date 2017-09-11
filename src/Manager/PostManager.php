@@ -107,11 +107,12 @@ class PostManager
 
     public function update(Post $post)
     {
-        $sql = "UPDATE Post SET title=:title, content=:content WHERE id=:id";
+        $sql = "UPDATE Post SET title=:title, content=:content, updatedAt=:updatedAt WHERE id=:id";
         $query = $this->db->prepare($sql);
         $query->execute([
             'title' => $post->getTitle(),
             'content' => $post->getContent(),
+            'updatedAt' => $post->getUpdatedAt(),
             'id' => $post->getId()
         ]);
         return $this->findById($post->getId());

@@ -15,14 +15,16 @@ $this->layout('layout', [
     <main class="wrapper aligner profil">
         <img class="imageProfil" src="../src/public/images/fakeprofil.jpg" alt="photo de profil">
         <h1><?= $this->e($user->getName()) ?></h1>
-        <?php if ($session->isUser($user->getId())): ?>
 
-            <div>
-                <a href="<?php echo $path->generateUrl('UserPosts', ['id' => $user->getId()]) ?>">Ses publications</a>
+
+        <div>
+            <a href="<?php echo $path->generateUrl('UserPosts', ['id' => $user->getId()]) ?>">Ses publications</a>
+            <?php if ($session->isUser($user->getId())): ?>
                 |
                 <a href="<?php echo $path->generateUrl('UserFavorites', ['id' => $user->getId()]) ?>">Ses favoris</a>
-            </div>    
-        <?php endif; ?>
+            <?php endif; ?>
+        </div>    
+
         <div class="encadrement">
             <?php if (!empty($user->getArrSkill())): ?>
                 <div class="cadre mainSkill">
@@ -66,6 +68,14 @@ $this->layout('layout', [
             </form>
 
         <?php endif; ?>
+
+        <h3 class="datePublished">
+            compte crée le: <?= date('d-m-Y', strtotime($user->getCreatedAt())) ?>
+            <?php if (!empty($user->getUpdatedAt())): ?>
+                edite le: <?= date('d-m-Y', strtotime($user->getCreatedAt())) ?>
+            <?php endif; ?>
+        </h3>
+
     </main>
 
 <?php endif ?>

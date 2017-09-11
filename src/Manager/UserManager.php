@@ -122,7 +122,8 @@ class UserManager extends AbstractManager
                 theme=:theme, 
                 img=:img, 
                 role=:role, 
-                statusUser=:statusUser 
+                statusUser=:statusUser, 
+                updatedAt=:updatedAt 
                 WHERE id=:id";
         $query = $this->db->prepare($sql);
         $query->execute([
@@ -139,6 +140,7 @@ class UserManager extends AbstractManager
             'img' => $user->getImg(),
             'role' => $user->getRole(),
             'statusUser' => $user->getStatusUser(),
+            'updatedAt' => $user->getUpdatedAt(),
             'id' => $user->getId()
         ]);
         return $this->findById($user->getId());
