@@ -118,6 +118,9 @@ class UserController extends Controller
             return $this->redirectToRoute('Homepage');
         }
         $this->get('UserManager')->remove($user);
+        if(!$this->get('Session')->isAdmin()){
+            $this->get('Session')->clear();
+        }
 
         return $this->redirectToRoute('Users');
     }
