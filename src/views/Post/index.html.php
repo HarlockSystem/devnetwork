@@ -76,7 +76,7 @@ $this->layout('layout', [
                         <div class="inlineButton">
                             <button class="select_all" data-editor="<?=$i?>">Select All</button>
                             <button class="copy">Copy</button>
-                        </div>  
+
                         <?php if ($session->isLogged()): ?>
                             <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
                                 <button class="add_favorite">Add to <i class="fa fa-heart" aria-hidden="true"></i></button>
@@ -88,6 +88,7 @@ $this->layout('layout', [
                                 <button class="deleteBTN">Supprimer</i>
                                 </button>
                             </form>
+                            </div> 
                         <?php endif ?>
                     </div>
                 </div>
