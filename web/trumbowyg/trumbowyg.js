@@ -204,7 +204,6 @@ jQuery.trumbowyg = {
                 beforeSend: null,
                 complete: null,
                 success: function (data) {
-                    console.log(data);
                     div.innerHTML = new XMLSerializer().serializeToString(data.documentElement);
                 }
             });

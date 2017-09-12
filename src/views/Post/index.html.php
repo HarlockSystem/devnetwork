@@ -12,20 +12,22 @@ $this->layout('layout', [
     <script>
         $.trumbowyg.svgPath = "trumbowyg/ui/icons.svg"
         $(".editor").trumbowyg();
-        var editor;
+        var editor = [];
         $(".ace-editor").each(function (i) {
-            editor = ace.edit(this);
+            editor[i] = ace.edit(this);
             var language = $(this).data("language");
-
-            editor.setTheme("ace/theme/' . $session->get('theme') . '");
-            editor.getSession().setMode("ace/mode/"+language);
-            editor.setOptions({
+            editor[i].setTheme("ace/theme/' . $session->get('theme') . '");
+            editor[i].getSession().setMode("ace/mode/"+language);
+            editor[i].$blockScrolling = Infinity;
+            editor[i].setReadOnly(true);
+            editor[i].setOptions({
                 autoScrollEditorIntoView: true,
                 maxLines: 30,
                 minLines: 4
             });
         })
-    </script>',
+    </script>
+    <script src="js/harlokscript.js" type="text/javascript" charset="utf-8"></script>',
 ])
 ?>
 <main class="wrapper publication">  
@@ -38,7 +40,7 @@ $this->layout('layout', [
         <?php endif ?>
     </div>
     <table>
-        <?php foreach ($posts as $post): ?>
+	    <?php $i=0; foreach ($posts as $post): ?>
             <div class="content">
                 <div class="post_title">
                     <h2 class="titlePublish">
@@ -62,7 +64,7 @@ $this->layout('layout', [
                         <div class="lang">
                             <code><?= $this->e($post->getLanguage()) ?></code>
                         </div> 
-                        <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
+                        <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= $this->e($post->getContent()) ?></div>
 
 
                         <div class="tags">
@@ -71,8 +73,8 @@ $this->layout('layout', [
                         </div>
 
                         <div class="bttn_wrapper">
-                            <!--                            <button class="select_all" data-editor="1">Select All</button>
-                                                        <button class="copy" data-editor="1">Copy</button>-->
+                            <button class="select_all" data-editor="<?=$i?>">Select All</button>
+                            <button class="copy">Copy</button>
                             <?php if ($session->isLogged()): ?>
                                 <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
                                     <button class="add_favorite">Add to Favorite</button>
@@ -87,11 +89,10 @@ $this->layout('layout', [
                         </div>
                     </div>
                 <?php else: ?>
-                    <div class="contentPublished"><?= $post->getContent() ?></div>
+                    <div class="post_container"  id="editor<?=$i?>" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong>') ?></div>
                 <?php endif ?>
             </div>
-
-        <?php endforeach; ?>
+        <?php $i++; endforeach; ?>
 
 
     </table>

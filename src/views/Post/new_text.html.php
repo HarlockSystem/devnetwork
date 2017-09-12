@@ -10,7 +10,15 @@ $this->layout('layout', [
 <script src="trumbowyg/trumbowyg.js"></script>
 <script>
     $.trumbowyg.svgPath = "trumbowyg/ui/icons.svg"
-    $(".editor").trumbowyg();
+    $(".editor").trumbowyg({btns: [
+                    ["formatting"],
+                    "btnGrp-semantic",
+                    "btnGrp-justify",
+                    "btnGrp-lists",
+                    ["horizontalRule"],
+                    ["removeformat"],
+                    ["fullscreen"]
+                    ]});
 </script>
     '
 ])
