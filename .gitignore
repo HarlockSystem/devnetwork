@@ -1,6 +1,6 @@
 /vendor/
 
-app/config/params.ini
+/app/config/params.ini
 
 
 # Composer PHAR
