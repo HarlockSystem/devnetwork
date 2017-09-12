@@ -64,17 +64,13 @@ $this->layout('layout', [
                         <div class="lang">
                             <code><?= $this->e($post->getLanguage()) ?></code>
                         </div> 
-                        <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= $this->e($post->getContent()) ?></div>
-
-
+                        <div class="ace-editor" id="editor<?=$i?>" data-language="<?= $this->e($post->getLanguage()) ?>" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= $this->e($post->getContent()) ?></div>
                         <div class="tags">
                             Tags <i class="fa fa-arrow-circle-right"></i>
                             <code><?= $this->e($post->getTags(true)) ?></code>
                         </div>
-
-
                         <div class="inlineButton">
-                            <button class="select_all" data-editor="<?=$i?>">Select All</button>
+                            <button class="select_all" data-editor="<?=$i++?>">Select All</button>
                             <button class="copy">Copy</button>
 
                         <?php if ($session->isLogged()): ?>
@@ -93,10 +89,10 @@ $this->layout('layout', [
                     </div>
                 </div>
             <?php else: ?>
-                <div class="post_container"  id="editor<?=$i?>" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong><br><ul><li><ol><strike>') ?></div>
+                <div class="post_container"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong><br><ul><li><ol><strike>') ?></div>
             <?php endif ?>
         </div>
-        <?php $i++; endforeach; ?>
+        <?php endforeach; ?>
 
 
     </table>
