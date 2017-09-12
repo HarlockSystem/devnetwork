@@ -33,6 +33,15 @@ $this->layout('layout', [
 
     <h2>Posts de <u><?= $this->e($user->getName()) ?></u></h2>
 
+    <div class="content" style="text-align: center">
+        <?php if ($page - 1 > 0): ?>
+            <a href="<?= $path->generateUrl('UserPosts', ['id' => $user->getId(), 'page' => $page - 1]) ?>">prev</a>
+        <?php endif ?>
+        <?php if ($page + 1 > 0): ?>
+            |<a href="<?= $path->generateUrl('UserPosts', ['id' => $user->getId(), 'page' => $page + 1]) ?>">next</a>
+        <?php endif ?>
+    </div>
+
     <table>
         <?php foreach ($posts as $post): ?>
             <div class="content">
@@ -40,16 +49,16 @@ $this->layout('layout', [
                     <h2 class="titlePublish">
                         <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
                         par 
-                        <?php if($post->getUser()->getStatusUser() == 1): ?>
-                        <small style="color:grey"><i>User inactif</i></small>
+                        <?php if ($post->getUser()->getStatusUser() == 1): ?>
+                            <small style="color:grey"><i>User inactif</i></small>
                         <?php else: ?>
-                        <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
+                            <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
                         <?php endif ?>
                     </h2>
                     <h3 class="datePublished">
-                        date: <?=date('d-m-Y', strtotime($post->getCreatedAt())) ?>
-                        <?php if(!empty($post->getUpdatedAt())): ?>
-                        edité: <?=date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                        date: <?= date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                        <?php if (!empty($post->getUpdatedAt())): ?>
+                            edité: <?= date('d-m-Y', strtotime($post->getCreatedAt())) ?>
                         <?php endif; ?>
                     </h3>
 
@@ -61,7 +70,7 @@ $this->layout('layout', [
                             <code><?= $this->e($post->getLanguage()) ?></code>
                         </div>
                         <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
-                   
+
                         <div class="tags">
                             Tags <i class="fa fa-arrow-circle-right"></i>
                             <code><?= $this->e($post->getTags(true)) ?></code>
@@ -82,7 +91,16 @@ $this->layout('layout', [
                 <?php endif ?>
             </div>
         <?php endforeach; ?>
+
     </table>
+    <div class="content" style="text-align: center">
+        <?php if ($page - 1 > 0): ?>
+            <a href="<?= $path->generateUrl('UserPosts', ['id' => $user->getId(), 'page' => $page - 1]) ?>">prev</a>
+        <?php endif ?>
+        <?php if ($page + 1 > 0): ?>
+            |<a href="<?= $path->generateUrl('UserPosts', ['id' => $user->getId(), 'page' => $page + 1]) ?>">next</a>
+        <?php endif ?>
+    </div>
 </main>
 
 

@@ -18,26 +18,13 @@ class PostTool
         $this->usrMng = $usrMng;
     }
 
-    public function getPosts(Request $request)
+    public function getPosts($page)
     {
-        $rid = $request->query->get('id');
-        $direction = $request->query->get('d');
-        if(in_array($direction, ['p', 'n']) and is_numeric($rid)){echo 'ookk';
-            $dir = $direction;
-            $id = $rid;
-        }else{
-            $dir = false;
-            $id = null;
-        }
-        echo '<pre>';
-        print_r($request->query);
-        echo '</pre>';
 
+       
 
-        $posts = $this->postMng->findBy($dir, $id);
-        /**
-         * @todo get tag
-         */
+        $posts = $this->postMng->findBy($page);
+    
         return $posts;
     }
 

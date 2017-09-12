@@ -2,21 +2,28 @@
 
 namespace DNW\Manager;
 
+use DNW\Manager\AbstractManager;
 use DNW\Entity\Post;
 use DNW\Entity\User;
 
 /**
  * Description of PoistManager
  *
+ * @todo refactor pagination
+ * 
  * @author was137
  */
-class PostManager
+class PostManager extends AbstractManager
 {
     protected $db;
+    protected $className;
+    protected $tableName;
 
     public function __construct(\PDO $pdo)
     {
         $this->db = $pdo;
+        $this->tableName = 'Post';
+        $this->className = Post::class;
     }
 
     /**
@@ -27,28 +34,57 @@ class PostManager
      * 
      * @return arrary
      */
-    public function findBy($direction , $id)
+    public function findBy($page = 1)
     {
-        $sql = "SELECT * FROM Post ORDER BY id DESC LIMIT 5";
+        $count = $this->count();
+        $limitPerPage = 5;
+        $i = 0;
+        $p = 0;
+        $offset = $page * $limitPerPage - $limitPerPage;
+        while ($offset > $count) {
+            $offset -= $limitPerPage;
+        }
+
+        while ($i < $count) {
+            $p++;
+            $indexesPage[] = [
+                'p' => $p,
+                's' => ($page == $p) ? true : false,
+                'page' => $page,
+            ];
+            $i += $limitPerPage;
+        }
+        $sql = 'SELECT * FROM Post ORDER BY id DESC LIMIT ' . $offset . ', ' . $limitPerPage;
         $stmt = $this->db->prepare($sql);
         $stmt->execute([]);
-        $posts = [];
-        while ($post = $stmt->fetchObject(Post::class, [$this->db])) {
-            $posts[] = $post;
-        }
-        return $posts;
+        return $stmt->fetchAll(\PDO::FETCH_CLASS, Post::class, [$this->db]);
     }
 
-    public function findPostByUser($userId)
+    public function findPostByUser($userId, $page = 1)
     {
-        $sql = "SELECT * FROM Post WHERE UserId = :userId ORDER BY id DESC";
+        
+        $count = $this->count();
+        $limitPerPage = 5;
+        $i = 0;
+        $p = 0;
+        $offset = $page * $limitPerPage - $limitPerPage;
+        while ($offset > $count) {
+            $offset -= $limitPerPage;
+        }
+        
+        while ($i < $count) {
+            $p++;
+            $indexesPage[] = [
+                'p' => $p,
+                's' => ($page == $p) ? true : false,
+                'page' => $page,
+            ];
+            $i += $limitPerPage;
+        }
+        $sql = 'SELECT * FROM Post WHERE UserId = :userId ORDER BY id DESC LIMIT ' . $offset . ', ' . $limitPerPage;
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['userId' => $userId]);
-        $posts = [];
-        while ($post = $stmt->fetchObject(Post::class, [$this->db])) {
-            $posts[] = $post;
-        }
-        return $posts;
+        return $stmt->fetchAll(\PDO::FETCH_CLASS, Post::class, [$this->db]);
     }
 
     /**
@@ -118,9 +154,34 @@ class PostManager
         return $this->findById($post->getId());
     }
 
-    public function findFavoritesByUser($id_user)
+    public function findFavoritesByUser($id_user, $page = 1)
     {
-        $sql = "SELECT p.* FROM Post p INNER JOIN FavoriteUserPost fu ON fu.PostId = p.id AND fu.UserId = :id";
+        $sqlc = 'SELECT COUNT(*) AS count FROM Post p INNER JOIN FavoriteUserPost fu ON fu.PostId = p.id AND fu.UserId = :id';
+        $queryc = $this->db->prepare($sqlc);
+        $queryc->execute(['id' => $id_user]);
+        $idc = $queryc->fetch(\PDO::FETCH_ASSOC);
+        $count = isset($idc['count']) ? $idc['count'] : 0;
+       
+
+        $limitPerPage = 5;
+        $i = 0;
+        $p = 0;
+        $offset = $page * $limitPerPage - $limitPerPage;
+        while ($offset > $count) {
+            $offset -= $limitPerPage;
+        }
+        
+        while ($i < $count) {
+            $p++;
+            $indexesPage[] = [
+                'p' => $p,
+                's' => ($page == $p) ? true : false,
+                'page' => $page,
+            ];
+            $i += $limitPerPage;
+        }
+        
+        $sql = 'SELECT p.* FROM Post p INNER JOIN FavoriteUserPost fu ON fu.PostId = p.id AND fu.UserId = :id LIMIT ' . $offset . ', ' . $limitPerPage;
         $query = $this->db->prepare($sql);
         $query->execute(['id' => $id_user]);
         return $query->fetchAll(\PDO::FETCH_CLASS, Post::class, [$this->db]);

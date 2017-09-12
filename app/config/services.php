@@ -37,7 +37,7 @@ $container['param_pdo_opt'] = [
     \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION, // change in prod !!
     \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
     \PDO::ATTR_EMULATE_PREPARES => false,
-    \PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => false // if selecting a really huge amount of data
+    \PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true // if selecting a really huge amount of data
 ];
 $container['PDO'] = $container->share(function($c) {
     return new $c['pdo_class']($c['param_pdo_dns'], $c['param_pdo_user'], $c['param_pdo_pass'], $c['param_pdo_opt']);

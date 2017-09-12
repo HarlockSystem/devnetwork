@@ -29,8 +29,16 @@ $this->layout('layout', [
 ])
 ?>
 <main class="wrapper publication">  
+    <div class="content" style="text-align: center">
+        <?php if ($page - 1 > 0): ?>
+            <a href="<?= $path->generateUrl('Posts', ['page' => $page - 1]) ?>">prev</a>
+        <?php endif ?>
+        <?php if ($page + 1 > 0): ?>
+            |<a href="<?= $path->generateUrl('Posts', ['page' => $page + 1]) ?>">next</a>
+        <?php endif ?>
+    </div>
     <table>
-        <?php $firstId = false; $lastId = false; foreach ($posts as $post): ?>
+        <?php foreach ($posts as $post): ?>
             <div class="content">
                 <div class="post_title">
                     <h2 class="titlePublish">
@@ -82,15 +90,17 @@ $this->layout('layout', [
                     <div class="contentPublished"><?= $post->getContent() ?></div>
                 <?php endif ?>
             </div>
-            <?php if (!$firstId) {$firstId = $post->getId();} ?>
-                <?php $lastId = $post->getId(); ?>
-            <?php endforeach; ?>
-        <div class="content" style="text-align: center">
-            <?php if (isset($firstId)): ?>
-                <a href="<?= $path->generateUrl('Posts', [], ['id' => $firstId, 'd' => 'p']) ?>">prev</a>
-                |<a href="<?= $path->generateUrl('Posts', [], ['id' => $lastId, 'd' => 'n']) ?>">next</a>
-            <?php endif ?>
-        </div>
+
+        <?php endforeach; ?>
+
 
     </table>
+    <div class="content" style="text-align: center">
+        <?php if ($page - 1 > 0): ?>
+            <a href="<?= $path->generateUrl('Posts', ['page' => $page - 1]) ?>">prev</a>
+        <?php endif ?>
+        <?php if ($page + 1 > 0): ?>
+            |<a href="<?= $path->generateUrl('Posts', ['page' => $page + 1]) ?>">next</a>
+        <?php endif ?>
+    </div>
 </main>

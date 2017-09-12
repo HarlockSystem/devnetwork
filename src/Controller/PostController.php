@@ -18,11 +18,12 @@ class PostController extends Controller
      * 
      * @param int $page
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request, $page)
     {
-        $posts = $this->get('PostTool')->getPosts($request);
+        $posts = $this->get('PostTool')->getPosts($page);
 
-        return $this->render('Post/index.html', ['posts' => $posts]);
+
+        return $this->render('Post/index.html', ['posts' => $posts, 'page' => $page]);
     }
 
     /**

@@ -14,6 +14,7 @@ class UserManager extends AbstractManager
 {
     protected $db;
     protected $className;
+    protected $tableName;
 
     public function __construct(\PDO $pdo)
     {

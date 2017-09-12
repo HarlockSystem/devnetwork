@@ -154,7 +154,7 @@ class UserController extends Controller
     {
         $user = $this->get('UserTool')->checkUser($request->request->get('name'), $request->request->get('pass'));
         if ($user) {
-             $this->get('Session')->clear();
+            $this->get('Session')->clear();
             if ($user->getStatusUser() == 1) {
                 $this->get('Session')->addFlashMsg('warning', 'Ce compte n\'est plus actif');
                 return $this->redirectToRoute('UserLogin');
@@ -204,11 +204,12 @@ class UserController extends Controller
             return $this->redirectToRoute('Users');
         }
 
-        $posts = $this->get('PostManager')->findFavoritesByUser($id);
+        $posts = $this->get('PostManager')->findFavoritesByUser($id, $page);
 
         return $this->render('User/favorites.html', [
                     'user' => $user,
                     'posts' => $posts,
+                    'page' => $page,
         ]);
     }
 
@@ -220,15 +221,16 @@ class UserController extends Controller
 
         $user = $this->get('UserTool')->showUser($id);
         if (!$user) {
-            $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver l\user#' . $id);
+            $this->get('Session')->addFlashMsg('alert', 'Impossible de trouver l\'user#' . $id);
             return $this->redirectToRoute('Users');
         }
 
-        $posts = $this->get('PostManager')->findPostByUser($id);
+        $posts = $this->get('PostManager')->findPostByUser($id, $page);
 
         return $this->render('User/posts.html', [
                     'user' => $user,
                     'posts' => $posts,
+                    'page' => $page,
         ]);
     }
 
