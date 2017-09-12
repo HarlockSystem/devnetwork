@@ -16,6 +16,12 @@ $this->layout('layout', [
         <img class="imageProfil" src="../src/public/images/fakeprofil.jpg" alt="photo de profil">
         <h1><?= $this->e($user->getName()) ?></h1>
 
+        <h3 class="datePublished">
+            compte crée le: <?= date('d-m-Y', strtotime($user->getCreatedAt())) ?>
+            <?php if (!empty($user->getUpdatedAt())): ?>
+                edite le: <?= date('d-m-Y', strtotime($user->getCreatedAt())) ?>
+            <?php endif; ?>
+        </h3>
 
         <div>
             <a href="<?php echo $path->generateUrl('UserPosts', ['id' => $user->getId()]) ?>">Ses publications</a>
@@ -66,17 +72,11 @@ $this->layout('layout', [
             <a class="copy" href="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>">Edit</a>
             <form action="<?php echo $path->generateUrl('UserDel', ['id' => $user->getId()]) ?>" method="POST">
                 <input type="hidden" name="_method" value="DELETE" />
-                <button class="copy" style="background-color: #962D3E" title="Les codes seront toujours visible">Supprimer compte</button>
+                <button class="deleteBTN" title="Les codes seront toujours visible">Supprimer compte</button>
             </form>
 
         <?php endif; ?>
 
-        <h3 class="datePublished">
-            compte crée le: <?= date('d-m-Y', strtotime($user->getCreatedAt())) ?>
-            <?php if (!empty($user->getUpdatedAt())): ?>
-                edite le: <?= date('d-m-Y', strtotime($user->getCreatedAt())) ?>
-            <?php endif; ?>
-        </h3>
 
     </main>
 

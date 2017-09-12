@@ -3,14 +3,8 @@
 <header>
     <a href="<?php echo $path->generateUrl('Homepage') ?>" class="devnetwork">
         <img src="../src/public/images/logo.png" alt="logo">
-        <h1>devNetwork</h1>
+        <h1 class="titreDevNet">devNetwork</h1>
     </a>
-    <!--    <nav>
-            <a href="profil.html">Profil</a> 
-            <a href="registration.html">Login</a> 
-            <a href="publication.html">publicationDEMO</a> 
-            <a href="post_create.html">creaPubliDEMO</a>
-        </nav>	-->
     <nav>
         <a href="<?php echo $path->generateUrl('Posts') ?>">Publications</a> 
         <a href="<?php echo $path->generateUrl('Users') ?>">Users</a> 

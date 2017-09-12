@@ -28,8 +28,8 @@ $this->layout('layout', [
     </script>',
 ])
 ?>
-<main class="wrapper publication">  
-    <div class="content" style="text-align: center">
+<main class="wrapper aligner publication">  
+    <div class="" style="text-align: center">
         <?php if ($page - 1 > 0): ?>
             <a href="<?= $path->generateUrl('Posts', ['page' => $page - 1]) ?>">prev</a>
         <?php endif ?>
@@ -39,7 +39,7 @@ $this->layout('layout', [
     </div>
     <table>
         <?php foreach ($posts as $post): ?>
-            <div class="content">
+            <div class="content contentFix">
                 <div class="post_title">
                     <h2 class="titlePublish">
                         <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
@@ -70,18 +70,19 @@ $this->layout('layout', [
                             <code><?= $this->e($post->getTags(true)) ?></code>
                         </div>
 
-                        <div class="bttn_wrapper">
+                        <div class="inlineButton">
                             <!--                            <button class="select_all" data-editor="1">Select All</button>
                                                         <button class="copy" data-editor="1">Copy</button>-->
                             <?php if ($session->isLogged()): ?>
                                 <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
-                                    <button class="add_favorite">Add to Favorite</button>
+                                    <button class="add_favorite">Add to <i class="fa fa-heart" aria-hidden="true"></i></button>
                                 </form>
                             <?php endif ?>
                             <?php if ($session->isUser($post->getUser()->getId())): ?>
                                 <form action="<?php echo $path->generateUrl('PostDelete', ['id' => $post->getId()]) ?>" method="POST">
                                     <input type="hidden" name="_method" value="DELETE" />
-                                    <button class="add_favorite">Remove Post</button>
+                                    <button class="deleteBTN">Supprimer</i>
+</button>
                                 </form>
                             <?php endif ?>
                         </div>
@@ -95,7 +96,7 @@ $this->layout('layout', [
 
 
     </table>
-    <div class="content" style="text-align: center">
+    <div class="" style="text-align: center">
         <?php if ($page - 1 > 0): ?>
             <a href="<?= $path->generateUrl('Posts', ['page' => $page - 1]) ?>">prev</a>
         <?php endif ?>

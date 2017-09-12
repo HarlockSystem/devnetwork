@@ -45,14 +45,19 @@ a {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 }
 .alignerItem {
 	max-width: 50%;
 }
 .contentFix {
-	width: 1000px;
+	width: 500px;
 	height: auto;
 }
+.publishedFlowFix {
+	margin-top: 100px;
+}
+
 
 /*==============================
 =            Header            =
@@ -111,6 +116,9 @@ header h1 {
 }
 nav a {
 	padding: 10px;
+}
+.titreDevNet {
+	margin-top: 22px;
 }
 
 /*============================
@@ -320,8 +328,7 @@ nav a {
 	border: 1px solid #DBB5BB;
 	border-radius: 10px;
 	padding: 5px;
-	margin: 0;
-	margin-bottom: 50px;
+	margin: 10px;
 }
 .content:hover {
 	border: 1px solid #962D3E;
@@ -366,12 +373,19 @@ nav a {
 .datePublished {
 	font-size: 0.8rem;
 }
-
 .titleInPublish {
 	border: none;
 	border-bottom: 1px solid #962D3E;
 }
-
+.inlineButton {
+	display: flex;
+	flex-direction: row;
+}
+.deleteBTN {
+	color: #962D3E;
+	border: none;
+	background-color: #FFFDFA;
+}
 /*.bar {
 	display: flex;
 	justify-content: flex-start;

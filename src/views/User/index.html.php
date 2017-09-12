@@ -5,8 +5,8 @@ $this->layout('layout', [
     'session' => $session
 ])
 ?>
-<main class="wrapper publication">
-    <div class="list_user">
+<main class="wrapper aligner publication">
+    <div class="list_user contentFix">
         <h2>Membres inscrits:</h2>
         <table>
             <?php foreach ($users as $user): ?>

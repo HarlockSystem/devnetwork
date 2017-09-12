@@ -29,11 +29,11 @@ $this->layout('layout', [
 ])
 ?>
 
-<main class="wrapper publication">
-
+<main class="wrapper content">
+    <div class="publishedFlowFix">
     <h2>Posts de <u><?= $this->e($user->getName()) ?></u></h2>
 
-    <div class="content" style="text-align: center">
+    <div class="prevNext" style="text-align: center">
         <?php if ($page - 1 > 0): ?>
             <a href="<?= $path->generateUrl('UserPosts', ['id' => $user->getId(), 'page' => $page - 1]) ?>">prev</a>
         <?php endif ?>
@@ -44,7 +44,7 @@ $this->layout('layout', [
 
     <table>
         <?php foreach ($posts as $post): ?>
-            <div class="content">
+            <div class="content contentFix">
                 <div class="post_title">
                     <h2 class="titlePublish">
                         <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
@@ -81,7 +81,7 @@ $this->layout('layout', [
                             <!--<button class="copy" data-editor="1">Copy</button>-->
                             <?php if ($session->isLogged()): ?>
                                 <form action="<?php echo $path->generateUrl('UserFavorite', ['id_post' => $post->getId()]) ?>" method="POST">
-                                    <button>Add to Favorite</button>
+                                    <button>Add to <i class="fa fa-heart" aria-hidden="true"></i></button>
                                 </form>
                             <?php endif ?>
                         </div>
@@ -93,13 +93,14 @@ $this->layout('layout', [
         <?php endforeach; ?>
 
     </table>
-    <div class="content" style="text-align: center">
+    <div class="prevNext" style="text-align: center">
         <?php if ($page - 1 > 0): ?>
             <a href="<?= $path->generateUrl('UserPosts', ['id' => $user->getId(), 'page' => $page - 1]) ?>">prev</a>
         <?php endif ?>
         <?php if ($page + 1 > 0): ?>
             |<a href="<?= $path->generateUrl('UserPosts', ['id' => $user->getId(), 'page' => $page + 1]) ?>">next</a>
         <?php endif ?>
+    </div>
     </div>
 </main>
 

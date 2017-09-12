@@ -18,7 +18,6 @@ $this->layout('layout', [
 <main class="wrapper aligner publication">
     <div class="content">
         <form id="post_form" method="POST" action="<?php $path->generateUrl('PostNew', ['type' => 'text']) ?>">
-
             <div class="post_container">
                 <input class="titleInPublish" type="text" name="title" id="title" placeholder="Titre de la publication">
                 <textarea name="content" class="editor" cols="30" rows="10"></textarea>
