@@ -2,6 +2,7 @@
 
 app/config/params.ini
 
+
 # Composer PHAR
 /composer.phar
 
