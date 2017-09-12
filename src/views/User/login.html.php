@@ -29,6 +29,6 @@ $this->layout('layout', [
             <span class="spanSubmit">
                 <a class="submit" id="login_bttn"  href="<?php echo $path->generateUrl('UserNew') ?>">S'enregistrer</a>
             </span>
-<!--        </button>-->
+        <!--</button>-->
     </form>
 </main>
