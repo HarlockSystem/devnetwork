@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <base href="http://localhost/devnetwork/web/" />
+        <base href="<?=$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/'. dirname($_SERVER['SCRIPT_NAME']).'/'?>" />
         <link rel="icon" type="image/png" href="public/img/logo.png" />
         <title><?= isset($title) ? $this->e($title) : 'DevNetwork'?></title>
         <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto" rel="stylesheet">
