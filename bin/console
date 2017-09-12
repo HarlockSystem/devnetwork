@@ -1,4 +1,26 @@
-
+#!/usr/bin/php
 <?php
+
+$cfg = parse_ini_file(__DIR__ . '/../app/config/params.ini');
+
+$host = $cfg['db_host'];
+$db = $cfg['db_db']; 
+$user = $cfg['db_user'];
+$pass = $cfg['db_pass'];
+$charset = 'utf8';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$opt = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false,
+];
+$pdo = new PDO($dsn, $user, $pass, $opt);
+
+
+echo '<pre>';
+var_export($cfg);
+echo '</pre>';
+exit;
 
 
