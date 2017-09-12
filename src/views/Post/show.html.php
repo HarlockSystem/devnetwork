@@ -23,66 +23,53 @@ $this->layout('layout', [
         })
     </script>
     <script src="js/harlokscript.js"></script>',
-    ])
-    ?>
-    <main  data-theme="terminal">
+])
+?>
+<main  data-theme="terminal">
 
 
-        <div class="wrapper aligner">  
-            <div class="content">
-                <div class="post_title">
-                    <h2 class="titlePublish">
-                        <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
-                        par 
-                        <?php if ($post->getUser()->getStatusUser() == 1): ?>
-                            <small style="color:grey"><i>User inactif</i></small>
-                        <?php else: ?>
-                            <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
-                        <?php endif ?>
-                    </h2>
-                    <h3 class="datePublished">
-                        date: <?= date('d-m-Y', strtotime($post->getCreatedAt())) ?>
-                        <?php if (!empty($post->getUpdatedAt())): ?>
-                            edité: <?= date('d-m-Y', strtotime($post->getCreatedAt())) ?>
-                        <?php endif; ?>
-                    </h3>
-                </div>
-                <?php if ($post->getContentType() == 0): ?>
-                    <div class="post_container">
-                        <div class="lang">
-                            <code><?= $this->e($post->getLanguage()) ?></code>
-                        </div>
-                        <div class="zoneDeCode">
-                            <div class="ace-editor" id="editor0" data-language="<?= $this->e($post->getLanguage()) ?>" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= $this->e($post->getContent()) ?></div>
-                        </div>
-
-                    </div>
-                <?php else: ?>
-                    <div class="post_container" id="editor0" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong>') ?></div>
-                <?php endif ?>
-                <div class="inlineButton">
-                    <?php if ($session->isUser($post->getUser()->getId())): // user edit (user is owner) ?>
-                        <button class="select_all"><a href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Editer</a></button>
-                        <button  class="select_all"><a href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Supprimer</a></button>
-
+    <div class="wrapper publication">  
+        <div class="content">
+            <div class="post_title">
+                <h2 class="titlePublish">
+                    <a href="<?= $path->generateUrl('PostShow', ['id' => $post->getId()]) ?>"><?= $this->e($post->getTitle()) ?></a> 
+                    par 
+                    <?php if ($post->getUser()->getStatusUser() == 1): ?>
+                        <small style="color:grey"><i>User inactif</i></small>
+                    <?php else: ?>
+                        <a href="<?php echo $path->generateUrl('UserShow', ['id' => $post->getUser()->getId()]) ?>"><?= $this->e($post->getUser()->getName()) ?></a>
+                    <?php endif ?>
+                </h2>
+                <h3 class="datePublished">
+                    date: <?= date('d-m-Y', strtotime($post->getCreatedAt())) ?>
+                    <?php if (!empty($post->getUpdatedAt())): ?>
+                        edité: <?= date('d-m-Y', strtotime($post->getCreatedAt())) ?>
                     <?php endif; ?>
-                    <div class="">
-                        <button class="select_all" data-editor="0">Select All</button>
-                        <button class="copy">Copy</button>
+                </h3>
+            </div>
+            <?php if ($post->getContentType() == 0): ?>
+                <div class="post_container">
+                    <div class="lang">
+                        <code><?= $this->e($post->getLanguage()) ?></code>
                     </div>
-                </div>
+                    <div class="zoneDeCode">
+                        <div class="ace-editor" id="editor0" data-language="<?= $this->e($post->getLanguage()) ?>" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= $this->e($post->getContent()) ?></div>
+                    </div>
 
+                </div>
             <?php else: ?>
-                <div class="post_container" id="editor0" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong><br><ul><li><ol><strike>') ?></div>
+                <div class="post_container" id="editor0"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong><br><ul><li><ol><strike>') ?></div>
             <?php endif ?>
 
             <?php if ($session->isUser($post->getUser()->getId())): // user edit (user is owner) ?>
-                <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Editer</a>
-                <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Supprimer</a>
+                <div class="inlineButton">
+               <button class="copy"><a href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Editer</a></button>
+                <button class="copy"><a href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Supprimer</a></button>
             <?php endif; ?>
             <div class="bttn_wrapper">
                 <button class="select_all" data-editor="0">Select All</button>
                 <button class="copy">Copy</button>
+            </div>
             </div>
             <div class="tags">
                 Tags <i class="fa fa-arrow-circle-right"></i>
@@ -103,24 +90,20 @@ $this->layout('layout', [
                         <tr>
                             <td>
                                 <a href="<?php echo $path->generateUrl('UserShow', ['id' => $comment->getUser()->getId()]) ?>">
-
                                         <?= $this->e($comment->getUser()->getName()) ?>
-                                    </a>
-                                    <small>
-                                        <?= date('d-m-Y', strtotime($comment->getCreatedAt())) ?>
-                                    </small>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><?= $this->e($comment->getContent()) ?></td>
-                            </tr>
+                                </a>
+                                <small>
+                                    <?= date('d-m-Y', strtotime($comment->getCreatedAt())) ?>
+                                </small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?= $this->e($comment->getContent()) ?></td>
+                        </tr>
 
-                        <?php endforeach; ?>
-                    </table>
-                </div>
+                    <?php endforeach; ?>
+                </table>
             </div>
         </div>
-
-
-
-    </main>
+    </div>
+</main>
