@@ -6,8 +6,6 @@ use JPM\HTTP\Request;
 
 $request = new Request();
 
-
-
 require __DIR__ . '/../app/Kernel.php';
 
 $response = $kernel->handle();
