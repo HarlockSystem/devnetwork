@@ -67,7 +67,7 @@ $this->layout('layout', [
         <a href="" class="mail"><h2><?= $this->e($user->getEmail()) ?></h2></a>
         <?php if ($session->isUser($user->getId())): // user edit ?>
             <div class="theme">
-                <h3>Theme</h3> <p><?= $this->e($user->getTheme()) ?></p>
+                <p>Theme d'éditeur : <?= $this->e($user->getTheme()) ?></p>
             </div>
             <a class="copy" href="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>">Edit</a>
             <form action="<?php echo $path->generateUrl('UserDel', ['id' => $user->getId()]) ?>" method="POST">
