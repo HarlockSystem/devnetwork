@@ -71,25 +71,39 @@ $this->layout('layout', [
                         <button class="copy">Copy</button>
                     </div>
                 </div>
-                <div class="tags">
-                    Tags <i class="fa fa-arrow-circle-right"></i>
-                    <code><?= $this->e($post->getTags(true)) ?></code>
-                </div>
-                <?php if ($session->isLogged()): // user is logged ?>
-                    <form action="<?php echo $path->generateUrl('CommentNew', ['id_post' => $post->getId()]) ?>" method="POST">
-                        <br />
-                        <textarea name="content" id="" cols="54" rows="3" placeholder="Ecrire un commentaire"></textarea>
-                        <br />
-                        <button class="commentPublish" name="newComment">Publier le commentaire</button>
-                    </form>
-                <?php endif; ?>
-                <h3>Commentaires publiés</h3>
-                <div class="zoneComment">
-                    <table>
-                        <?php foreach ($comments as $comment): ?>
-                            <tr>
-                                <td>
-                                    <a href="<?php echo $path->generateUrl('UserShow', ['id' => $comment->getUser()->getId()]) ?>">
+
+            <?php else: ?>
+                <div class="post_container" id="editor0" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong><br><ul><li><ol><strike>') ?></div>
+            <?php endif ?>
+
+            <?php if ($session->isUser($post->getUser()->getId())): // user edit (user is owner) ?>
+                <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Editer</a>
+                <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Supprimer</a>
+            <?php endif; ?>
+            <div class="bttn_wrapper">
+                <button class="select_all" data-editor="0">Select All</button>
+                <button class="copy">Copy</button>
+            </div>
+            <div class="tags">
+                Tags <i class="fa fa-arrow-circle-right"></i>
+                <code><?= $this->e($post->getTags(true)) ?></code>
+            </div>
+            <?php if ($session->isLogged()): // user is logged ?>
+                <form action="<?php echo $path->generateUrl('CommentNew', ['id_post' => $post->getId()]) ?>" method="POST">
+                    <br />
+                    <textarea name="content" id="" cols="54" rows="3" placeholder="Ecrire un commentaire"></textarea>
+                    <br />
+                    <button class="commentPublish" name="newComment">Publier le commentaire</button>
+                </form>
+            <?php endif; ?>
+            <h3>Commentaires publiés</h3>
+            <div class="zoneComment">
+                <table>
+                    <?php foreach ($comments as $comment): ?>
+                        <tr>
+                            <td>
+                                <a href="<?php echo $path->generateUrl('UserShow', ['id' => $comment->getUser()->getId()]) ?>">
+
                                         <?= $this->e($comment->getUser()->getName()) ?>
                                     </a>
                                     <small>
