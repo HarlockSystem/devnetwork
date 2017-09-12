@@ -7,7 +7,7 @@ $this->layout('layout', [
 ?>
 <main class="wrapper aligner profil">
     <h2>User: <?=$this->e($user->getName())?> (<?=$user->getId()?>)</h2>
-    <form action="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>" method="POST">
+    <form action="<?php echo $path->generateUrl('UserEdit', ['id' => $user->getId()]) ?>" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="_method" value="PUT" />
         <h2>FirstName</h2>
         <input type="text" name="firstname" value="<?= $this->e($user->getFirstName()) ?>" />

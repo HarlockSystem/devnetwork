@@ -131,6 +131,9 @@ class User
         if (strlen($name) < 4 OR strlen($name) > 65) {
             throw new \Exception('Nom invalide (taille doit être comprise entre 4 et 63 caractères)');
         }
+        if(!preg_match('#\w+#', $name)){
+            throw new \Exception('Nom invalide ...');
+        }
         $this->name = $name;
         return $this;
     }

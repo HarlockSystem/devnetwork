@@ -51,7 +51,7 @@ class UserTool
         if ($hasUser or $hasEmail) {
             return 'Name ou E-mail déjà enregistré';
         }
-        if($pass != $pass2){
+        if ($pass != $pass2) {
             return 'Votre mot de passe n\'a pas été vérifié';
         }
 
@@ -68,18 +68,25 @@ class UserTool
     public function editUser(Request $request, $id)
     {
         $user = $this->usrMng->findById($id);
-        if (!$user) {
-            
-        }
+
+        echo '<pre>';
+        var_export($request->files);
+        echo '</pre>';
+        exit;
 
         $fields = ['firstname', 'lastname', 'theme', 'skill', 'jobs', 'bio', 'jobStatus', 'img'];
         foreach ($fields as $field) {
             $method = 'set' . ucfirst($field);
             $user->$method($request->request->get($field));
         }
-        $user->setUpdatedAt(date('Y-m-d H:i:s',time()));
+        $user->setUpdatedAt(date('Y-m-d H:i:s', time()));
         $this->usrMng->update($user);
         return $user;
+    }
+
+    protected function uploadImage()
+    {
+        
     }
 
     /**

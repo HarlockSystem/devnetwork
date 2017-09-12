@@ -18,9 +18,9 @@ $opt = [
 $pdo = new PDO($dsn, $user, $pass, $opt);
 
 
-echo '<pre>';
-var_export($cfg);
-echo '</pre>';
-exit;
+//echo '<pre>';
+//var_export($cfg);
+//echo '</pre>';
+//exit;
 
 
