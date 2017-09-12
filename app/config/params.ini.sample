@@ -1,0 +1,6 @@
+[DATABASE]
+db_host=localhost
+db_db=devnetwork_dev
+db_user=
+db_pass=
+db_charset=utf8mb4
