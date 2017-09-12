@@ -58,7 +58,7 @@ $this->layout('layout', [
 
                 </div>
             <?php else: ?>
-                <div class="post_container" id="editor0" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong>') ?></div>
+                <div class="post_container" id="editor0" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong><br><ul><li><ol><strike>') ?></div>
             <?php endif ?>
 
             <?php if ($session->isUser($post->getUser()->getId())): // user edit (user is owner) ?>
