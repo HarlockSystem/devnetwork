@@ -15,6 +15,7 @@ $this->layout('layout', [
         var textarea = $(\'textarea[name="content"]\');
         editor.setTheme("ace/theme/' . $session->get('theme') . '");
         editor.getSession().setMode("ace/mode/' . $this->e($post->getLanguage()) . '");
+        editor.$blockScrolling = Infinity;
         editor.setOptions({
             autoScrollEditorIntoView: true,
             maxLines: 30,
@@ -22,7 +23,6 @@ $this->layout('layout', [
         });
         editor.getSession().on("change", function () {
             textarea.val(editor.getSession().getValue());
-            console.log(editor.getSession().getValue());
         });
     // edit mode
         editor.getSession().setValue(textarea.val())

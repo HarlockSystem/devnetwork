@@ -14,6 +14,7 @@ $this->layout('layout', [
                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                 </div>
             </div>
+
             <div class="box">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 <input type="text" name="name" id="userName" class="form-control" placeholder="Login" aria-describedby="basic-addon1" value="">

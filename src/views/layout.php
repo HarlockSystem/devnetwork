@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <base href="http://localhost/devnetwork/web/" />
-    <link rel="icon" type="image/png" href="public/img/logo.png" />
-    <title><?= isset($title) ? $this->e($title) : 'DevNetwork'?></title>
-    <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
-    <?php if(isset($css)){echo $css;} ?>
-</head>
-<body>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <base href="<?=$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].'/'. dirname($_SERVER['SCRIPT_NAME']).'/'?>" />
+        <link rel="icon" type="image/png" href="public/img/logo.png" />
+        <title><?= isset($title) ? $this->e($title) : 'DevNetwork'?></title>
+        <link href="https://fonts.googleapis.com/css?family=Fjalla+One|Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="css/font-awesome.css">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/style.css">
+        <?php if(isset($css)){echo $css;} ?>
+    </head>
+    <body>
 
     <?= $this->insert('menu', ['path' => $path, 'session' => $session]) ?>
     <?= $this->insert('flash', ['flashMsg' => $session->getFlashMsg()]) ?>

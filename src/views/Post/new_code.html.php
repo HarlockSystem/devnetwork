@@ -15,6 +15,7 @@ $this->layout('layout', [
     var textarea = $(\'textarea[name="content"]\');
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/javascript");
+    editor.$blockScrolling = Infinity;
     editor.setOptions({
         autoScrollEditorIntoView: true,
         maxLines: 30,
@@ -22,7 +23,6 @@ $this->layout('layout', [
     });
     editor.getSession().on("change", function () {
         textarea.val(editor.getSession().getValue());
-        console.log(editor.getSession().getValue());
     });
     
     $("#editor").height(400);

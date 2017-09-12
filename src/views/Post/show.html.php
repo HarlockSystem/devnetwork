@@ -6,20 +6,23 @@ $this->layout('layout', [
     'js' => '
     <script src="ace/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script>
-        var editor;
+        var editor =[];
         $(".ace-editor").each(function (i) {
-            editor = ace.edit(this);
+            editor[i] = ace.edit(this);
             var language = $(this).data("language");
-
-            editor.setTheme("ace/theme/monokai");
-            editor.getSession().setMode("ace/mode/"+language);
-            editor.setOptions({
+            editor[i].setTheme("ace/theme/monokai");
+            editor[i].getSession().setMode("ace/mode/"+language);
+            editor[i].setReadOnly(true);
+            
+            editor[i].$blockScrolling = Infinity;
+            editor[i].setOptions({
                 autoScrollEditorIntoView: true,
                 maxLines: 30,
                 minLines: 2
             });
         })
-    </script>',
+    </script>
+    <script src="js/harlokscript.js"></script>',
 ])
 ?>
 <main  data-theme="terminal">
@@ -50,12 +53,12 @@ $this->layout('layout', [
                         <code><?= $this->e($post->getLanguage()) ?></code>
                     </div>
                     <div class="zoneDeCode">
-                        <div class="ace-editor" data-language="<?= $this->e($post->getLanguage()) ?>"><?= $this->e($post->getContent()) ?></div>
+                        <div class="ace-editor" id="editor0" data-language="<?= $this->e($post->getLanguage()) ?>" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= $this->e($post->getContent()) ?></div>
                     </div>
 
                 </div>
             <?php else: ?>
-                <div class="contentPublished"><?= $post->getContent() ?></div>
+                <div class="post_container" id="editor0" data-snippet="<?= $this->e($post->getContentType()) ?>"><?= strip_tags($post->getContent(), '<p><h2><h1><h3><h4><em><blockquote><strong>') ?></div>
             <?php endif ?>
 
             <?php if ($session->isUser($post->getUser()->getId())): // user edit (user is owner) ?>
@@ -63,8 +66,8 @@ $this->layout('layout', [
                 <a class="editPubli" href="<?= $path->generateUrl('PostEdit', ['id' => $post->getId()]) ?>">Supprimer</a>
             <?php endif; ?>
             <div class="bttn_wrapper">
-                <!--                <button class="select_all" data-editor="1">Tout selectionner</button>
-                                <button class="copy" data-editor="1">Copier</button>-->
+                <button class="select_all" data-editor="0">Select All</button>
+                <button class="copy">Copy</button>
             </div>
             <div class="tags">
                 Tags <i class="fa fa-arrow-circle-right"></i>
