@@ -51,7 +51,7 @@ a {
 	max-width: 50%;
 }
 .contentFix {
-	width: 500px;
+	width: 150%;
 	height: auto;
 }
 .publishedFlowFix {
@@ -328,7 +328,7 @@ nav a {
 	border: 1px solid #DBB5BB;
 	border-radius: 10px;
 	padding: 5px;
-	margin: 10px;
+	margin: 10px 0; 
 }
 .content:hover {
 	border: 1px solid #962D3E;
@@ -359,6 +359,9 @@ nav a {
 	padding: 5px 15px;
 	font-weight: bolder;
 	margin: 5px 5px 5px 0;
+}
+.select_all a {
+	color: white;
 }
 .add_favorite {
 	background-color: #DBB5BB;
@@ -429,6 +432,9 @@ nav a {
 
 footer {
 	background-color: #EDEDED;
+/*	position: fixed;
+	width: 100%;
+	bottom: 0;*/
 }
 .minifooter {
 	display: flex;
