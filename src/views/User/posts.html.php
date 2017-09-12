@@ -29,8 +29,8 @@ $this->layout('layout', [
 ])
 ?>
 
-<main class="wrapper content">
-    <div class="publishedFlowFix">
+<main class="wrapper contentFix">
+    <div class="publishedFlowFix aligner">
     <h2>Posts de <u><?= $this->e($user->getName()) ?></u></h2>
 
     <div class="prevNext" style="text-align: center">

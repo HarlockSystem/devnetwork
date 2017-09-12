@@ -34,7 +34,7 @@ $this->layout('layout', [
 
     <h2>Favoris de <u><?= $this->e($user->getName()) ?></u></h2>
 
-    <div class="content" style="text-align: center">
+    <div class="" style="text-align: center">
         <?php if ($page - 1 > 0): ?>
             <a href="<?= $path->generateUrl('UserFavorites', ['id' => $user->getId(), 'page' => $page - 1]) ?>">prev</a>
         <?php endif ?>
@@ -99,7 +99,7 @@ $this->layout('layout', [
         <?php endforeach; ?>
 
     </table>
-    <div class="content" style="text-align: center">
+    <div class="" style="text-align: center">
         <?php if ($page - 1 > 0): ?>
             <a href="<?= $path->generateUrl('UserFavorites', ['id' => $user->getId(), 'page' => $page - 1]) ?>">prev</a>
         <?php endif ?>
